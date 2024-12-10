@@ -7,8 +7,8 @@ input_password = input("Enter your password:")
 def check_account_credentials(username, password):
     found = False
 
-    for key in accounts:
-        if username == key["username"] and password == key["password"]:
+    for data in accounts:
+        if username == data["username"] and password == data["password"]:
             found = True
 
     return found
