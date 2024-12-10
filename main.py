@@ -1,6 +1,6 @@
-accounts = open("~/data/user_data.txt", "r").readline()
+accounts = open("data/user_data.txt", "r")
 
-print(accounts)
+print(accounts.read())
 
 # input_username = input("Enter your username:")
 # input_password = input("Enter your password:")
