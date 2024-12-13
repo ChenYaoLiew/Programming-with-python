@@ -1,3 +1,5 @@
-[
-    {"username": "test123", "password": "test123", "accountType": "user"}
-]
+{"username": "test123", "password": "test123", "accountType": "user"}
+{"username": "test1234", "password": "test1234", "accountType": "user"}
+{"username": "test12345", "password": "test12345", "accountType": "user"}
+{"username": "ChenYao", "password": "Test123", "accountType": "user"}
+{"username": "Elllll", "password": "son", "accountType": "user"}
