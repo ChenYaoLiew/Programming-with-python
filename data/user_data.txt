@@ -3,3 +3,5 @@
 {"username": "test12345", "password": "test12345", "accountType": "user"}
 {"username": "ChenYao", "password": "Test123", "accountType": "user"}
 {"username": "Elllll", "password": "son", "accountType": "user"}
+{"username": "kunlalala", "password": "kunlalala", "accountType": "student"}
+{"username": "NewUser", "password": "NewUser", "accountType": "user"}
