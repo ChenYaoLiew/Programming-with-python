@@ -167,5 +167,3 @@ def main_thread():
 
 
 main_thread()
-
-#new
