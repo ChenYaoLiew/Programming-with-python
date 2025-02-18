@@ -1,4 +1,4 @@
-from Administrator.system_administration import administrator_user_page
+from Administrator.menu import administrator_user_page
 from function.query import *
 from function.account_management import register_account
 
