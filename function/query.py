@@ -52,10 +52,12 @@ def insert_data(file_path, data_list):
     """
     try:
         with open(file_path, 'w') as file:
-            # Write each dictionary on its own line
             for i, data in enumerate(data_list):
-                data_string = f'{{"username": "{data["username"]}", "password": "{data["password"]}", "accountType": "{data["accountType"]}"}}'
-                # Don't add newline for the last item
+                # Create a list of key-value pairs formatted as strings
+                fields = [f'"{key}": "{value}"' for key, value in data.items()]
+                # Join all fields with commas and wrap in curly braces
+                data_string = "{" + ", ".join(fields) + "}"
+                
                 if i < len(data_list) - 1:
                     data_string += '\n'
                 file.write(data_string)
