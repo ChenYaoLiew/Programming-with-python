@@ -32,15 +32,48 @@ def register_account(username, password):
             print("Account already exists, Please try another username!")
             return  # Exit the function early if account exists
 
-    # Add the new account to the accounts list
-    new_account = {"username": username, "password": password, "accountType": "user"}
+    # Generate new student ID
+    existing_ids = [data.get("student_id", "STD0000") for data in accounts]
+    new_id = generate_student_id(existing_ids)
+
+    # Add the new account to user_data.txt with student_id and fund
+    new_account = {
+        "username": username,
+        "password": password,
+        "accountType": "user",
+        "student_id": new_id,
+        "fund": 0
+    }
     accounts.append(new_account)
 
-    # Save the updated accounts list using the insert_data function
+    # Save the file
     if insert_data("data/user_data.txt", accounts):
         print(f"Account for {username} successfully registered.")
+        print(f"Your student ID is: {new_id}")
     else:
         print("Error registering account. Please try again.")
+
+def generate_student_id(existing_ids):
+    """
+    Generate a new student ID in format STDXXXX
+    Args:
+        existing_ids (list): List of existing student IDs
+    Returns:
+        str: New unique student ID
+    """
+    # Find the highest number used
+    max_num = 0
+    for id in existing_ids:
+        if id.startswith("STD"):
+            try:
+                num = int(id[3:])
+                max_num = max(max_num, num)
+            except ValueError:
+                continue
+    
+    # Generate new ID with number incremented by 1
+    new_num = max_num + 1
+    return f"STD{new_num:04d}"  # Formats number to 4 digits with leading zeros
 
 #Main Thread
 def main_thread():
