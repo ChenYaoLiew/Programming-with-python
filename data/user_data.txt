@@ -1,2 +1,2 @@
-{"username": "Test123", "password": "Test123", "accountType": "user", "student_id": "STD0001", "fund": "0"}
+{"username": "Test123", "password": "Test123", "accountType": "administrator", "student_id": "STD0001", "fund": "0"}
 {"username": "Test1234", "password": "Test1234", "accountType": "user", "student_id": "STD0002", "fund": "0"}
