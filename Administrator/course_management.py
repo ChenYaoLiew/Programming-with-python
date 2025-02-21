@@ -1,16 +1,20 @@
 from Administrator.menu import administrator_user_page
+from function.query import *
 
-def manageCourse()
-    print("'1' - View Accounts\n'2' - Add Account\n'3' - Update Account\n'4' - Delete Account\n'5' - Back")
+def createCourse():
+    prompt1 = input("")
+    data = fetch_data('.\data\course_data.txt')
+
+
+def manageCourse():
+    print("'1' - Create Course\n'2' - Update Course\n'3' - Delete Course\n'4' - Back")
 
     choice = input("Enter your choice: ")
     if choice == '1':
-        viewAccounts()
+        createCourse()
     elif choice == '2':
-        addAccount()
+        updateCourse()
     elif choice == '3':
-        updateAccount()
+        deleteCourse()
     elif choice == '4':
-        deleteAccount()
-    elif choice == '5':
         administrator_user_page()
