@@ -1,7 +1,6 @@
 import os
 from function.query import *
 
-
 def create_course():
     course_data = {}  # Initialize an empty dictionary
 
@@ -46,12 +45,10 @@ def create_course():
             f.write("----------\n")
             print("Course added successfully!")
 
-
     except FileNotFoundError:
         print("Error creating course file ")
     except OSError as e:
         print(f"An error occurred: {e} ")
-
 
 def read_course_data(course_name, course_code):
     # Construct the file path
@@ -83,3 +80,33 @@ def read_course_data(course_name, course_code):
     except FileNotFoundError:
         print("Error: teacher_data.txt file not found")
         return False
+
+def update_course():
+    course_name = input("Enter the course name to update: ")
+    course_code = input("Enter the new course code: ")
+
+    read_course_data(course_name, course_code)
+    if True:
+    # Get updated course details
+    # Get Schedule Details
+    print(" Updating Course Schedule: ")
+    course_data["schedule"] = []
+    while True:
+        entry = input("Enter a schedule entry or 'done' to finish (Example: Mon/Fri 9:00am-10:00am): ")
+        if entry.lower() == "done":
+            break
+        course_data["schedule"].append(entry)
+
+    # Get lesson plan details to update
+    course_data["lesson_plan"] = {}  # Nested dictionary for lesson plan inside course_data dictionary
+    course_data["lesson_plan"]["title"] = input("Enter lesson title: ")
+    course_data["lesson_plan"]["description"] = input("Enter lesson description: ")
+
+    # Get Assignment details to update
+    course_data["Assignment"] = {}  # Nested dictionary for assignment inside course_data dictionary
+    course_data["Assignment"]["title"] = input("Enter Assignment title: ")
+    course_data["Assignment"]["description"] = input("Enter Assignment description: ")
+
+    # Construct the file path
+    teach_file_path = os.path.join("../data", "teacher_data.txt")
+    with open(teach_file_path, "a") as f:
