@@ -166,12 +166,4 @@ def main_thread():
                 pass
 
 
-<<<<<<< Updated upstream
 main_thread()
-=======
-main_thread()
-
-#new
-
-#hello manfrad
->>>>>>> Stashed changes
