@@ -1,3 +1,5 @@
+import os
+
 def create_course():
     course_data = {} # Initialize an empty dictionary
 
@@ -26,8 +28,9 @@ def create_course():
 
     try:
         # Construct the file path
-        teach_file_path = "../data/teacher_data.txt"
+        teach_file_path = os.path.join("../data", "teacher_data.txt")
         with open(teach_file_path, "a") as f:
+            #Enters the data into the teacher_data.txt file line by line
             f.write(f"Course Name: {course_data["name"]}\n")
             f.write(f"Course Code: {course_data["code"]}\n")
             f.write(f"Course Schedule: {course_data["schedule"]}\n")
@@ -39,6 +42,8 @@ def create_course():
             f.write(f"Assignment Description: {course_data["Assignment"]["description"]}\n")
 
             f.write("----------\n")
+            print("Course added successfully!")
+
 
     except FileNotFoundError:
         print("Error creating course file ")
@@ -46,6 +51,3 @@ def create_course():
         print(f"An error occurred: {e} ")
 
 create_course()
-
-
-
