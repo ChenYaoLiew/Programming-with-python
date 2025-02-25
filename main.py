@@ -69,7 +69,6 @@ def main_thread():
                                 break  # Break inner loop to return to login screen
                             elif choice == 'exit':
                                 exit()
-                                
                         elif account_type == 'student':
                             print('"1" - Student Account Management')
                             print('"2" - Course Enrolment')

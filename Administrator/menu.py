@@ -24,7 +24,7 @@ def administrator_user_page():
             # manageStudent()
             pass
         elif choice == '3':
-            from Administrator.system_administration import manageCourse
+            from Administrator.course_management import manageCourse
             manageCourse()
         elif choice == '4':
             # manageClassSchedule()
