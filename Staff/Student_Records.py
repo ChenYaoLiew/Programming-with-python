@@ -48,14 +48,11 @@ def update_student_record(student_list):
             print("Error updating student records.")
             return False
             
-    except Exception as e:
-        print(f"Error updating student records: {str(e)}")
-        return False
 
 def view_records():
     account_list = read_student_file()
     for account in account_list:
-        print(f"Username: {account['username']}, Password: {account['password']}, Account Type: {account['accountType']}, student_id: {account['student_id']}, Fund: ${float(account['fund']):.2f}")
+        print(f"Username: {account['username']}, Password: {account['password']}, Account Type: {account['accountType']}, student_id: {account['student_id']}, Fund: {account['fund']}")
         print("-" * 100)  # Add a separator line between accounts
 
 def deposit(student_id,name):
