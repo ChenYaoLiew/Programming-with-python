@@ -43,7 +43,7 @@ def register_account(username, password, accountType="student"):
         "password": password,
         "accountType": accountType,
         "student_id": new_id,
-        "fund": 0
+        "fund": float(0)
     }
     accounts.append(new_account)
 

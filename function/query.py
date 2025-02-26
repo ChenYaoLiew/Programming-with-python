@@ -9,29 +9,19 @@ def fetch_data(file_path):
     try:
         data_list = []
         with open(file_path, 'r') as file:
-            
             for line in file:
                 # Remove any extra spaces or newlines
                 line = line.strip()
                 
-                # Check if the line is a valid dictionary-like string
-                if line.startswith("{") and line.endswith("}"):
-                    # Remove the curly braces
-                    line = line[1:-1]
-                    # Split by commas to get key-value pairs
-                    key_value_pairs = line.split(", ")
-
-                    data_dict = {}
-                    for pair in key_value_pairs:
-                        # Split each pair into key and value
-                        key, value = pair.split(": ")
-                        # Remove extra quotes from keys and values
-                        key = key.strip('"')
-                        value = value.strip('"')
-                        data_dict[key] = value
-
-                    # Add the parsed dictionary to the list
-                    data_list.append(data_dict)
+                if line:  # Skip empty lines
+                    try:
+                        # Use ast.literal_eval to safely parse the dictionary string
+                        import ast
+                        data_dict = ast.literal_eval(line)
+                        data_list.append(data_dict)
+                    except:
+                        print(f"Error parsing line: {line}")
+                        continue
                     
         return data_list
     except FileNotFoundError:
