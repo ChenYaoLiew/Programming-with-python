@@ -47,7 +47,9 @@ def update_student_record(student_list):
         else:
             print("Error updating student records.")
             return False
-            
+    except Exception as e:
+        print(f"Error updating student records: {e}")
+        return False
 
 def view_records():
     account_list = read_student_file()
