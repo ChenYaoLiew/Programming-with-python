@@ -6,7 +6,8 @@
 # Grades Tracking: Fetch data from txt file, and display in a row
 # Feedback Submission: Have a prompt that they can input to provide feedback on courses, instructor and overall
 #                      academic experience.
-from Student.Student_Account_Management import manage_account
+
+from Student.Student_Account_Management import *
 
 def student_user_page(student_info):
     while True:
@@ -23,14 +24,17 @@ def student_user_page(student_info):
         if choice == '1':
             while True:
                 print('\nStudent Account Management')
-                print('"1" - Manage Account')
+                print(f'Student Name: {student_info['username']}')
+                print(f'Student ID: {student_info['student_id']}')
+                print(f'Student Fund: {student_info['fund']}')
+                print('"1" - Change password')
                 print('"2" - Update contact detail')
                 print('"3" - Update emergency information')
                 print('"4" - Back' )
 
                 choice = input("Enter your choice: ")
                 if choice == '1':
-                    manage_account(student_info)
+                    pass
                 elif choice == '2':
                     pass
                 elif choice == '3':
