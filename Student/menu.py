@@ -27,6 +27,18 @@ def student_user_page(student_info):
                 print(f'Student Name: {student_info[1]['username']}')
                 print(f'Student ID: {student_info[1]['student_id']}')
                 print(f'Student Fund: {student_info[1]['fund']}')
+                try:
+                    print(f'Student Phone Number: {student_info[1]['phone_num']}')
+                except KeyError:
+                    print('Student Phone Number: Empty')
+                try:
+                    print(f'Student country: {student_info[1]['country']}')
+                except KeyError:
+                    print('Student country: Empty')
+                try:
+                    print(f'Emergency information: {student_info[1]['emergency_info']}')
+                except KeyError:
+                    print('Emergency information: Empty')
                 print('"1" - Change password')
                 print('"2" - Update contact detail')
                 print('"3" - Update emergency information')
@@ -37,9 +49,11 @@ def student_user_page(student_info):
                     if change_password(student_info):
                         print('Password changed!')
                 elif choice == '2':
-                    pass
+                    if update_contact_detail(student_info):
+                        print('Successfully changed!')
                 elif choice == '3':
-                    pass
+                    if update_emergency_information(student_info):
+                        print('Information saved!')
                 elif choice == '4':
                     break
                 else:
