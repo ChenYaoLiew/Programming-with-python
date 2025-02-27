@@ -24,9 +24,9 @@ def student_user_page(student_info):
         if choice == '1':
             while True:
                 print('\nStudent Account Management')
-                print(f'Student Name: {student_info['username']}')
-                print(f'Student ID: {student_info['student_id']}')
-                print(f'Student Fund: {student_info['fund']}')
+                print(f'Student Name: {student_info[1]['username']}')
+                print(f'Student ID: {student_info[1]['student_id']}')
+                print(f'Student Fund: {student_info[1]['fund']}')
                 print('"1" - Change password')
                 print('"2" - Update contact detail')
                 print('"3" - Update emergency information')
@@ -34,7 +34,8 @@ def student_user_page(student_info):
 
                 choice = input("Enter your choice: ")
                 if choice == '1':
-                    pass
+                    if change_password(student_info):
+                        print('Password changed!')
                 elif choice == '2':
                     pass
                 elif choice == '3':
