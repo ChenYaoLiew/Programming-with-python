@@ -32,6 +32,7 @@ def register_account(username, password, accountType="student"):
     for data in accounts:
         if username == data["username"]:
             print("Account already exists, Please try another username!")
+            return success
 
     # Generate new student ID
     existing_ids = [data.get("student_id", "STD0000") for data in accounts]
