@@ -7,6 +7,7 @@ from function.query import *
 #     "course_id" = XXXX,
 #     "course_title" = "XXXX",
 #     "course_description" = "XXXXXXX",
+#     "course_assignment" = "XXXXX"
 #     "students_enrolled" = {
 #          "STD0001": "Manfred",
 #          "STD0002": "ChenYau"
@@ -57,12 +58,14 @@ def createCourse():
     # Get other course details
     course_title = input("Enter course title: ")
     course_description = input("Enter course description: ")
+    assignment_name = input("Enter assignment name: ")
 
     # Create new course with empty timetable
     new_course = {
         "course_id": new_id,
         "course_title": course_title,
         "course_description": course_description,
+        "course_assignment": assignment_name,
         "students_enrolled": {},  # Empty dictionary where key=student_id, value=student_name
         "course_timetable": []  # Empty list for staff to fill later
     }
@@ -237,6 +240,7 @@ def viewCourses():
             print("\nTimetable: No schedule yet")
         
         print("="*50)
+
 
 def manageCourse():
     print("'1' - Create Course\n'2' - Update Course\n'3' - Delete Course\n'4' - View Courses\n'5' - Student Enrolment\n'6' - Back")
