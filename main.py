@@ -1,6 +1,7 @@
 from Administrator.menu import administrator_user_page
 from function.query import *
 from function.account_management import register_account
+from Student.menu import student_user_page
 
 def get_user_account_type(username):
     accounts = fetch_data("data/user_data.txt")
@@ -24,6 +25,20 @@ def check_account_credentials(username, password):
 
     return found
 
+def get_account_info(username):
+    """
+    To get the data and index for a given username. Only can use after user logged in
+    Args:
+        username (str): account username of the user
+    Returns:
+        data(list): ["Index of the data in data_list"(int), "data of the user(one user only)"(dict)]
+    """
+    accounts = fetch_data('data/user_data.txt')
+
+    for index, data in enumerate(accounts):
+        if username == data['username']:
+            data = [index, data]
+            return data
 
 def generate_student_id(existing_ids):
     """
@@ -66,22 +81,14 @@ def main_thread():
                         if account_type == 'administrator':
                             choice = administrator_user_page()
                             if choice == 'logout':
-                                break  # Break inner loop to return to login screen
+                                break  # Break inner loop to return to log in screen
                             elif choice == 'exit':
                                 exit()
                         elif account_type == 'student':
-                            print('"1" - Student Account Management')
-                            print('"2" - Course Enrolment')
-                            print('"3" - Course Material Access')
-                            print('"4" - Grades Tracking')
-                            print('"5" - Feedback Submission')
-                            print('"6" - Exit')
-                            print('"0" - Logout')
-                            
-                            student_input = input('=> ')
-                            if student_input == '0':
-                                break  # Break inner loop to return to login screen
-                            elif student_input == '6':
+                            choice = student_user_page(get_account_info(input_username))
+                            if choice == 'logout':
+                                break  # Break inner loop to return to log in screen
+                            elif choice == 'exit':
                                 exit()
                             # Add other student menu options here
                             
