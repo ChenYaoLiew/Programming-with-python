@@ -1,20 +1,21 @@
 # Student Account Management: Student can choose to manage or update, for the manage part student can
 #                             change their password there. When update is chosen, they can update their
 #                             contact details and emergency information
-# Time Table: When selected, fetch data from txt file and display their timetable
+# Course Enrolment : When selected, fetch data from txt file and display their timetable
 # Course Material Access: To be found a way to do
 # Grades Tracking: Fetch data from txt file, and display in a row
 # Feedback Submission: Have a prompt that they can input to provide feedback on courses, instructor and overall
 #                      academic experience.
 
 from Student.Student_Account_Management import *
-from Student.Time_Table import time_table
+from Student.Course_Enrolment import time_table
+from Student.Feedback_Submission import feedback_sub
 
 def student_user_page(student_info):
     while True:
         print("Student Menu")
         print('"1" - Student Account Management')
-        print('"2" - Time Table')
+        print('"2" - Course Enrolment ')
         print('"3" - Course Material Access')
         print('"4" - Grades Tracking')
         print('"5" - Feedback Submission')
@@ -66,7 +67,8 @@ def student_user_page(student_info):
         elif choice == '4':
             pass
         elif choice == '5':
-            pass
+            if feedback_sub(student_info):
+                print('Feedback saved!')
         elif choice == '6':
             return 'exit'
         elif choice == '0':

@@ -1,5 +1,5 @@
 {"username": "Test123", "password": "Test123", "accountType": "administrator", "student_id": "STD0001", "fund": "0.0"}
 {"username": "Test1234", "password": "Test1234", "accountType": "teacher", "student_id": "STD0002", "fund": "0.0"}
-{"username": "student1", "password": "student1", "accountType": "student", "student_id": "STD0003", "fund": "0.0", "phone_num": "011-111-1111", "country": "Soviet Union", "emergency_info": "Muscle pain, will rest for 10 month"}
+{"username": "student1", "password": "student1", "accountType": "student", "student_id": "STD0003", "fund": "0.0", "phone_num": "011-111-1111", "country": "Soviet Union", "emergency_info": "Muscle pain, will rest for 10 month", "feedback": "Sell some chairs for more socket, Can't even charge my laptop in classroom."}
 {"username": "student2", "password": "student2", "accountType": "student", "student_id": "STD0004", "fund": "0.0", "phone_num": "012-222-2222", "country": "Soviet Union"}
-{"username": "student3", "password": "student33", "accountType": "student", "student_id": "STD0005", "fund": "0.0"}
+{"username": "student3", "password": "student3", "accountType": "student", "student_id": "STD0005", "fund": "0.0", "country": "Soviet Union", "phone_num": "013-333-3333", "emergency_info": "car accident, need to stay at hospital for 50 years.", "feedback": "Reduce the price for every food in canteen, pay 100 dollars for a bread are wild."}
