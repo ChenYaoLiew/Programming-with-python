@@ -7,6 +7,10 @@ from function.query import *
 #     "course_id" = XXXX,
 #     "course_title" = "XXXX",
 #     "course_description" = "XXXXXXX",
+#     "students_enrolled" = {
+#          "STD0001": "Manfred",
+#          "STD0002": "ChenYau"
+#      }
 #     "course_timetable"= [
 #         {"time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID"},
 #         {"time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID"},
@@ -59,6 +63,7 @@ def createCourse():
         "course_id": new_id,
         "course_title": course_title,
         "course_description": course_description,
+        "students_enrolled": {},  # Empty dictionary where key=student_id, value=student_name
         "course_timetable": []  # Empty list for staff to fill later
     }
 
@@ -234,7 +239,7 @@ def viewCourses():
         print("="*50)
 
 def manageCourse():
-    print("'1' - Create Course\n'2' - Update Course\n'3' - Delete Course\n'4' - View Courses\n'5' - Back")
+    print("'1' - Create Course\n'2' - Update Course\n'3' - Delete Course\n'4' - View Courses\n'5' - Student Enrolment\n'6' - Back")
 
     choice = input("Enter your choice: ")
     if choice == '1':
@@ -246,5 +251,9 @@ def manageCourse():
     elif choice == '4':
         viewCourses()
     elif choice == '5':
+        from Teacher.student_enrolment import manage_stu_enrol
+        manage_stu_enrol()
+    elif choice == '6':
         from Administrator.menu import administrator_user_page
         administrator_user_page()
+
