@@ -3,22 +3,22 @@ from function.query import *
 
 # Course Management: Create, update, or delete course offerings and assign instructors to courses. 
 
-{
-    "course_id" = XXXX,
-    "course_title" = "XXXX",
-    "course_description" = "XXXXXXX",
-    "students_enrolled" = [
-        {"STD0001": "Manfred", "Grading": "A"},
-        {"STD0002": "ChenYau", "Grading": "B"}
-    ],
-    "course_assignment" = "Google doc link",
-    "course_timetable"= [
-        {"time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID"},
-        {"time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID"},
-        {"time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID"},
-        {"time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID"},
-    ],
-}
+# {
+#     "course_id" = XXXX,
+#     "course_title" = "XXXX",
+#     "course_description" = "XXXXXXX",
+#     "students_enrolled" = [
+#         {"student_id": "STD0001", "assignment_grade": "A", "exam_grade": "B", "feedback": "Good"},
+#         {"student_id": "STD0002", "assignment_grade": "A", "exam_grade": "B", "feedback": "Good"},
+#     ],
+#     "course_assignment" = "Google doc link",
+#     "course_timetable"= [
+#         {"time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID"},
+#         {"time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID"},
+#         {"time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID"},
+#         {"time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID"},
+#     ],
+# }
 
 def getCourses():
     data = fetch_data("data/course_data.txt")
