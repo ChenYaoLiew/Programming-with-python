@@ -12,7 +12,7 @@ def fetch_data(file_path):
             for line in file:
                 # Remove any extra spaces or newlines
                 line = line.strip()
-                
+
                 if line:  # Skip empty lines
                     try:
                         # Use ast.literal_eval to safely parse the dictionary string
@@ -22,7 +22,7 @@ def fetch_data(file_path):
                     except:
                         print(f"Error parsing line: {line}")
                         continue
-                    
+
         return data_list
     except FileNotFoundError:
         print(f"Error: File {file_path} not found")
