@@ -1,6 +1,6 @@
 # 1. System Administration: Manage user accounts and credentials for all system users (teachers, students, staff). (Done)
 # 2. Student Management: Oversee student records, including viewing and updating personal details, enrollment status, and academic performance. 
-# 3. Course Management: Create, update, or delete course offerings and assign instructors to courses. 
+# 3. Course Management: Create, update, or delete course offerings and assign instructors to courses. (Done)
 # 4. Class Schedule: Maintain and update class schedules, ensuring no overlap and proper resource allocation. 
 # 5. Report Generation: Generate academic performance, attendance, and financial reports for students and the institution.
 
