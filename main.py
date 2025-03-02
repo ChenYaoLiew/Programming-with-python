@@ -84,13 +84,15 @@ def main_thread():
                                 break  # Break inner loop to return to log in screen
                             elif choice == 'exit':
                                 exit()
+
                         elif account_type == 'student':
                             choice = student_user_page(get_account_info(input_username))
                             if choice == 'logout':
                                 break  # Break inner loop to return to log in screen
                             elif choice == 'exit':
                                 exit()
-                            # Add other student menu options here
+                            else:
+                                pass # notting in here LOL
                             
                         elif account_type == 'teacher':
                             # Add teacher menu options here
