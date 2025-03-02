@@ -7,11 +7,11 @@ from function.query import *
 #     "course_id" = XXXX,
 #     "course_title" = "XXXX",
 #     "course_description" = "XXXXXXX",
-#     "course_assignment" = "XXXXX"
-#     "students_enrolled" = {
-#          "STD0001": "Manfred",
-#          "STD0002": "ChenYau"
-#      }
+#     "students_enrolled" = [
+#         {"student_id": "STD0001", "assignment_grade": "A", "exam_grade": "B", "feedback": "Good"},
+#         {"student_id": "STD0002", "assignment_grade": "A", "exam_grade": "B", "feedback": "Good"},
+#     ],
+#     "course_assignment" = "Google doc link",
 #     "course_timetable"= [
 #         {"time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID"},
 #         {"time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID"},

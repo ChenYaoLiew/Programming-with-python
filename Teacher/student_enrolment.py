@@ -3,6 +3,13 @@ from function.query import *
 import os
 import ast
 
+def getStudentName(student_id):
+    accounts = fetch_data("..\data\student_data.txt")
+
+    for data in accounts:
+        if data["student_id"] == student_id:
+            return data["username"]
+
 def fetch_courses():
     # Create absolute file path
     file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
