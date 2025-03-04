@@ -1,3 +1,5 @@
+import json
+
 def fetch_data(file_path):
     """
     Fetch all data from a file and parse dictionary-like strings
@@ -32,29 +34,9 @@ def fetch_data(file_path):
         return []
 
 def insert_data(file_path, data_list):
-    """
-    Write data to a file in dictionary format
-    Args:
-        file_path (str): Path to the file to write to
-        data_list (list): List of dictionaries to write to the file
-    Returns:
-        bool: True if successful, False otherwise
-    """
-    try:
-        with open(file_path, 'w') as file:
-            for i, data in enumerate(data_list):
-                # Create a list of key-value pairs formatted as strings
-                fields = [f'"{key}": "{value}"' for key, value in data.items()]
-                # Join all fields with commas and wrap in curly braces
-                data_string = "{" + ", ".join(fields) + "}"
-                
-                if i < len(data_list) - 1:
-                    data_string += '\n'
-                file.write(data_string)
-        return True
-    except Exception as e:
-        print(f"Error writing to file: {str(e)}")
-        return False
+        with open(file_path, 'w', encoding='utf-8') as file:
+            for data in data_list:
+                file.write(json.dumps(data) + "\n")
 
 def remove_data(file_path, data_to_remove):
     """
