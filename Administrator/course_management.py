@@ -68,6 +68,7 @@ def createCourse():
         "course_title": course_title,
         "course_description": course_description,
         "course_assignment": assignment_name,
+        "course_material": {"lecture_note":"","assignment_guideline":"","announcement":""},
         "students_enrolled": [],  # Empty dictionary where key=student_id, value=student_name
         "course_timetable": []  # Empty list for staff to fill later
     }

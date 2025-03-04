@@ -236,4 +236,3 @@ def manage_stu_enrol():
                 from Administrator.course_management import manageCourse
                 manageCourse()
 
-

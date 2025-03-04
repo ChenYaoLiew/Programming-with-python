@@ -1,6 +1,6 @@
 # Grading student
-from Teacher.student_enrolment import  display_student_ids, process_stud_id,  \
-    insert_data_json, display_course , select_course
+from Teacher.student_enrolment import display_student_ids, process_stud_id, \
+    insert_data_json, display_course, select_course, fetch_courses
 import os
 
 from function.query import fetch_data
@@ -15,8 +15,7 @@ def get_valid_grade(student_id):
 
 
 def grade_assignment():
-    file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
-    courses = fetch_data(file_path)
+    courses = fetch_courses()
     if not courses:
         return
 
@@ -49,6 +48,7 @@ def grade_assignment():
 
         courses[selected_course[0]] = selected_course[1]
 
+        file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
         insert_data_json(file_path, courses)
         print("Updated assignment grades saved successfully.")
 
@@ -57,8 +57,7 @@ def grade_assignment():
         grade_assignment()
 
 def grade_exam():
-    file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
-    courses = fetch_data(file_path)
+    courses = fetch_courses()
     if not courses:
         return
 
@@ -90,6 +89,7 @@ def grade_exam():
 
         courses[selected_course[0]] = selected_course[1]
 
+        file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
         insert_data_json(file_path, courses)
         print("Updated exam grades saved successfully.")
 
@@ -98,8 +98,7 @@ def grade_exam():
         grade_exam()
 
 def give_feedback():
-    file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
-    courses = fetch_data(file_path)
+    courses = fetch_courses()
     if not courses:
         return
 
@@ -135,6 +134,7 @@ def give_feedback():
         # Update the courses list with the modified course
         courses[selected_course[0]] = selected_course[1]
 
+        file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
         insert_data_json(file_path, courses)
         print("Feedback saved successfully.")
 
@@ -152,7 +152,6 @@ def manage_grading_assessment():
             grade_exam()
         elif choice == 3:
             give_feedback()
-
 
 
 
