@@ -1,4 +1,6 @@
 from Administrator.menu import administrator_user_page
+from Teacher.grading_assessment import manage_grading_assessment
+from Teacher.student_enrolment import manage_stu_enrol
 from function.query import *
 
 # Course Management: Create, update, or delete course offerings and assign instructors to courses. 
@@ -8,8 +10,8 @@ from function.query import *
 #     "course_title" = "XXXX",
 #     "course_description" = "XXXXXXX",
 #     "students_enrolled" = [
-#         {"student_id": "STD0001", "assignment_grade": "A", "exam_grade": "B", "feedback": "Good"},
-#         {"student_id": "STD0002", "assignment_grade": "A", "exam_grade": "B", "feedback": "Good"},
+#         {"student_id": "STD0001", "assignment_grade": "A", "assignment_submission": "","exam_grade": "B", "feedback": "Good"},
+#         {"student_id": "STD0002", "assignment_grade": "A", "assignment_submission": "", "exam_grade": "B", "feedback": "Good"},
 #     ],
 #     "course_assignment" = "Google doc link",
 #     "course_timetable"= [
@@ -66,7 +68,7 @@ def createCourse():
         "course_title": course_title,
         "course_description": course_description,
         "course_assignment": assignment_name,
-        "students_enrolled": {},  # Empty dictionary where key=student_id, value=student_name
+        "students_enrolled": [],  # Empty dictionary where key=student_id, value=student_name
         "course_timetable": []  # Empty list for staff to fill later
     }
 
@@ -243,7 +245,7 @@ def viewCourses():
 
 
 def manageCourse():
-    print("'1' - Create Course\n'2' - Update Course\n'3' - Delete Course\n'4' - View Courses\n'5' - Student Enrolment\n'6' - Back")
+    print("'1' - Create Course\n'2' - Update Course\n'3' - Delete Course\n'4' - View Courses\n'5' - Back")
 
     choice = input("Enter your choice: ")
     if choice == '1':
@@ -255,9 +257,5 @@ def manageCourse():
     elif choice == '4':
         viewCourses()
     elif choice == '5':
-        from Teacher.student_enrolment import manage_stu_enrol
-        manage_stu_enrol()
-    elif choice == '6':
-        from Administrator.menu import administrator_user_page
         administrator_user_page()
 
