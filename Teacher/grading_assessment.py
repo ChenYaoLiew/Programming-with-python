@@ -1,9 +1,10 @@
 # Grading student
 from Teacher.student_enrolment import display_student_ids, process_stud_id, \
-    insert_data_json, display_course, select_course, fetch_courses
+ display_course, select_course, fetch_courses
 import os
 
-from function.query import fetch_data
+from function.query import insert_data
+
 
 def get_valid_grade(student_id):
     """Prompts the user to enter a valid assignment grade (A-F) and returns it."""
@@ -49,7 +50,7 @@ def grade_assignment():
         courses[selected_course[0]] = selected_course[1]
 
         file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
-        insert_data_json(file_path, courses)
+        insert_data(file_path, courses)
         print("Updated assignment grades saved successfully.")
 
     except ValueError:
@@ -90,7 +91,7 @@ def grade_exam():
         courses[selected_course[0]] = selected_course[1]
 
         file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
-        insert_data_json(file_path, courses)
+        insert_data(file_path, courses)
         print("Updated exam grades saved successfully.")
 
     except ValueError:
@@ -135,7 +136,7 @@ def give_feedback():
         courses[selected_course[0]] = selected_course[1]
 
         file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
-        insert_data_json(file_path, courses)
+        insert_data(file_path, courses)
         print("Feedback saved successfully.")
 
     except ValueError:

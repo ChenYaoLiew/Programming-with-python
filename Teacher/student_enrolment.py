@@ -1,7 +1,6 @@
 # Enrolling student
 from function.query import *
 import os
-import json
 
 def process_stud_id(student_id):
     if not validate_stud_id(student_id):
@@ -23,11 +22,6 @@ def validate_stud_id(student_id):
         print("Invalid student ID format. Should be STD followed by 4 digits (e.g., STD0001)")
         return False
     return True
-
-def insert_data_json(file_path, data_list):
-    with open(file_path, 'w', encoding='utf-8') as file:
-        for data in data_list:
-            file.write(json.dumps(data) + "\n")
 
 def fetch_courses():
     """Reads course data from a JSON file and returns it as a list of dictionaries."""
@@ -173,7 +167,7 @@ def enrol_stud():
         selected_course[1]["students_enrolled"].append(new_student)
         courses[selected_course[0]] = selected_course[1]
         print(f"Student {student_id} is now enrolled ")
-        insert_data_json(file_path, courses)
+        insert_data(file_path, courses)
 
     except ValueError:
         print("Invalid selection, please try again")
@@ -216,7 +210,7 @@ def remove_enrolled_stu():
 
         # Save the deletion back into course_data file
         file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
-        insert_data_json(file_path, courses)
+        insert_data(file_path, courses)
 
     except(ValueError,IndexError):
         print("Invalid selection, please try again")
@@ -236,3 +230,4 @@ def manage_stu_enrol():
                 from Administrator.course_management import manageCourse
                 manageCourse()
 
+manage_stu_enrol()

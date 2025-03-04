@@ -1,5 +1,5 @@
 # Add course materials such as lecture slides, assignment guideline and announcement for students to view and download
-from Teacher.student_enrolment import fetch_courses, display_course, select_course, insert_data_json
+from Teacher.student_enrolment import fetch_courses, display_course, select_course, insert_data
 import os
 
 def add_course_material():
@@ -30,7 +30,7 @@ def add_course_material():
         courses[selected_course[0]] = selected_course[1]
 
         file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
-        insert_data_json(file_path,courses)
+        insert_data(file_path,courses)
         print("Successfully added course material.")
 
     except ValueError:
