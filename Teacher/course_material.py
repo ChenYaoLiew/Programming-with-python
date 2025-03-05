@@ -1,8 +1,10 @@
 # Add course materials such as lecture slides, assignment guideline and announcement for students to view and download
-from Teacher.student_enrolment import fetch_courses, display_course, select_course, insert_data
-import os
 
 def add_course_material():
+    import os
+    from teacher_function import fetch_courses,display_course,select_course
+    from function.query import insert_data
+
     courses = fetch_courses()
     if not courses:
         return

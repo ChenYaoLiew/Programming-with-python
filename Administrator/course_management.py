@@ -1,6 +1,5 @@
 from Administrator.menu import administrator_user_page
-from Teacher.grading_assessment import manage_grading_assessment
-from Teacher.student_enrolment import manage_stu_enrol
+from Teacher.course_material import add_course_material
 from function.query import *
 
 # Course Management: Create, update, or delete course offerings and assign instructors to courses. 
@@ -246,7 +245,7 @@ def viewCourses():
 
 
 def manageCourse():
-    print("'1' - Create Course\n'2' - Update Course\n'3' - Delete Course\n'4' - View Courses\n'5' - Back")
+    print("'1' - Create Course\n'2' - Update Course\n'3' - Delete Course\n'4' - View Courses\n'5' - Add Course Material\n'6' - Back")
 
     choice = input("Enter your choice: ")
     if choice == '1':
@@ -258,5 +257,7 @@ def manageCourse():
     elif choice == '4':
         viewCourses()
     elif choice == '5':
+        add_course_material()
+    elif choice == '6':
         administrator_user_page()
 
