@@ -8,7 +8,6 @@ def view_enrolled_stu():
     selected_course, students = get_valid_selected_course("View Enrolled Students")
 
     if not selected_course[1] or not students:
-        print("\nNo students enrolled in this course.")
         return
 
     # Display student IDs
@@ -80,7 +79,6 @@ def remove_enrolled_stu():
     from teacher_function import fetch_courses,display_course,select_course,display_student_ids,process_stud_id
     from function.query import insert_data
 
-
     courses = fetch_courses()
     if not courses:
         return
@@ -95,6 +93,10 @@ def remove_enrolled_stu():
             return
 
         # Display enrolled students
+        if not selected_course[1].get("students_enrolled"):  # Check if students exist
+            print("\nNo students enrolled in this course.")
+            return  # Exit early if no students
+
         display_student_ids(selected_course[1])
 
         # Input student_id to delete
@@ -134,13 +136,13 @@ def manage_stu_enrol():
 
                 choice = int(choice)
 
-                if choice == '1':
+                if choice == 1:
                     view_enrolled_stu()
-                elif choice == "2":
+                elif choice == 2:
                     enrol_stud()
-                elif choice == "3":
+                elif choice == 3:
                     remove_enrolled_stu()
-                elif choice == "4":
+                elif choice == 4:
                     from menu import teacher_menu_page
                     teacher_menu_page()
                 else:

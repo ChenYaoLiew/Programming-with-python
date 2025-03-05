@@ -1,8 +1,9 @@
 # Teacher Menu Page
+# Course Creation & Management
 
 def teacher_menu_page():
     while True:
-        print("\nTeacher's Menu\n1 - Course Creation & Management\n2 - Student Enrolment Management  \n3 - Grading & Assessment\n4 - Attendance Tracking\n5 - Report Generation\n6 - Back")
+        print("\nTeacher's Menu\n1 - Course Creation & Management\n2 - Student Enrolment & Management  \n3 - Grading & Assessment\n4 - Attendance Tracking\n5 - Report Generation\n6 - Back")
         try:
             choice = input("\nEnter Choice: ").strip()
             if not choice:  # Prevent empty input
@@ -31,5 +32,6 @@ def teacher_menu_page():
                 print("Invalid choice. Please enter a number between 1 and 6.")
         except ValueError:
             print("Invalid input. Please enter a valid number.")
+
 
 teacher_menu_page()

@@ -2,10 +2,36 @@ import os
 
 # For Student Enrolment
 def process_stud_id(student_id):
+    """
+        Process the provided student ID by validating its format.
+
+        This function checks whether the given student ID adheres to the expected format
+        using the 'validate_stud_id' function. If the student ID is invalid, the function
+        returns immediately. Additional processing for valid student IDs can be implemented
+        as needed.
+
+        Args:
+            student_id (str): The student ID to be processed.
+
+        Returns:
+            None: If the student ID is invalid or no further processing is defined.
+        """
     if not validate_stud_id(student_id):
         return
 
 def get_student_id(student_id):
+    """
+       Retrieves the student ID from the student data file if it exists.
+
+       This function reads student data from the 'student_data.txt' file located in the data directory.
+       It iterates through the student_id and returns the student_id if a matching record is found.
+
+       Args:
+           student_id (str): The student ID to search for.
+
+       Returns:
+           str or None: The matching student ID if found; otherwise, None.
+       """
     from function.query import fetch_data
     file_path = os.path.join(os.path.dirname(__file__), "..", "data", "student_data.txt")
     accounts = fetch_data(file_path)
@@ -24,7 +50,7 @@ def validate_stud_id(student_id):
     return True
 
 def fetch_courses():
-    """Reads course data from a JSON file and returns it as a list of dictionaries."""
+    """Reads course data from a text file and returns it as a list of dictionaries."""
     file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
 
     if not os.path.exists(file_path):
@@ -97,7 +123,16 @@ def display_student_ids(course):
         print(f"- {student.get('student_id', 'Unknown')}")  # Use `.get()` for safety
 
 def display_course():
-    #Displays available courses
+    """
+       Displays available courses fetched from the data source.
+
+       This function retrieves the list of courses using the fetch_courses() function.
+       If courses are available, it prints a numbered list of courses showing each course's
+       ID and title. If no courses are found, the function returns without output.
+
+       Returns:
+           None
+       """
     courses = fetch_courses()
     if not courses:  # If courses list is empty, return early
         return

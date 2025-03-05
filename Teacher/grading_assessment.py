@@ -141,7 +141,7 @@ def give_feedback():
 
 def manage_grading_assessment():
     while True:
-        print("Welcome to Grading & Assessment Management\n1 - Grade Assignment\n2 - Grade Exam\n3 - Provide Feedback for student\n4 - Back")
+        print("\nWelcome to Grading & Assessment Management\n1 - Grade Assignment\n2 - Grade Exam\n3 - Provide Feedback for student\n4 - Back")
         try:
             choice = input("\nEnter Choice: ").strip()
             if not choice:  # Prevent empty input

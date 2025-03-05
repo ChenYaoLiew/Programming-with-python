@@ -11,22 +11,22 @@ def manage_course_teach():
 
             choice = int(choice)
 
-            if choice == '1':
+            if choice == 1:
                 from Administrator.course_management import createCourse
                 createCourse()
-            elif choice == '2':
+            elif choice == 2:
                 from Administrator.course_management import updateCourse
                 updateCourse()
-            elif choice == '3':
+            elif choice == 3:
                 from Administrator.course_management import deleteCourse
                 deleteCourse()
-            elif choice == '4':
+            elif choice == 4:
                 from Administrator.course_management import viewCourses
                 viewCourses()
-            elif choice == '5':
+            elif choice == 5:
                 from Administrator.course_management import add_course_material
                 add_course_material()
-            elif choice == '6':
+            elif choice == 6:
                 from Teacher.menu import teacher_menu_page
                 teacher_menu_page()
             else:
