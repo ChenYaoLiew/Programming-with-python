@@ -7,28 +7,14 @@ def fetch_data(file_path):
         list: List of dictionaries parsed from the file
     """
     try:
-        data_list = []
-        with open(file_path, 'r') as file:
-            for line in file:
-                # Remove any extra spaces or newlines
-                line = line.strip()
-
-                if line:  # Skip empty lines
-                    try:
-                        # Use ast.literal_eval to safely parse the dictionary string
-                        import ast
-                        data_dict = ast.literal_eval(line)
-                        data_list.append(data_dict)
-                    except:
-                        print(f"Error parsing line: {line}")
-                        continue
-
-        return data_list
+        import ast
+        with open(file_path, "r") as file:
+            return [ast.literal_eval(line.strip()) for line in file if line.strip()]
     except FileNotFoundError:
-        print(f"Error: File {file_path} not found")
+        print(f"File Not Found: {file_path}")
         return []
     except Exception as e:
-        print(f"Error reading file: {str(e)}")
+        print(f"Parsing Error: {e}")
         return []
 
 def insert_data(file_path, data_list):
@@ -41,16 +27,10 @@ def insert_data(file_path, data_list):
         bool: True if successful, False otherwise
     """
     try:
-        with open(file_path, 'w') as file:
-            for i, data in enumerate(data_list):
-                # Create a list of key-value pairs formatted as strings
-                fields = [f'"{key}": "{value}"' for key, value in data.items()]
-                # Join all fields with commas and wrap in curly braces
-                data_string = "{" + ", ".join(fields) + "}"
-                
-                if i < len(data_list) - 1:
-                    data_string += '\n'
-                file.write(data_string)
+        import json
+        with open(file_path, "w", encoding="utf-8") as file:
+            for data in data_list:
+                file.write(json.dumps(data) + "\n")
         return True
     except Exception as e:
         print(f"Error writing to file: {str(e)}")
