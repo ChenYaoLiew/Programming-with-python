@@ -1,4 +1,5 @@
 # Course Creation and Management
+# Create and update courses, including lesson plans, assignments, and schedules
 
 def manage_course_teach():
     while True:
@@ -12,17 +13,17 @@ def manage_course_teach():
             choice = int(choice)
 
             if choice == 1:
-                from Administrator.course_management import createCourse
-                createCourse()
+                from Administrator.course_management import create_course
+                create_course()
             elif choice == 2:
-                from Administrator.course_management import updateCourse
-                updateCourse()
+                from Administrator.course_management import update_course
+                update_course()
             elif choice == 3:
-                from Administrator.course_management import deleteCourse
-                deleteCourse()
+                from Administrator.course_management import delete_course
+                delete_course()
             elif choice == 4:
-                from Administrator.course_management import viewCourses
-                viewCourses()
+                from Administrator.course_management import view_courses
+                view_courses()
             elif choice == 5:
                 from Administrator.course_management import add_course_material
                 add_course_material()

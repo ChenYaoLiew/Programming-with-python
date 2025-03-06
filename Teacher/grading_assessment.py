@@ -1,8 +1,10 @@
 # Grade student
+# Grade assignments, exams, and provide detailed feedback to students
+
 import os
 
 def grade_assignment():
-    from teacher_function import fetch_courses,display_course,select_course,display_student_ids,process_stud_id,get_valid_grade
+    from teacher_function import fetch_courses,display_course,select_course,display_students_in_course,process_stud_id,get_valid_grade
     from function.query import insert_data
 
     courses = fetch_courses()
@@ -19,7 +21,11 @@ def grade_assignment():
             print("No course selected.")
             return
 
-        display_student_ids(selected_course[1])
+        if not selected_course[1]["students_enrolled"]:
+            print("\nNo students enrolled in this course.")
+            return  # Exit the function early
+
+        display_students_in_course(selected_course[1])
 
         student_id = input("\nEnter student ID to grade assignment: ").strip()
 
@@ -27,27 +33,34 @@ def grade_assignment():
 
         student_found = next((student for student in selected_course[1]["students_enrolled"] if student.get("student_id") == student_id), None)
 
-        if not student_found:
+        if student_found is None:
             print("Student ID not found in this course.")
             return
 
+        # Check if assignment has been submitted
+        if student_found.get("assignment_submission", "Empty") == "Empty":
+            print("Cannot grade assignment. The student has not submitted the assignment yet.")
+            return
+
+        # Get assignment grade
         assignment_grade = get_valid_grade(student_id)
 
+        # Update assignment grade
         student_found["assignment_grade"] = assignment_grade
         print(f"Assignment grade updated for {student_id}.")
 
+        # Save the updated data
         courses[selected_course[0]] = selected_course[1]
-
         file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
         insert_data(file_path, courses)
         print("Updated assignment grades saved successfully.")
 
     except ValueError:
-        print("Invalid selection, please try again")
+        print("Invalid selection, please try again.")
         grade_assignment()
 
 def grade_exam():
-    from teacher_function import fetch_courses, display_course, select_course, display_student_ids, process_stud_id, \
+    from teacher_function import fetch_courses, display_course, select_course, display_students_in_course, process_stud_id, \
         get_valid_grade
     from function.query import insert_data
 
@@ -64,7 +77,7 @@ def grade_exam():
             print("No course selected.")
             return
 
-        display_student_ids(selected_course[1])
+        display_students_in_course(selected_course[1])
 
         student_id = input("\nEnter student ID to grade exam: ").strip()
 
@@ -92,7 +105,7 @@ def grade_exam():
         grade_exam()
 
 def give_feedback():
-    from teacher_function import fetch_courses, display_course, select_course, display_student_ids, process_stud_id
+    from teacher_function import fetch_courses, display_course, select_course, display_students_in_course, process_stud_id
     from function.query import insert_data
 
     courses = fetch_courses()
@@ -108,7 +121,7 @@ def give_feedback():
             print("No course selected.")
             return
 
-        display_student_ids(selected_course[1])
+        display_students_in_course(selected_course[1])
 
         student_id = input("\nEnter student ID to provide student feedback: ").strip()
 

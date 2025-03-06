@@ -3,7 +3,7 @@ import os
 
 def view_enrolled_stu():
     from teacher_function import get_valid_selected_course
-    from teacher_function import display_student_ids
+    from teacher_function import display_students_in_course
 
     selected_course, students = get_valid_selected_course("View Enrolled Students")
 
@@ -11,10 +11,9 @@ def view_enrolled_stu():
         return
 
     # Display student IDs
-    display_student_ids(selected_course[1])
+    display_students_in_course(selected_course[1])
 
 def enrol_stud():
-    # Import required functions from teacher_function and function.query
     from teacher_function import fetch_courses,display_course,select_course,process_stud_id,get_student_id
     from function.query import insert_data
 
@@ -51,20 +50,19 @@ def enrol_stud():
                 break  # Stop looping once a match is found
 
         if students_exist:
-            print(f"{student_id}) is already enrolled in this course")
+            print(f"{student_id} is already enrolled in this course")
             return
 
         # Create a new student entry with all required fields
         new_student = {
             "student_id": student_id,
             "assignment_grade": "Not graded",
-            "assignment_submission": "",
+            "assignment_submission": "Empty",
             "exam_grade": "Not graded",
             "feedback": "No feedback yet"
             }
 
         # Enroll student
-        # selected_course = [0 , {}]
         selected_course[1]["students_enrolled"].append(new_student)
         courses[selected_course[0]] = selected_course[1]
         print(f"Student {student_id} is now enrolled ")
@@ -76,7 +74,7 @@ def enrol_stud():
         enrol_stud()
 
 def remove_enrolled_stu():
-    from teacher_function import fetch_courses,display_course,select_course,display_student_ids,process_stud_id
+    from teacher_function import fetch_courses,display_course,select_course,display_students_in_course,process_stud_id
     from function.query import insert_data
 
     courses = fetch_courses()
@@ -97,7 +95,7 @@ def remove_enrolled_stu():
             print("\nNo students enrolled in this course.")
             return  # Exit early if no students
 
-        display_student_ids(selected_course[1])
+        display_students_in_course(selected_course[1])
 
         # Input student_id to delete
         student_id = input("Enter student ID: ").strip()

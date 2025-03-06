@@ -1,9 +1,13 @@
 # Teacher Menu Page
-# Course Creation & Management
+# Course Creation & Management : Create and update courses, including lesson plans, assignments, and schedules.
+# Student Enrolment: Enrol and remove students from the courses they are teaching.
+# Grading and Assessment: Grade assignments, exams, and provide detailed feedback to students.
+# Attendance Tracking: Record and monitor student attendance during classes.
+# Report Generation: Generate reports on student performance and participation for administrative review.
 
 def teacher_menu_page():
     while True:
-        print("\nTeacher's Menu\n1 - Course Creation & Management\n2 - Student Enrolment & Management  \n3 - Grading & Assessment\n4 - Attendance Tracking\n5 - Report Generation\n6 - Back")
+        print("\nTeacher's Menu\n1 - Course Creation & Management\n2 - Student Enrolment & Management  \n3 - Grading & Assessment\n4 - Class Enrolment and Attendance Management\n5 - Report Generation\n6 - Logout")
         try:
             choice = input("\nEnter Choice: ").strip()
             if not choice:  # Prevent empty input
@@ -22,16 +26,16 @@ def teacher_menu_page():
                 from grading_assessment import manage_grading_assessment
                 manage_grading_assessment()
             elif choice == 4:
-                from attendance_tracking import manage_attendance
+                from class_attendance_management import manage_attendance
                 manage_attendance()
             elif choice == 5:
-                continue
+                from report_generation import generate_student_report
+                generate_student_report()
             elif choice == 6:
                 continue
             else:
                 print("Invalid choice. Please enter a number between 1 and 6.")
         except ValueError:
             print("Invalid input. Please enter a valid number.")
-
 
 teacher_menu_page()

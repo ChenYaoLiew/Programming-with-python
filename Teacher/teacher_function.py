@@ -1,3 +1,5 @@
+# Helper functions for student enrollment, course selection, grading, and attendance tracking.
+
 import os
 
 # For Student Enrolment
@@ -109,7 +111,7 @@ def select_course(courses, action="view students",return_to_menu=None):
             print("Invalid input. Please enter a number.")
             return select_course(courses, action)  # Recursive call for invalid input
 
-def display_student_ids(course):
+def display_students_in_course(course):
     """Displays student IDs for a given course."""
 
     students = course.get("students_enrolled", [])  # Always expect a list
@@ -152,7 +154,7 @@ def get_valid_grade(student_id):
         print("Invalid grade! Please enter only A, B, C, D, E, or F.")
 
 
-# For attendance_tracking
+# For attendance_tracking and managing class
 def select_class(selected_course, action="Select"):
     """
     Displays available classes in a course and allows the user to select one.
@@ -176,17 +178,52 @@ def select_class(selected_course, action="Select"):
     for class_info in timetable:
         print(f"- {class_info['class_id']}")
 
-    # Get class ID from the user
-    class_id = input("\nEnter Class ID: ")
+    while True:
+        # Get class ID from the user
+        class_id = input("\nEnter Class ID: ").strip()
 
-    # Validate class ID
+        if not class_id:
+            print("Class ID cannot be empty. Please enter a valid ID.")
+            continue  # Ask for input again
 
-    # Find the selected class
-    class_match = next((cls for cls in timetable if cls["class_id"] == class_id), None)
+        # Find the selected class (ignoring case differences)
+        class_match = next((cls for cls in timetable if cls["class_id"].lower() == class_id.lower()), None)
 
-    if not class_match:
-        print("Class ID not found.")
-        return None
+        if class_match:
+            return class_match  # Return the matched class
 
-    return class_match
+        print(f"Class ID '{class_id}' not found. Please try again.")
 
+def validate_class_id(class_id):
+    """
+    Validates the format of a class ID.
+
+    Args:
+        class_id (str): The class ID to validate.
+
+    Returns:
+        bool: True if valid, False otherwise.
+    """
+    if len(class_id) != 7:  # Ensure correct length
+        print("Invalid Class ID format. It should be exactly 7 characters (e.g., CLS0001).")
+        return False
+    if not class_id.startswith("CLS"):  # Ensure it starts with 'CLS'
+        print("Invalid Class ID format. It should start with 'CLS' (e.g., CLS0001).")
+        return False
+    if not class_id[3:].isdigit():  # Ensure last 4 characters are digits
+        print("Invalid Class ID format. The last four characters should be numbers (e.g., CLS0001).")
+        return False
+    return True
+
+def display_students_in_class(class_match):
+    """Displays student IDs enrolled in a selected class."""
+
+    students = class_match.get("attendance_list", [])  # List of students in the class
+
+    if not students:
+        print(f"\nNo students enrolled in class {class_match.get('class_id', 'Unknown')}.")
+        return
+
+    print(f"\nStudents enrolled in class {class_match.get('class_id', 'Unknown')}:")
+    for student in students:
+        print(f"- {student.get('student_id', 'Unknown')}")
