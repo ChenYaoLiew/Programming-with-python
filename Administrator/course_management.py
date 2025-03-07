@@ -6,6 +6,9 @@ from function.query import *
 # Add enroll student
 # Course timetable assign student
 
+# Add enroll student
+# Course timetable assign student
+
 # Course Management: Create, update, or delete course offerings and assign instructors to courses. 
 
 # {
@@ -22,8 +25,14 @@ from function.query import *
 #         {"class_id": "CLS0002", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
 #         {"class_id": "CLS0003", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
 #         {"class_id": "CLS0004", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
+#         {"class_id": "CLS0001", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
+#         {"class_id": "CLS0002", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
+#         {"class_id": "CLS0003", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
+#         {"class_id": "CLS0004", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
 #     ],
 # }
+ 
+def get_course():
  
 def get_course():
     data = fetch_data("data/course_data.txt")
@@ -158,6 +167,7 @@ def generate_course_id(existing_ids):
     return f"CRS{new_num:04d}"
 
 def create_course():
+def create_course():
     # Get course details
     courses = fetch_data("data/course_data.txt")
     if not courses:
@@ -191,6 +201,8 @@ def create_course():
 
 def change_course_name():
     courses_data = get_course()
+def change_course_name():
+    courses_data = get_course()
     found = False
 
     prompt1 = input("Enter course id: ")
@@ -210,6 +222,8 @@ def change_course_name():
     else:
         print("Invalid course")
 
+def change_course_description():
+    courses_data = get_course()
 def change_course_description():
     courses_data = get_course()
     found = False
@@ -302,7 +316,9 @@ def update_course():
 
     if choice == '1':
         change_course_name()
+        change_course_name()
     elif choice == '2':
+        change_course_description()
         change_course_description()
     elif choice == '3':
         update_course_timetable()
@@ -310,8 +326,10 @@ def update_course():
         print("Invalid choice")
 
 def delete_course():
+def delete_course():
     prompt1 = input("Enter course id: ")
     found = False
+    courses_data = get_course()
     courses_data = get_course()
     
     # Create new list without the course to be deleted
@@ -330,6 +348,8 @@ def delete_course():
     else:
         print("Invalid course id")
     
+def view_courses():
+    courses_data = get_course()
 def view_courses():
     courses_data = get_course()
     
