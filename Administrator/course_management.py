@@ -2,6 +2,12 @@ from Administrator.menu import administrator_user_page
 from Teacher.course_material import add_course_material
 from function.query import *
 
+# Add enroll student
+# Course timetable assign student
+
+# Add enroll student
+# Course timetable assign student
+
 # Course Management: Create, update, or delete course offerings and assign instructors to courses. 
 
 # {
@@ -14,10 +20,14 @@ from function.query import *
 #     ],
 #     "course_assignment" = "Google doc link",
 #     "course_timetable"= [
-#         {"class_id": "CLS0001", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "students_enrolled:[]},
-#         {"class_id": "CLS0002", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID" "students_enrolled:[]},
-#         {"class_id": "CLS0003", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID" "students_enrolled:[]},
-#         {"class_id": "CLS0004", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID" "students_enrolled:[]},
+#         {"class_id": "CLS0001", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
+#         {"class_id": "CLS0002", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
+#         {"class_id": "CLS0003", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
+#         {"class_id": "CLS0004", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
+#         {"class_id": "CLS0001", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
+#         {"class_id": "CLS0002", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
+#         {"class_id": "CLS0003", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
+#         {"class_id": "CLS0004", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
 #     ],
 # }
 
@@ -25,6 +35,38 @@ def get_courses():
     data = fetch_data("data/course_data.txt")
 
     return data
+
+def enroll_student():
+    courses_data = get_courses()
+    found = False
+
+    course_id = input("Enter course id: ")
+
+    for data in courses_data:
+        if data['course_id'] == course_id:
+            found = True
+            break
+    
+    if not found:
+        print("Invalid course id")
+        return
+
+    student_id = input("Enter student id: ")
+
+    if student_id in data['students_enrolled']:
+        print("Student already enrolled")
+        return
+
+    data['students_enrolled'][student_id] = {
+        "assignment_grade": "",
+        "exam_grade": "",
+        "feedback": ""
+    }
+
+    if insert_data("data/course_data.txt", courses_data):
+        print("Student enrolled successfully")
+    else:
+        print("Error enrolling student")
 
 def generate_course_id(existing_ids):
     """
@@ -185,8 +227,34 @@ def update_course_timetable():
     if not found:
         print("Invalid course ID")
 
+def view_course_timetable():
+    courses_data = get_courses()
+    found = False
+
+    course_id = input("Enter course id: ")
+
+    for data in courses_data:
+        if data['course_id'] == course_id:
+            found = True
+            timetable_data = data.get('course_timetable', [])
+            
+            if not timetable_data:
+                print("No timetable entries found for this course.")
+                return
+                
+            for slot in timetable_data:
+                print("\nTimetable Entry:")
+                print("Start time:", slot.get('time_start'))
+                print("End time:", slot.get('time_end'))
+                print("Teacher:", slot.get('course_teacher'))
+                print("-"*50)
+            return
+
+    if not found:
+        print("Invalid course id")
+
 def update_course():
-    print("'1' - Change course name\n'2' - Change course description\n'3' - Update course timetable")
+    print("\n'1' - Change course name\n'2' - Change course description\n'3' - Update course timetable\n'4' - View course timetable")
     choice = input("Enter your choice: ")
 
     if choice == '1':
@@ -195,6 +263,8 @@ def update_course():
         change_course_description()
     elif choice == '3':
         update_course_timetable()
+    elif choice == '4':
+        view_course_timetable()
     else:
         print("Invalid choice")
 
@@ -243,21 +313,20 @@ def view_courses():
         
         print("="*50)
 
-
 def manage_course():
-    print("'1' - Create Course\n'2' - Update Course\n'3' - Delete Course\n'4' - View Courses\n'5' - Add Course Material\n'6' - Back")
+    while True:
+        print("'1' - Create Course\n'2' - Update Course\n'3' - Delete Course\n'4' - View Courses\n'5' - Back")
 
-    choice = input("Enter your choice: ")
-    if choice == '1':
-        create_course()
-    elif choice == '2':
-        update_course()
-    elif choice == '3':
-        delete_course()
-    elif choice == '4':
-        view_courses()
-    elif choice == '5':
-        add_course_material()
-    elif choice == '6':
-        administrator_user_page()
-
+        choice = input("Enter your choice: ")
+        if choice == '1':
+            create_course()
+        elif choice == '2':
+            update_course()
+        elif choice == '3':
+            delete_course()
+        elif choice == '4':
+            view_courses()
+        elif choice == '5':
+            administrator_user_page()
+        else:
+            print("Invalid choice")
