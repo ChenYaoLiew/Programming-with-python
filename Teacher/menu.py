@@ -32,7 +32,8 @@ def teacher_menu_page():
                 from report_generation import generate_student_report
                 generate_student_report()
             elif choice == 6:
-                continue
+                print("Logout successful. Exiting program...")
+                exit()
             else:
                 print("Invalid choice. Please enter a number between 1 and 6.")
         except ValueError:
