@@ -94,9 +94,9 @@ def main_thread():
                                 pass # notting in here LOL
                             
                         elif account_type == 'teacher':
-                            # Add teacher menu options here
-                            pass
-                            
+                            from Teacher.menu import teacher_menu_page
+                            teacher_menu_page()
+
                         elif account_type == 'staff':
                             # Add staff menu options here
                             pass

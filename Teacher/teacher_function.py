@@ -173,10 +173,17 @@ def select_class(selected_course, action="Select"):
         print("No classes available for this course.")
         return None
 
+    # Filter valid classes (must be a dict and contain "class_id")
+    valid_classes = [cls for cls in timetable if isinstance(cls, dict) and "class_id" in cls]
+
+    if not valid_classes:  # If there are no valid classes, return immediately
+        print("No valid classes available for this course. Returning...")
+        return None  # Exit function
+
     # Display available classes
     print(f"\nAvailable Classes for {action}:")
     for class_info in timetable:
-        print(f"- {class_info['class_id']}")
+        print(f"- {class_info.get('class_id', 'class_id not found')}")
 
     while True:
         # Get class ID from the user

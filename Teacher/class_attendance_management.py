@@ -117,6 +117,8 @@ def grade_attendance():
         return
 
     class_match = select_class(selected_course, action="Grade Attendance")
+    if not class_match:
+        return
 
     # Print out all student_id in that class
     print("\nStudents in this class:")
