@@ -27,7 +27,7 @@ def check_account_credentials(username, password):
 
 def get_account_info(username):
     """
-    To get the data and index for a given username. Only can use after user logged in
+    To get the specified data and index for a given username. Only can use after user logged in
     Args:
         username (str): account username of the user
     Returns:
@@ -35,10 +35,9 @@ def get_account_info(username):
     """
     accounts = fetch_data('data/user_data.txt')
 
-    for index, data in enumerate(accounts):
-        if username == data['username']:
-            data = [index, data]
-            return data
+    for index, user in enumerate(accounts):
+        if user.get("username") == username:
+            return [index, user]
 
 def generate_student_id(existing_ids):
     """

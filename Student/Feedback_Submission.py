@@ -1,20 +1,21 @@
-from function.query import *
+from Student.Student_function import update_student_data
 
 def feedback_sub(student_info):
+    """
+    To display grades tracking menu
+    Args:
+        student_info(list): ["Index of the student in data_list"(int), "data of the student(one student only)"(dict)]
+    return:
+        Bool: If student update feedback, it will return True
+    """
+    student_data = student_info[1]
+    index_in_list = student_info[0]
+
     while True:
         feedback = input('Type your feedback here(Press 0 to Back): ')
         if feedback == '0':
             return False
         else:
-            try:
-                student_info[1]['feedback'] = feedback
-                accounts = fetch_data("data/user_data.txt")  # get all the account of the user in a list
-                accounts[student_info[0]] = student_info[1]  # insert the updated student data dictionary to user list
-                insert_data("data/user_data.txt", accounts)  # save it to the database
-                return True
-            except KeyError:
-                student_info[1]['feedback'] = feedback
-                accounts = fetch_data("data/user_data.txt")  # get all the account of the user in a list
-                accounts[student_info[0]] = student_info[1]  # insert the updated student data dictionary to user list
-                insert_data("data/user_data.txt", accounts)  # save it to the database
-                return True
+            student_data['feedback'] = feedback
+            update_student_data(index_in_list, student_data)
+            return True

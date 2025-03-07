@@ -1,70 +1,94 @@
 from function.query import *
+from Student.Student_function import get_student_course_id
 
-def assignment_sub(student_info):
+all_courses = fetch_data('./data/course_data.txt') # get a list of all courses data inside the txt file
+
+def subject_assignment(student_info, student_course, subject):
     """
-    Used when student need to check their assignment status
+    To display assignment status with specified subject
     Args:
         student_info(list): ["Index of the student in data_list"(int), "data of the student(one student only)"(dict)]
-    Returns:
-        bool: if True means assignment update successfully, else notting changes.
+        student_course(dict): A dictionary which contain student's every subject and corresponding course_id
+        subject(str): Subject name
+    return:
+        have_subject_course(Bool): If student have course in particular subject it will be True
     """
+    student_data = student_info[1]
+    have_subject_course = False # Initially student's have subject course will be defined as False.
 
-    changes = False     # if student updated any assignment, it will be True
-    student_course_data = fetch_data("data/student_data.txt")  # Get all the student's course data in a list format
+    while True:
+        print(f'\n[ {subject} ]')
 
-    # loop through all students in the list and display student course data when student id matches
-    for index, student in enumerate(student_course_data):
-        if student_info[1]['student_id'] == student['student_id']: # if student id matches, display all the course data
+        # To show their course assignment status if student has course
+        for course in all_courses:
+            for student in course['students_enrolled']:
+                if course['course_id'] in student_course[subject] and student['student_id'] == student_data['student_id']:
+                    have_subject_course = True
+                    print('--------------------------------------------------------------')
+                    print(f"Course ID             : {course['course_id']}")
+                    print(f"Course Assignment     : {course['course_assignment']}")
+                    print(f"Assignment Submission : {student['assignment_submission']}")
 
-            while True:
-                print(f'\nMath assignment submission    (Press 1 to upload): {student["math_assignment"]}')
-                print(f'Science assignment submission (Press 2 to upload): {student["science_assignment"]}')
-                print(f'English assignment submission (Press 3 to upload): {student["english_assignment"]}')
-                print('Press 0 save changes and go Back')
+        # If student has course, assignment submission will run
+        if have_subject_course:
+            # Choose the course ID to submit assignment
+            course_id = input('\nInput the Course ID to submit your assignment (Press 0 to Back): ')
 
-                choice = input('Enter your choice: ')
+            if course_id == '0':
+                return have_subject_course
 
-                if choice == '1':
-                    assignment = input('Input your Math assignment here (Press 0 to Back): ')
+            elif course_id in student_course[subject]:
+                # Assignment submission
+                assignment = input('Input your assignment here: ')
 
-                    if assignment == '0':
-                        continue
-                    else:
-                        # change the student course data inside the list
-                        student_course_data[index]["math_assignment"] = assignment
-                        print('Assignment uploaded')
-                        changes = True
-                        continue
+                # iterate out specified course data to update assignment submissions for students in the corresponding course
+                chosen_course = next(course for course in all_courses if course['course_id'] == course_id)
+                student_course_data = next(student_course_data for student_course_data in chosen_course['students_enrolled'] if student_course_data['student_id'] == student_data['student_id'])
+                student_course_data['assignment_submission'] = assignment
+                print("Assignment uploaded")
+                continue
 
-                elif choice == '2':
-                    assignment = input('Input your Science assignment here (Press 0 to Back): ')
+            else:
+                print('Invalid Input!')
 
-                    if assignment == '0':
-                        continue
-                    else:
-                        # change the student course data inside the list
-                        student_course_data[index]["science_assignment"] = assignment
-                        print('Assignment uploaded')
-                        changes = True
-                        continue
+        else:
+            return have_subject_course
 
-                elif choice == '3':
-                    assignment = input('Input your English assignment here (Press 0 to Back): ')
+def assignment_sub_menu(student_info):
+    """
+    To display assignment submission menu
+    Args:
+        student_info(list): ["Index of the student in data_list"(int), "data of the student(one student only)"(dict)]
+    return:
+        None
+    """
+    # A dictionary which contain student's every subject and corresponding course_id
+    student_course = get_student_course_id(student_info, all_courses)
 
-                    if assignment == '0':
-                        continue
-                    else:
-                        # change the student course data inside the list
-                        student_course_data[index]["english_assignment"] = assignment
-                        print('Assignment uploaded')
-                        changes = True
-                        continue
+    while True:
+        print('\n[ Course Assignment Submission ]')
+        print('"1" - Math')
+        print('"2" - Science')
+        print('"3" - English')
+        print('"0" - Save changes and Back')
 
-                elif choice == '0':
-                    # if student got change any data, it will overwrite the new data inside course_data.txt
-                    if changes:
-                        insert_data('data/student_data.txt', student_course_data)
-                    return changes
+        choice = input('Enter your choice: ')
+        # If student got no course in that particular subject, it will display no courses enrolled.
+        if choice == '1':
+            if not subject_assignment(student_info, student_course, 'Math'):
+                print('No Math courses enrolled!')
 
-                else:
-                    print('Invalid choice!')
+        elif choice == '2':
+            if not subject_assignment(student_info, student_course, 'Science'):
+                print('No Science courses enrolled!')
+
+        elif choice == '3':
+            if not subject_assignment(student_info, student_course, 'English'):
+                print('No English courses enrolled!')
+
+        elif choice == '0':
+            insert_data('./data/course_data.txt', all_courses)
+            break
+
+        else:
+            print('Invalid choice')
