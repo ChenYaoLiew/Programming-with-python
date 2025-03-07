@@ -1,2 +1,2 @@
-{"username": "student1", "student_id": "STD0003", "math_assignment": "Math assignment", "science_assignment": "Empty", "english_assignment": "English assignment", "math_grade": "A+", "science_grade": "F", "english_grade": "None"}
+{"username": "student1", "student_id": "STD0003", "math_assignment": "Math assignment", "science_assignment": "Empty", "english_assignment": "English assignment", "math_grade": "A", "science_grade": "F", "english_grade": "None"}
 {"username": "student2", "student_id": "STD0004", "math_assignment": "Empty", "science_assignment": "Science Assignment Cyka!", "english_assignment": "Empty", "math_grade": "D", "science_grade": "C", "english_grade": "F"}
