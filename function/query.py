@@ -1,3 +1,5 @@
+import json
+
 def fetch_data(file_path):
     """
     Fetch all data from a file and parse dictionary-like strings

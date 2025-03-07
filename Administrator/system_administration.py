@@ -7,35 +7,35 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from function.query import *
 from function.account_management import register_account
 
-def manageAccount():
+def manage_account():
     print("'1' - View Accounts\n'2' - Add Account\n'3' - Update Account\n'4' - Delete Account\n'5' - Back")
 
     choice = input("Enter your choice: ")
     if choice == '1':
-        viewAccounts()
+        view_accounts()
     elif choice == '2':
-        addAccount()
+        add_account()
     elif choice == '3':
-        updateAccount()
+        update_account()
     elif choice == '4':
-        deleteAccount()
+        delete_account()
     elif choice == '5':
         from Administrator.menu import administrator_user_page
         administrator_user_page()
 
-def fetchAccounts():
+def fetch_accounts():
     accounts = fetch_data("data/user_data.txt")
 
     return accounts
 
-def viewAccounts():
-    account_list = fetchAccounts()
+def view_accounts():
+    account_list = fetch_accounts()
     for account in account_list:
         print(f"Username: {account['username']}, Password: {account['password']}, Account Type: {account['accountType']}, Student ID: {account['student_id']}, Fund: {account['fund']}")
         print("-" * 100)  # Add a separator line between accounts
 
-def addAccountIntoDB(username, password, account_type):
-    accounts = fetchAccounts()
+def add_account_into_db(username, password, account_type):
+    accounts = fetch_accounts()
 
     for data in accounts:
         if username == data["username"]:
@@ -44,9 +44,9 @@ def addAccountIntoDB(username, password, account_type):
 
     register_account(username, password, account_type)
 
-def updateAccount():
+def update_account():
     username = input("Enter username to update: ")
-    accounts = fetchAccounts()
+    accounts = fetch_accounts()
     found = False
 
     for data in accounts:
@@ -108,7 +108,7 @@ def updateAccount():
     if not found:
         print(f"Account with username {username} not found!")
 
-def addAccount():
+def add_account():
     username = input("Enter username: ")
     password = input("Enter password: ")
     print("\nAvailable account types:")
@@ -135,9 +135,9 @@ def addAccount():
     # Try to register the account
     register_account(username, password, account_type)
 
-def deleteAccount():
+def delete_account():
     username = input("Enter username: ")
-    accounts = fetchAccounts()
+    accounts = fetch_accounts()
     found = False
 
     # Create new list without the account to be deleted
