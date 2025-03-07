@@ -1,6 +1,5 @@
 from Administrator.menu import administrator_user_page
-from Teacher.grading_assessment import manage_grading_assessment
-from Teacher.student_enrolment import manage_stu_enrol
+from Teacher.course_material import add_course_material
 from function.query import *
 
 # Add enroll student
@@ -14,7 +13,7 @@ from function.query import *
 # {
 #     "course_id" = XXXX,
 #     "course_title" = "XXXX",
-#     "course_description" = "XXXXXXX",
+#     "lesson_plan" = "XXXXXXX",
 #     "students_enrolled" = [
 #         {"student_id": "STD0001", "assignment_grade": "A", "assignment_submission": "","exam_grade": "B", "feedback": "Good"},
 #         {"student_id": "STD0002", "assignment_grade": "A", "assignment_submission": "", "exam_grade": "B", "feedback": "Good"},
@@ -32,13 +31,13 @@ from function.query import *
 #     ],
 # }
 
-def get_course():
+def get_courses():
     data = fetch_data("data/course_data.txt")
 
     return data
 
 def enroll_student():
-    courses_data = get_course()
+    courses_data = get_courses()
     found = False
 
     course_id = input("Enter course id: ")
@@ -101,14 +100,14 @@ def create_course():
 
     # Get other course details
     course_title = input("Enter course title: ")
-    course_description = input("Enter course description: ")
+    lesson_plan = input("Enter course description: ")
     assignment_name = input("Enter assignment name: ")
 
     # Create new course with empty timetable
     new_course = {
         "course_id": new_id,
         "course_title": course_title,
-        "course_description": course_description,
+        "lesson_plan": lesson_plan,
         "course_assignment": assignment_name,
         "course_material": {"lecture_note":"","assignment_guideline":"","announcement":""},
         "students_enrolled": [],  # Empty dictionary where key=student_id, value=student_name
@@ -122,9 +121,7 @@ def create_course():
         print(f"Course {new_id} successfully created.")
 
 def change_course_name():
-    courses_data = get_course()
-def change_course_name():
-    courses_data = get_course()
+    courses_data = get_courses()
     found = False
 
     prompt1 = input("Enter course id: ")
@@ -145,9 +142,7 @@ def change_course_name():
         print("Invalid course")
 
 def change_course_description():
-    courses_data = get_course()
-def change_course_description():
-    courses_data = get_course()
+    courses_data = get_courses()
     found = False
 
     prompt1 = input("Enter course id: ")
@@ -168,7 +163,7 @@ def change_course_description():
         print("Invalid course")
 
 def update_course_timetable():
-    courses_data = get_course()
+    courses_data = get_courses()
     found = False
 
     course_id = input("Enter course id: ")
@@ -233,7 +228,7 @@ def update_course_timetable():
         print("Invalid course ID")
 
 def view_course_timetable():
-    courses_data = get_course()
+    courses_data = get_courses()
     found = False
 
     course_id = input("Enter course id: ")
@@ -276,7 +271,7 @@ def update_course():
 def delete_course():
     prompt1 = input("Enter course id: ")
     found = False
-    courses_data = get_course()
+    courses_data = get_courses()
     
     # Create new list without the course to be deleted
     updated_courses = []
@@ -293,9 +288,9 @@ def delete_course():
             print("Error deleting course. Please try again.")
     else:
         print("Invalid course id")
-
+    
 def view_courses():
-    courses_data = get_course()
+    courses_data = get_courses()
     
     if not courses_data:
         print("No courses found.")
