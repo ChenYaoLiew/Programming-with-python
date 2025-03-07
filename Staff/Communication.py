@@ -51,20 +51,26 @@ def update_chat(chat_list):
 def view_chat():
     pass
 
+def view_new_messages():
+    pass
+
 def send_message():
     pass
 
 def communication_main():
     while True:
         delete_chat()
-        print("\nCommunication")
+        print("\nCommunication")   
+        print("0. View New Messages")
         print("1. View Chat")
         print("2. Send Message")
         print("3. Quit")
 
-        choice = input("\nEnter your choice (1-7): ")
+        choice = input("\nEnter your choice (1-3): ")
 
-        if choice == '1':
+        if choice == '0':
+            view_new_messages()
+        elif choice == '1':
             view_chat()
         elif choice == '2':
             send_message()
