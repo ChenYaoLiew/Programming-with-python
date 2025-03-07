@@ -7,6 +7,9 @@ def view_enrolled_stu():
 
     selected_course, students = get_valid_selected_course("View Enrolled Students")
 
+    if selected_course is None:
+        return
+
     if not selected_course[1] or not students:
         return
 
