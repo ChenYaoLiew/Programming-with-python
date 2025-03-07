@@ -2,6 +2,7 @@ from Administrator.menu import administrator_user_page
 from function.query import *
 from function.account_management import register_account
 from Student.menu import student_user_page
+cache_student_id = None
 
 def get_user_account_type(username):
     accounts = fetch_data("data/user_data.txt")
@@ -14,16 +15,25 @@ def get_user_account_type(username):
 
     return accountType
 
+def get_student_id():
+    global cache_student_id
+    return cache_student_id
+
+def set_student_id(student_id):
+    global cache_student_id
+    cache_student_id = student_id
+
 def check_account_credentials(username, password):
     accounts = fetch_data("data/user_data.txt")
     found = False
 
     for data in accounts:
         if username == data["username"] and password == data["password"]:
+            set_student_id(data["student_id"])
             found = True
             break
 
-    return found
+    return found    
 
 def get_account_info(username):
     """

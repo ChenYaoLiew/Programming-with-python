@@ -227,7 +227,7 @@ def manage_stu_enrol():
             elif choice == "3":
                 remove_enrolled_stu()
             elif choice == "4":
-                from Administrator.course_management import manageCourse
-                manageCourse()
+                return  # Simply return instead of importing and calling manage_course
 
-manage_stu_enrol()
+# Remove or comment out the direct call to manage_stu_enrol()
+# manage_stu_enrol()
