@@ -17,15 +17,15 @@ def administrator_user_page():
 
         choice = input("Enter your choice: ")
         if choice == '1':
-            from Administrator.system_administration import manageAccount
-            manageAccount()
+            from Administrator.system_administration import manage_account
+            manage_account()
         elif choice == '2':
             # from Administrator.system_administration import manageStudent
             # manageStudent()
             pass
         elif choice == '3':
-            from Administrator.course_management import manageCourse
-            manageCourse()
+            from Administrator.course_management import manage_course
+            manage_course()
         elif choice == '4':
             # manageClassSchedule()
             pass
