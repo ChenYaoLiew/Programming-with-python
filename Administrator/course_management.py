@@ -3,6 +3,9 @@ from Teacher.grading_assessment import manage_grading_assessment
 from Teacher.student_enrolment import manage_stu_enrol
 from function.query import *
 
+# Add enroll student
+# Course timetable assign student
+
 # Course Management: Create, update, or delete course offerings and assign instructors to courses. 
 
 # {
@@ -15,17 +18,124 @@ from function.query import *
 #     ],
 #     "course_assignment" = "Google doc link",
 #     "course_timetable"= [
-#         {"time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID"},
-#         {"time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID"},
-#         {"time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID"},
-#         {"time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID"},
+#         {"class_id": "CLS0001", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
+#         {"class_id": "CLS0002", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
+#         {"class_id": "CLS0003", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
+#         {"class_id": "CLS0004", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
 #     ],
 # }
-
-def getCourses():
+ 
+def get_course():
     data = fetch_data("data/course_data.txt")
 
     return data
+
+# def enroll_student():
+#     courses_data = get_course()
+#     found = False
+
+#     course_id = input("Enter course id: ")
+
+#     for data in courses_data:
+#         if data['course_id'] == course_id:
+#             found = True
+#             break
+    
+#     if not found:
+#         print("Invalid course id")
+#         return
+
+#     student_id = input("Enter student id: ")
+
+#     if student_id in data['students_enrolled']:
+#         print("Student already enrolled")
+#         return
+
+#     data['students_enrolled'][student_id] = {
+#         "assignment_grade": "",
+#         "exam_grade": "",
+#         "feedback": ""
+#     }
+
+#     if insert_data("data/course_data.txt", courses_data):
+#         print("Student enrolled successfully")
+#     else:
+#         print("Error enrolling student")
+
+# def remove_student():
+#     courses_data = get_course()
+#     found = False
+
+#     course_id = input("Enter course id: ")
+
+#     for data in courses_data:
+#         if data['course_id'] == course_id:
+#             found = True
+#             break
+    
+#     if not found:
+#         print("Invalid course id")
+#         return
+
+#     student_id = input("Enter student id: ")
+
+#     if not student_id in data['students_enrolled']:
+#         print("Student not enrolled")
+#         return
+    
+#     del data['students_enrolled'][student_id]
+
+#     if insert_data("data/course_data.txt", courses_data):
+#         print("Student removed successfully")
+#     else:
+#         print("Error removing student")
+
+# def check_student_enrollment_status():
+#     student_id = input("Enter student ID: ")
+#     courses_data = get_course()
+#     found_courses = False
+    
+#     if not courses_data:
+#         print("No courses available in the system.")
+#         return
+        
+#     print("\nEnrollment Status for Student", student_id)
+#     print("=" * 50)
+    
+#     for course in courses_data:
+#         # Check if student is enrolled in this course
+#         if any(student.get('student_id') == student_id for student in course.get('students_enrolled', [])):
+#             found_courses = True
+#             print(f"\nCourse ID: {course['course_id']}")
+#             print(f"Title: {course['course_title']}")
+#             print(f"Description: {course['course_description']}")
+            
+#             # Display timetable if available
+#             if course.get('course_timetable'):
+#                 print("\nTimetable:")
+#                 for slot in course['course_timetable']:
+#                     print(f"  • {slot['time_start']} - {slot['time_end']}")
+#                     print(f"    Teacher: {slot['course_teacher']}")
+#             else:
+#                 print("\nTimetable: No schedule yet")
+            
+#             print("-" * 50)
+    
+#     if not found_courses:
+#         print("Student is not enrolled in any courses.")
+
+# def student_management():
+#     while True:
+#         print("'1' - Enroll student\n'2' - Remove student\n'3' - Check student enrollment status\n'4' - Back")
+#         choice = input("Enter your choice: ")
+#         if choice == '1':
+#             enroll_student()
+#         elif choice == '2':
+#             remove_student()
+#         elif choice == '3':
+#             check_student_enrollment_status()
+#         elif choice == '4':
+#             break
 
 def generate_course_id(existing_ids):
     """
@@ -47,7 +157,7 @@ def generate_course_id(existing_ids):
     new_num = max_num + 1
     return f"CRS{new_num:04d}"
 
-def createCourse():
+def create_course():
     # Get course details
     courses = fetch_data("data/course_data.txt")
     if not courses:
@@ -79,8 +189,8 @@ def createCourse():
     if insert_data("data/course_data.txt", courses):
         print(f"Course {new_id} successfully created.")
 
-def changeCourseName():
-    courses_data = getCourses()
+def change_course_name():
+    courses_data = get_course()
     found = False
 
     prompt1 = input("Enter course id: ")
@@ -100,8 +210,8 @@ def changeCourseName():
     else:
         print("Invalid course")
 
-def changeCourseDescription():
-    courses_data = getCourses()
+def change_course_description():
+    courses_data = get_course()
     found = False
 
     prompt1 = input("Enter course id: ")
@@ -121,8 +231,8 @@ def changeCourseDescription():
     else:
         print("Invalid course")
 
-def updateCourseTimetable():
-    courses_data = getCourses()
+def update_course_timetable():
+    courses_data = get_course()
     found = False
 
     course_id = input("Enter course id: ")
@@ -186,23 +296,23 @@ def updateCourseTimetable():
     if not found:
         print("Invalid course ID")
 
-def updateCourse():
+def update_course():
     print("'1' - Change course name\n'2' - Change course description\n'3' - Update course timetable")
     choice = input("Enter your choice: ")
 
     if choice == '1':
-        changeCourseName()
+        change_course_name()
     elif choice == '2':
-        changeCourseDescription()
+        change_course_description()
     elif choice == '3':
-        updateCourseTimetable()
+        update_course_timetable()
     else:
         print("Invalid choice")
 
-def deleteCourse():
+def delete_course():
     prompt1 = input("Enter course id: ")
     found = False
-    courses_data = getCourses()
+    courses_data = get_course()
     
     # Create new list without the course to be deleted
     updated_courses = []
@@ -220,8 +330,8 @@ def deleteCourse():
     else:
         print("Invalid course id")
     
-def viewCourses():
-    courses_data = getCourses()
+def view_courses():
+    courses_data = get_course()
     
     if not courses_data:
         print("No courses found.")
@@ -245,18 +355,20 @@ def viewCourses():
         print("="*50)
 
 
-def manageCourse():
-    print("'1' - Create Course\n'2' - Update Course\n'3' - Delete Course\n'4' - View Courses\n'5' - Back")
+def manage_course():
+    while True:
+        print("'1' - Create Course\n'2' - Update Course\n'3' - Delete Course\n'4' - View Courses\n'5' - Back")
 
-    choice = input("Enter your choice: ")
-    if choice == '1':
-        createCourse()
-    elif choice == '2':
-        updateCourse()
-    elif choice == '3':
-        deleteCourse()
-    elif choice == '4':
-        viewCourses()
-    elif choice == '5':
-        administrator_user_page()
-
+        choice = input("Enter your choice: ")
+        if choice == '1':
+            create_course()
+        elif choice == '2':
+            update_course()
+        elif choice == '3':
+            delete_course()
+        elif choice == '4':
+            view_courses()
+        elif choice == '5':
+            administrator_user_page()
+        else:
+            print("Invalid choice")
