@@ -25,7 +25,8 @@ def student_user_page(student_info):
         print('"4" - Assignment Submission')
         print('"5" - Grades Tracking')
         print('"6" - Feedback Submission')
-        print('"7" - Exit')
+        print("'7' - Communication ")
+        print('"8" - Exit')
         print('"0" - Logout')
 
         # Choose function to use
@@ -51,6 +52,10 @@ def student_user_page(student_info):
                 print('Feedback saved!')
 
         elif choice == '7':
+            from Staff.Communication import communication_main
+            communication_main
+
+        elif choice == '8':
             return 'exit'
 
         elif choice == '0':
