@@ -5,9 +5,6 @@ from function.query import *
 # Add enroll student
 # Course timetable assign student
 
-# Add enroll student
-# Course timetable assign student
-
 # Course Management: Create, update, or delete course offerings and assign instructors to courses. 
 
 # {
@@ -53,15 +50,22 @@ def enroll_student():
 
     student_id = input("Enter student id: ")
 
-    if student_id in data['students_enrolled']:
-        print("Student already enrolled")
-        return
+    # Check if student already enrolled
+    for student in data['students_enrolled']:
+        if student.get('student_id') == student_id:
+            print("Student already enrolled")
+            return
 
-    data['students_enrolled'][student_id] = {
+    # Add new student enrollment
+    new_enrollment = {
+        "student_id": student_id,
         "assignment_grade": "",
+        "assignment_submission": "",
         "exam_grade": "",
         "feedback": ""
     }
+    
+    data['students_enrolled'].append(new_enrollment)
 
     if insert_data("data/course_data.txt", courses_data):
         print("Student enrolled successfully")
