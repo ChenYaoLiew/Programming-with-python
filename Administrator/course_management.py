@@ -6,6 +6,9 @@ from function.query import *
 # Add enroll student
 # Course timetable assign student
 
+# Add enroll student
+# Course timetable assign student
+
 # Course Management: Create, update, or delete course offerings and assign instructors to courses. 
 
 # {
@@ -34,6 +37,38 @@ def get_course():
 
     return data
 
+def enroll_student():
+    courses_data = get_course()
+    found = False
+
+    course_id = input("Enter course id: ")
+
+    for data in courses_data:
+        if data['course_id'] == course_id:
+            found = True
+            break
+    
+    if not found:
+        print("Invalid course id")
+        return
+
+    student_id = input("Enter student id: ")
+
+    if student_id in data['students_enrolled']:
+        print("Student already enrolled")
+        return
+
+    data['students_enrolled'][student_id] = {
+        "assignment_grade": "",
+        "exam_grade": "",
+        "feedback": ""
+    }
+
+    if insert_data("data/course_data.txt", courses_data):
+        print("Student enrolled successfully")
+    else:
+        print("Error enrolling student")
+
 def generate_course_id(existing_ids):
     """
     Generate a new course ID in format CRSXXXX
@@ -54,6 +89,7 @@ def generate_course_id(existing_ids):
     new_num = max_num + 1
     return f"CRS{new_num:04d}"
 
+def create_course():
 def create_course():
     # Get course details
     courses = fetch_data("data/course_data.txt")
@@ -88,6 +124,8 @@ def create_course():
 
 def change_course_name():
     courses_data = get_course()
+def change_course_name():
+    courses_data = get_course()
     found = False
 
     prompt1 = input("Enter course id: ")
@@ -107,6 +145,8 @@ def change_course_name():
     else:
         print("Invalid course")
 
+def change_course_description():
+    courses_data = get_course()
 def change_course_description():
     courses_data = get_course()
     found = False
