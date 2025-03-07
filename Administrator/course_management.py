@@ -90,7 +90,6 @@ def generate_course_id(existing_ids):
     return f"CRS{new_num:04d}"
 
 def create_course():
-def create_course():
     # Get course details
     courses = fetch_data("data/course_data.txt")
     if not courses:
