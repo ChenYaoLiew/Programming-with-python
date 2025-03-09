@@ -21,10 +21,6 @@ from function.query import *
 #         {"class_id": "CLS0002", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
 #         {"class_id": "CLS0003", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
 #         {"class_id": "CLS0004", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
-#         {"class_id": "CLS0001", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
-#         {"class_id": "CLS0002", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
-#         {"class_id": "CLS0003", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
-#         {"class_id": "CLS0004", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "attendance_list": [] },
 #     ],
 # }
 
