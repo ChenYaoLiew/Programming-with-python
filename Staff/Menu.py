@@ -18,15 +18,18 @@ def staff_user_page():
             manage_resource_allocation_main()
         elif choice == '3':
             pass
+            # from Staff.Timetable_Management import timetable_management_main
+            # timetable_management_main()
         elif choice == '4':
-            pass
+            from Staff.Event_Management import event_management_main
+            event_management_main()
         elif choice == '5':
             from Staff.Communication import communication_main
             communication_main
         elif choice == '6':
-            break
+            quit()
         elif choice == '7':
-            break
+            quit()
         else:
             print("Invalid choice!")
 

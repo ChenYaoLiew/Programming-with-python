@@ -5,6 +5,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from function.query import *
+from Staff.Menu import staff_user_page
 
 def read_student_file():
     # Read and return all student records from file, Returns list of student dictionaries
@@ -137,7 +138,7 @@ def manage_student_records():
         print("2. Process Deposit")
         print("3. Process Withdrawal")
         print("4. Process Transfer")
-        print("5. Quit")
+        print("5. Back")
 
         choice = input("\nEnter your choice (1-5): ")
 
@@ -161,7 +162,7 @@ def manage_student_records():
             name = input("Enter your name: ")
             transfer(student_id,name)
         elif choice == '5':
-            break
+            staff_user_page()
 
 manage_student_records()
 #hi
