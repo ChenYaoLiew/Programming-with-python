@@ -6,7 +6,7 @@ import datetime
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from function.query import *
-from main import get_student_id
+from function.cache import *
 
 def validate_student_id(student_id):
     """
@@ -235,30 +235,20 @@ def communication_main():
     """
     student_id = get_student_id()
     print(f"Debug: Starting communication with student ID: {student_id}")  # Debug line
-    
-    if not student_id or student_id == "None":
-        print("Error: Not logged in. Please log in again.")
-        return
 
     while True:
         delete_chat()
         print(f"\nCurrent user: {student_id}")  # Show current user
-        new_message_count = view_new_messages()
+        view_new_messages()
         
         print("\nCommunication")
-        if new_message_count > 0:
-            print(f"0. View New Messages ({new_message_count} new)")
-            continue
-
         print("1. View Chat")
         print("2. Send Message")
         print("3. Quit")
 
-        choice = input("\nEnter your choice (0-3): ")
+        choice = input("\nEnter your choice (1-3): ")
 
-        if choice == '0':
-            view_new_messages()
-        elif choice == '1':
+        if choice == '1':
             view_chat()
         elif choice == '2':
             send_message()

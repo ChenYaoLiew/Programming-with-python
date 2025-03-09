@@ -24,9 +24,9 @@ def staff_user_page():
             from Staff.Communication import communication_main
             communication_main
         elif choice == '6':
-            return 'exit'
+            break
         elif choice == '7':
-            return 'logout'
+            break
         else:
             print("Invalid choice!")
 

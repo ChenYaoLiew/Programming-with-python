@@ -1,1 +1,1 @@
-{"sendrt": "None", "receiver": "STD0006", "data": "hi", "date": "2025-03-08 02:25:30", "viewed": "False", "view_limit": "3"}
+{"sendrt": "STD0004", "receiver": "STD0005", "data": "hi", "date": "2025-03-09 17:59:43", "viewed": "True", "view_limit": "2"}
