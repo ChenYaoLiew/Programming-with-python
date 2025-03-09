@@ -1,5 +1,5 @@
 # Report Generation
-# Generate reports on student performance and participation for administrative review.4
+# Generate reports on student performance and participation for administrative review
 # Report will be in this format:
 # === Student Report ===
 # course_id: M0001
