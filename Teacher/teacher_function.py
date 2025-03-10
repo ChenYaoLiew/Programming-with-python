@@ -35,7 +35,7 @@ def get_student_id(student_id):
            str or None: The matching student ID if found; otherwise, None.
        """
     from function.query import fetch_data
-    file_path = os.path.join(os.path.dirname(__file__), "..", "data", "student_data.txt")
+    file_path = os.path.join(os.path.dirname(__file__), "..", "data", "user_data.txt")
     accounts = fetch_data(file_path)
 
     for data in accounts:
@@ -45,8 +45,8 @@ def get_student_id(student_id):
     return None
 
 def validate_stud_id(student_id):
-    """Validates student ID format (should be 'STDxxxx')."""
-    if not student_id.startswith("STD") or not student_id[3:].isdigit() or len(student_id) != 7:
+    """Validates student ID format (should be 'UIDxxxx')."""
+    if not student_id.startswith("UID") or not student_id[3:].isdigit() or len(student_id) != 7:
         print("Invalid student ID format. Should be STD followed by 4 digits (e.g., STD0001)")
         return False
     return True
@@ -62,7 +62,7 @@ def fetch_courses():
     course = fetch_data(file_path)
     return course
 
-def get_valid_selected_course(action="perform this action"):
+def get_course_students_enrolled(action="perform this action"):
     """Fetches a course, ensures 'students_enrolled' is a valid list, and returns both."""
 
     courses = fetch_courses()
