@@ -12,7 +12,8 @@ def administrator_user_page():
         print("'3' - Course Management")
         print("'4' - Class Schedule")
         print("'5' - Report Generation")
-        print("'6' - Exit")
+        print("'6' - Communication ")
+        print("'7' - Exit")
         print("'0' - Logout")
 
         choice = input("Enter your choice: ")
@@ -32,6 +33,9 @@ def administrator_user_page():
             # manageReportGeneration()
             pass
         elif choice == '6':
+            from Staff.Communication import communication_main
+            communication_main
+        elif choice == '7':
             return 'exit'
         elif choice == '0':
             return 'logout'

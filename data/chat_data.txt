@@ -1,4 +1,1 @@
-{"receiver": "1", "sendrt": "11", "data": "Database", "viewed": "True", "date": "123", "view_limit": "2"}
-{"receiver": "2", "sendrt": "22", "data": "Database", "viewed": "True", "date": "123", "view_limit": "2"}
-{"receiver": "3", "sendrt": "33", "data": "Database", "viewed": "True", "date": "123", "view_limit": "2"}
-{"receiver": "4", "sendrt": "44", "data": "Database", "viewed": "True", "date": "123", "view_limit": "2"}
+{"sendrt": "STD0004", "receiver": "STD0005", "data": "hi", "date": "2025-03-09 17:59:43", "viewed": "True", "view_limit": "2"}
