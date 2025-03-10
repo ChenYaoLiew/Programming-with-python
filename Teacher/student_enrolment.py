@@ -2,10 +2,9 @@
 import os
 
 def view_enrolled_stu():
-    from teacher_function import get_valid_selected_course
-    from teacher_function import display_students_in_course
+    from teacher_function import get_course_students_enrolled,display_students_in_course
 
-    selected_course, students = get_valid_selected_course("View Enrolled Students")
+    selected_course, students = get_course_students_enrolled("View Enrolled Students")
 
     if selected_course is None:
         return

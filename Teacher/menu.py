@@ -7,7 +7,7 @@
 
 def teacher_menu_page():
     while True:
-        print("\nTeacher's Menu\n1 - Course Creation & Management\n2 - Student Enrolment & Management  \n3 - Grading & Assessment\n4 - Class Enrolment and Attendance Management\n5 - Report Generation\n6 - Logout")
+        print("\nTeacher's Menu\n1 - Course Creation & Management\n2 - Student Enrolment & Management  \n3 - Grading & Assessment\n4 - Class Enrolment and Attendance Management\n5 - Report Generation\n6 - Communication\n7 - Logout")
         try:
             choice = input("\nEnter Choice: ").strip()
             if not choice:  # Prevent empty input
@@ -32,6 +32,9 @@ def teacher_menu_page():
                 from report_generation import generate_student_report
                 generate_student_report()
             elif choice == 6:
+                from Staff.Communication import communication_main
+                communication_main
+            elif choice == 7:
                 print("Logout successful. Exiting program...")
                 exit()
             else:
