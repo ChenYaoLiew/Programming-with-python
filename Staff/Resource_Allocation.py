@@ -6,7 +6,6 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from function.query import *
 
-
 def read_resource_file():
     # Read and return all resource records from file, Returns list of resource dictionaries
     resource_list = fetch_data("data/resource_data.txt")
@@ -291,7 +290,7 @@ def manage_resource_allocation_main():
         print("4. Add Resource")
         print("5. Update Resource")
         print("6. Delete Resource")
-        print("7. Quit")
+        print("7. Back")
 
         choice = input("\nEnter your choice (1-7): ")
 
@@ -308,7 +307,8 @@ def manage_resource_allocation_main():
         elif choice == '6':
             delete_resource()
         elif choice == '7':
-            break
+            from Staff.Menu import staff_user_page
+            staff_user_page()
         else:
             print("Invalid choice. Please try again.")
             continue
