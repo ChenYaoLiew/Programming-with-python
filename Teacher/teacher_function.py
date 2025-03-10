@@ -25,7 +25,7 @@ def get_student_id(student_id):
     """
        Retrieves the student ID from the student data file if it exists.
 
-       This function reads student data from the 'student_data.txt' file located in the data directory.
+       This function reads student data from the 'user_data.txt' file located in the data directory.
        It iterates through the student_id and returns the student_id if a matching record is found.
 
        Args:
@@ -35,7 +35,7 @@ def get_student_id(student_id):
            str or None: The matching student ID if found; otherwise, None.
        """
     from function.query import fetch_data
-    file_path = os.path.join(os.path.dirname(__file__), "..", "data", "student_data.txt")
+    file_path = "data/user_data.txt"
     accounts = fetch_data(file_path)
 
     for data in accounts:

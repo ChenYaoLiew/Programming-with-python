@@ -29,8 +29,8 @@ def administrator_user_page():
             from Administrator.class_schedule import class_schedule_menu
             class_schedule_menu()
         elif choice == '5':
-            # manageReportGeneration()
-            pass
+            from Administrator.report_generation import generate_reports
+            generate_reports()
         elif choice == '6':
             return 'exit'
         elif choice == '0':
