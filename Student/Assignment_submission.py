@@ -45,7 +45,7 @@ def subject_assignment(student_info, student_course, subject):
                 chosen_course = next(course for course in all_courses if course['course_id'] == course_id)
                 student_course_data = next(student_course_data for student_course_data in chosen_course['students_enrolled'] if student_course_data['student_id'] == student_data['student_id'])
                 student_course_data['assignment_submission'] = assignment
-                print("Assignment uploaded")
+                print("Assignment uploaded!")
                 continue
 
             else:
