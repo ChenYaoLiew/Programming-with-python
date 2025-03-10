@@ -43,7 +43,7 @@ def get_account_info(username):
 
 def generate_student_id(existing_ids):
     """
-    Generate a new student ID in format STDXXXX
+    Generate a new student ID in format UIDXXXX
     Args:
         existing_ids (list): List of existing student IDs
     Returns:
@@ -52,7 +52,7 @@ def generate_student_id(existing_ids):
     # Find the highest number used
     max_num = 0
     for id in existing_ids:
-        if id.startswith("STD"):
+        if id.startswith("UID"):
             try:
                 num = int(id[3:])
                 max_num = max(max_num, num)
@@ -61,7 +61,7 @@ def generate_student_id(existing_ids):
     
     # Generate new ID with number incremented by 1
     new_num = max_num + 1
-    return f"STD{new_num:04d}"  # Formats number to 4 digits with leading zeros
+    return f"UID{new_num:04d}"  # Formats number to 4 digits with leading zeros
 
 #Main Thread
 def main_thread():

@@ -46,8 +46,8 @@ def get_student_id(student_id):
 
 def validate_stud_id(student_id):
     """Validates student ID format (should be 'STDxxxx')."""
-    if not student_id.startswith("STD") or not student_id[3:].isdigit() or len(student_id) != 7:
-        print("Invalid student ID format. Should be STD followed by 4 digits (e.g., STD0001)")
+    if not student_id.startswith("UID") or not student_id[3:].isdigit() or len(student_id) != 7:
+        print("Invalid student ID format. Should be UID followed by 4 digits (e.g., STD0001)")
         return False
     return True
 
