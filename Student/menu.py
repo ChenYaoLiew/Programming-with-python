@@ -53,7 +53,7 @@ def student_user_page(student_info):
 
         elif choice == '7':
             from Staff.Communication import communication_main
-            communication_main
+            communication_main()
 
         elif choice == '8':
             return 'exit'

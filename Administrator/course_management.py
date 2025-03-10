@@ -1,12 +1,9 @@
 from Administrator.menu import administrator_user_page
-from Teacher.course_material import add_course_material
 from function.query import *
 
 # Add enroll student
 # Course timetable assign student
-
-# Course Management: Create, update, or delete course offerings and assign instructors to courses. 
-
+# Course Management: Create, update, or delete course offerings and assign instructors to courses.
 # {
 #     "course_id" = XXXX,
 #     "course_title" = "XXXX",
@@ -25,7 +22,7 @@ from function.query import *
 # }
 
 def get_courses():
-    data = fetch_data("data/course_data.txt")
+    data = fetch_data("../data/course_data.txt")
 
     return data
 

@@ -34,7 +34,7 @@ def administrator_user_page():
             generate_reports()
         elif choice == '6':
             from Staff.Communication import communication_main
-            communication_main
+            communication_main()
         elif choice == '7':
             return 'exit'
         elif choice == '0':

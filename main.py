@@ -118,7 +118,11 @@ def main_thread():
                             
                         elif account_type == 'teacher':
                             from Teacher.menu import teacher_menu_page
-                            teacher_menu_page()
+                            choice = teacher_menu_page()
+                            if choice == 'logout':
+                                break
+                            elif choice == 'exit':
+                                exit()
 
                         elif account_type == 'staff':
                             from Staff.Menu import staff_user_page
