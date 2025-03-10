@@ -1,0 +1,6 @@
+*.pyc
+*.pyc
+Administrator/__pycache__/course_management.cpython-313.pyc
+Administrator/__pycache__/menu.cpython-313.pyc
+Teacher/__pycache__/student_enrolment.cpython-313.pyc
+*.pyc

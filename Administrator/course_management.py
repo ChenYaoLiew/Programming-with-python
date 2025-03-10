@@ -100,7 +100,7 @@ def create_course():
 
     # Get other course details
     course_title = input("Enter course title: ")
-    lesson_plan = input("Enter course description: ")
+    lesson_plan = input("Enter course lesson plan: ")
     assignment_name = input("Enter assignment name: ")
 
     # Create new course with empty timetable
@@ -141,7 +141,7 @@ def change_course_name():
     else:
         print("Invalid course")
 
-def change_course_description():
+def change_course_lesson_plan():
     courses_data = get_courses()
     found = False
 
@@ -150,8 +150,8 @@ def change_course_description():
     for data in courses_data:
         if data['course_id'] == prompt1:
             found = True
-            prompt2 = input("Enter new description: ")
-            data["course_description"] = prompt2  # Update the course description
+            prompt2 = input("Enter new lesson plan: ")
+            data["lesson_plan"] = prompt2  # Update the course description
             break
 
     if found:
@@ -254,13 +254,13 @@ def view_course_timetable():
         print("Invalid course id")
 
 def update_course():
-    print("\n'1' - Change course name\n'2' - Change course description\n'3' - Update course timetable\n'4' - View course timetable")
+    print("\n'1' - Change course name\n'2' - Change course lesson\n'3' - Update course timetable\n'4' - View course timetable")
     choice = input("Enter your choice: ")
 
     if choice == '1':
         change_course_name()
     elif choice == '2':
-        change_course_description()
+        change_course_lesson_plan()
     elif choice == '3':
         update_course_timetable()
     elif choice == '4':
@@ -300,7 +300,7 @@ def view_courses():
         print("\n" + "="*50)
         print(f"Course ID: {course['course_id']}")
         print(f"Title: {course['course_title']}")
-        print(f"Description: {course['course_description']}")
+        print(f"Lesson Plan: {course['lesson_plan']}")
         
         # Display timetable if it exists
         if course['course_timetable']:
