@@ -33,7 +33,7 @@ def enrol_stud():
             return
 
         # Get student detail
-        student_id = input("Enter student ID (format STDxxxx): ").strip()
+        student_id = input("Enter student ID (format UIDxxxx): ").strip()
 
         # Validate student ID format
         process_stud_id(student_id)
