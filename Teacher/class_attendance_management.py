@@ -1,5 +1,4 @@
 # Grade attendance of student of selected course
-import os
 
 def enrol_stud_class():
     from teacher_function import fetch_courses, display_course, select_course,select_class,validate_stud_id
@@ -46,13 +45,12 @@ def enrol_stud_class():
 
     # save_data
     courses[selected_course[0]] = selected_course[1]
-    file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
+    file_path = "../data/course_data.txt"
     insert_data(file_path, courses)
 
 def delete_stud_class():
     from teacher_function import fetch_courses, display_course, select_course, select_class, validate_stud_id,display_students_in_class
     from function.query import insert_data
-    import os
 
     courses = fetch_courses()
     if not courses:
@@ -98,7 +96,7 @@ def delete_stud_class():
 
     # Save data
     courses[selected_course[0]] = selected_course[1]
-    file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
+    file_path = "../data/course_data.txt"
     insert_data(file_path, courses)
 
 def grade_attendance():
@@ -139,10 +137,10 @@ def grade_attendance():
 
         # Enter attendance
         print("1 - Mark Present\n2 - Mark Absent ")
-        choice = int(input("Enter Choice: "))
-        if choice == 1:
+        choice = input("Enter Choice: ")
+        if choice == '1':
             attendance_status = "Present"
-        elif choice == 2:
+        elif choice == '2':
             attendance_status = "Absent"
         else:
             print("Invalid choice. Attendance not updated.")
@@ -159,7 +157,7 @@ def grade_attendance():
 
         # save_data
         courses[selected_course[0]] = selected_course[1]
-        file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
+        file_path = "../data/course_data.txt"
         insert_data(file_path,courses)
 
 def view_stud_attendance():
@@ -192,29 +190,23 @@ def view_stud_attendance():
 def manage_attendance():
     while True:
         print("\nWelcome to Class Enrolment and Attendance Management\n1 - Enrol Student into a Class\n2 - Remove Student from Enrolled Class\n3 - Grade Attendance\n4 - View Attendance\n5 - Back")
-        try:
-            choice = input("\nEnter Choice: ").strip()
-            if not choice:  # Prevent empty input
-                print("Input cannot be empty. Please enter a number.")
-                continue
 
-            choice = int(choice)
+        choice = input("\nEnter Choice: ").strip()
 
-            if choice == 1:
-                enrol_stud_class()
-            elif choice == 2:
-                delete_stud_class()
-            elif choice == 3:
-                grade_attendance()
-            elif choice == 4:
-                view_stud_attendance()
-            elif choice == 5:
-                from menu import teacher_menu_page
-                teacher_menu_page()
-            else:
-                print("Invalid choice. Please enter a number between 1 and 4.")
-        except ValueError:
-            print("Invalid input. Please enter a valid number.")
+        if choice == '1':
+            enrol_stud_class()
+        elif choice == '2':
+            delete_stud_class()
+        elif choice == '3':
+            grade_attendance()
+        elif choice == '4':
+            view_stud_attendance()
+        elif choice == '5':
+            from menu import teacher_menu_page
+            teacher_menu_page()
+        else:
+            print("Invalid choice. Please enter a number between 1 and 4.")
+
 
 
 

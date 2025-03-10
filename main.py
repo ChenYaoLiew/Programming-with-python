@@ -51,7 +51,7 @@ def generate_student_id(existing_ids):
     # Find the highest number used
     max_num = 0
     for id in existing_ids:
-        if id.startswith("STD"):
+        if id.startswith("UID"):
             try:
                 num = int(id[3:])
                 max_num = max(max_num, num)
@@ -95,9 +95,19 @@ def main_thread():
                                 pass # notting in here LOL
                             
                         elif account_type == 'teacher':
+<<<<<<< Updated upstream
                             # Add teacher menu options here
                             pass
                             
+=======
+                            from Teacher.menu import teacher_menu_page
+                            choice = teacher_menu_page()
+                            if choice == 'logout':
+                                break
+                            elif choice == 'exit':
+                                exit()
+
+>>>>>>> Stashed changes
                         elif account_type == 'staff':
                             # Add staff menu options here
                             pass

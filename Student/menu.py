@@ -83,6 +83,13 @@ def student_user_page(student_info):
                 print('Feedback saved!')
 
         elif choice == '7':
+<<<<<<< Updated upstream
+=======
+            from Staff.Communication import communication_main
+            communication_main()
+
+        elif choice == '8':
+>>>>>>> Stashed changes
             return 'exit'
 
         elif choice == '0':

@@ -2,6 +2,13 @@ from Administrator.menu import administrator_user_page
 from Teacher.course_material import add_course_material
 from function.query import *
 
+<<<<<<< Updated upstream
+=======
+
+# Add enroll student
+# Course timetable assign student
+
+>>>>>>> Stashed changes
 # Course Management: Create, update, or delete course offerings and assign instructors to courses. 
 
 # {
@@ -22,7 +29,7 @@ from function.query import *
 # }
 
 def get_courses():
-    data = fetch_data("data/course_data.txt")
+    data = fetch_data("../data/course_data.txt")
 
     return data
 

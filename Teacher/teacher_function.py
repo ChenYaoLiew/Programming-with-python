@@ -35,7 +35,11 @@ def get_student_id(student_id):
            str or None: The matching student ID if found; otherwise, None.
        """
     from function.query import fetch_data
+<<<<<<< Updated upstream
     file_path = os.path.join(os.path.dirname(__file__), "..", "data", "student_data.txt")
+=======
+    file_path = "../data/user_data.txt"
+>>>>>>> Stashed changes
     accounts = fetch_data(file_path)
 
     for data in accounts:
@@ -45,15 +49,21 @@ def get_student_id(student_id):
     return None
 
 def validate_stud_id(student_id):
+<<<<<<< Updated upstream
     """Validates student ID format (should be 'STDxxxx')."""
     if not student_id.startswith("STD") or not student_id[3:].isdigit() or len(student_id) != 7:
         print("Invalid student ID format. Should be STD followed by 4 digits (e.g., STD0001)")
+=======
+    """Validates student ID format (should be 'UIDxxxx')."""
+    if not student_id.startswith("UID") or not student_id[3:].isdigit() or len(student_id) != 7:
+        print("Invalid student ID format. Should be STD followed by 4 digits (e.g., UID0001)")
+>>>>>>> Stashed changes
         return False
     return True
 
 def fetch_courses():
     """Reads course data from a text file and returns it as a list of dictionaries."""
-    file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
+    file_path = "../data/course_data.txt"
 
     if not os.path.exists(file_path):
         return []  # Return an empty list if the file does not exist
@@ -142,7 +152,6 @@ def display_course():
     print("\nAvailable Courses:")
     for i, course in enumerate(courses, 1):
         print(f"{i} - {course['course_id']}: {course['course_title']}")
-
 
 # For Grading_assessment
 def get_valid_grade(student_id):

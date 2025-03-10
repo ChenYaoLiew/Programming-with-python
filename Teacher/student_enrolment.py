@@ -1,5 +1,4 @@
 # Enrolling student
-import os
 
 def view_enrolled_stu():
     from teacher_function import get_valid_selected_course
@@ -31,7 +30,7 @@ def enrol_stud():
             return
 
         # Get student detail
-        student_id = input("Enter student ID (format STDxxxx): ").strip()
+        student_id = input("Enter student ID (format UIDxxxx): ").strip()
 
         # Validate student ID format
         process_stud_id(student_id)
@@ -66,7 +65,7 @@ def enrol_stud():
         selected_course[1]["students_enrolled"].append(new_student)
         courses[selected_course[0]] = selected_course[1]
         print(f"Student {student_id} is now enrolled ")
-        file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
+        file_path = "../data/course_data.txt"
         insert_data(file_path, courses)
 
     except ValueError:
@@ -98,7 +97,7 @@ def remove_enrolled_stu():
         display_students_in_course(selected_course[1])
 
         # Input student_id to delete
-        student_id = input("Enter student ID: ").strip()
+        student_id = input("Enter student ID (should be 'UIDxxxx') ").strip()
 
         # Validate student id format
         process_stud_id(student_id)
@@ -116,7 +115,7 @@ def remove_enrolled_stu():
             print("Student not found.")
 
         # Save the deletion back into course_data file
-        file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
+        file_path = "../data/course_data.txt"
         insert_data(file_path, courses)
 
     except(ValueError,IndexError):
@@ -126,27 +125,19 @@ def remove_enrolled_stu():
 def manage_stu_enrol():
         while True:
             print("\nWelcome to Student Enrollment Management\n1 - View Enrolled Student\n2 - Enroll Student\n3 - Remove Student\n4 - Back")
-            try:
-                choice = input("\nEnter Choice: ").strip()
-                if not choice:  # Prevent empty input
-                    print("Input cannot be empty. Please enter a number.")
-                    continue
+            choice = input("\nEnter your choice: ").strip()
+            if choice == '1':
+                view_enrolled_stu()
+            elif choice == '2':
+                enrol_stud()
+            elif choice == '3':
+                remove_enrolled_stu()
+            elif choice == '4':
+                from menu import teacher_menu_page
+                teacher_menu_page()
+            else:
+                print("Invalid choice. Please enter a number between 1 and 4.")
 
-                choice = int(choice)
-
-                if choice == 1:
-                    view_enrolled_stu()
-                elif choice == 2:
-                    enrol_stud()
-                elif choice == 3:
-                    remove_enrolled_stu()
-                elif choice == 4:
-                    from menu import teacher_menu_page
-                    teacher_menu_page()
-                else:
-                    print("Invalid choice. Please enter a number between 1 and 4.")
-            except ValueError:
-                print("Invalid input. Please enter a valid number.")
 
 
 

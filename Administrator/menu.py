@@ -33,6 +33,12 @@ def administrator_user_page():
             # manageReportGeneration()
             pass
         elif choice == '6':
+<<<<<<< Updated upstream
+=======
+            from Staff.Communication import communication_main
+            communication_main()
+        elif choice == '7':
+>>>>>>> Stashed changes
             return 'exit'
         elif choice == '0':
             return 'logout'
