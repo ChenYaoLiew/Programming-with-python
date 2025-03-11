@@ -41,28 +41,6 @@ def get_account_info(username):
         if user.get("username") == username:
             return [index, user]
 
-def generate_student_id(existing_ids):
-    """
-    Generate a new student ID in format UIDXXXX
-    Args:
-        existing_ids (list): List of existing student IDs
-    Returns:
-        str: New unique student ID
-    """
-    # Find the highest number used
-    max_num = 0
-    for id in existing_ids:
-        if id.startswith("UID"):
-            try:
-                num = int(id[3:])
-                max_num = max(max_num, num)
-            except ValueError:
-                continue
-    
-    # Generate new ID with number incremented by 1
-    new_num = max_num + 1
-    return f"UID{new_num:04d}"  # Formats number to 4 digits with leading zeros
-
 def get_user_data(username):
     """
     Get user data by username
