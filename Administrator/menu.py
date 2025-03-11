@@ -12,7 +12,8 @@ def administrator_user_page():
         print("'3' - Course Management")
         print("'4' - Class Schedule")
         print("'5' - Report Generation")
-        print("'6' - Exit")
+        print("'6' - Communication ")
+        print("'7' - Exit")
         print("'0' - Logout")
 
         choice = input("Enter your choice: ")
@@ -20,19 +21,21 @@ def administrator_user_page():
             from Administrator.system_administration import manage_account
             manage_account()
         elif choice == '2':
-            # from Administrator.system_administration import manageStudent
-            # manageStudent()
-            pass
+            from Administrator.student_management import student_management_menu
+            student_management_menu()
         elif choice == '3':
             from Administrator.course_management import manage_course
             manage_course()
         elif choice == '4':
-            # manageClassSchedule()
-            pass
+            from Administrator.class_schedule import class_schedule_menu
+            class_schedule_menu()
         elif choice == '5':
             # manageReportGeneration()
             pass
         elif choice == '6':
+            from Staff.Communication import communication_main
+            communication_main
+        elif choice == '7':
             return 'exit'
         elif choice == '0':
             return 'logout'

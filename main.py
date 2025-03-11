@@ -2,6 +2,8 @@ from Administrator.menu import administrator_user_page
 from function.query import *
 from function.account_management import register_account
 from Student.menu import student_user_page
+from function.cache import set_student_id
+from function.cache import *
 
 def get_user_account_type(username):
     accounts = fetch_data("data/user_data.txt")
@@ -20,10 +22,11 @@ def check_account_credentials(username, password):
 
     for data in accounts:
         if username == data["username"] and password == data["password"]:
+            set_student_id(data["student_id"])
             found = True
             break
 
-    return found
+    return found    
 
 def get_account_info(username):
     """
@@ -61,6 +64,20 @@ def generate_student_id(existing_ids):
     new_num = max_num + 1
     return f"STD{new_num:04d}"  # Formats number to 4 digits with leading zeros
 
+def get_user_data(username):
+    """
+    Get user data by username
+    Args:
+        username (str): Username to look up
+    Returns:
+        dict: User data if found, None if not found
+    """
+    accounts = fetch_data("data/user_data.txt")
+    for data in accounts:
+        if data["username"] == username:
+            return data
+    return None
+
 #Main Thread
 def main_thread():
     while True:
@@ -68,6 +85,12 @@ def main_thread():
         if user_input in ['1','2','3']:
             if user_input == "1":
                 input_username = input("Enter your username: ")
+                # Get user data and cache student ID immediately
+                user_data = get_user_data(input_username)
+                if user_data:
+                    set_student_id(user_data["student_id"])
+                    print(f"Debug: Cached student ID: {get_student_id()}")  # Debug line
+                
                 input_password = input("Enter your password: ")
 
                 if check_account_credentials(input_username, input_password):
@@ -98,8 +121,8 @@ def main_thread():
                             teacher_menu_page()
 
                         elif account_type == 'staff':
-                            # Add staff menu options here
-                            pass
+                            from Staff.Menu import staff_user_page
+                            staff_user_page()
                             
                 else:
                     print("Login failed, please try again.")

@@ -1,0 +1,2 @@
+{"event_id": "EVEX0001", "event_title": "aa", "event_description": "aa", "students_enrolled": ["STD0004"], "event_time": "a"}
+{"event_id": "EVEX0002", "event_title": "aa", "event_description": "aa", "students_enrolled": ["STD0004"], "event_time": "a"}
