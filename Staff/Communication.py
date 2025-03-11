@@ -6,6 +6,9 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from function.query import *
 
+def newMessageDetect():
+    pass
+
 def read_chat_file():
     # Read and return all chat records from file, Returns list of chat dictionaries
     chat_list = fetch_data("data/chat_data.txt")

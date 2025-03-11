@@ -1,4 +1,5 @@
 from Administrator.menu import administrator_user_page
+from Teacher.course_material import add_course_material
 from function.query import *
 
 # Course Management: Create, update, or delete course offerings and assign instructors to courses. 
@@ -6,20 +7,21 @@ from function.query import *
 # {
 #     "course_id" = XXXX,
 #     "course_title" = "XXXX",
-#     "course_description" = "XXXXXXX",
-#     "students_enrolled" = {
-#          "STD0001": "Manfred",
-#          "STD0002": "ChenYau"
-#      }
+#     "lesson_plan" = "XXXXXXX",
+#     "students_enrolled" = [
+#         {"student_id": "STD0001", "assignment_grade": "A", "assignment_submission": "","exam_grade": "B", "feedback": "Good"},
+#         {"student_id": "STD0002", "assignment_grade": "A", "assignment_submission": "", "exam_grade": "B", "feedback": "Good"},
+#     ],
+#     "course_assignment" = "Google doc link",
 #     "course_timetable"= [
-#         {"time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID"},
-#         {"time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID"},
-#         {"time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID"},
-#         {"time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID"},
+#         {"class_id": "CLS0001", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID", "students_enrolled:[]},
+#         {"class_id": "CLS0002", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID" "students_enrolled:[]},
+#         {"class_id": "CLS0003", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID" "students_enrolled:[]},
+#         {"class_id": "CLS0004", "time_start": "9:00 AM", "time_end": "12:00PM", "course_teacher": "TP_ID" "students_enrolled:[]},
 #     ],
 # }
 
-def getCourses():
+def get_courses():
     data = fetch_data("data/course_data.txt")
 
     return data
@@ -44,7 +46,7 @@ def generate_course_id(existing_ids):
     new_num = max_num + 1
     return f"CRS{new_num:04d}"
 
-def createCourse():
+def create_course():
     # Get course details
     courses = fetch_data("data/course_data.txt")
     if not courses:
@@ -56,14 +58,17 @@ def createCourse():
 
     # Get other course details
     course_title = input("Enter course title: ")
-    course_description = input("Enter course description: ")
+    lesson_plan = input("Enter course description: ")
+    assignment_name = input("Enter assignment name: ")
 
     # Create new course with empty timetable
     new_course = {
         "course_id": new_id,
         "course_title": course_title,
-        "course_description": course_description,
-        "students_enrolled": {},  # Empty dictionary where key=student_id, value=student_name
+        "lesson_plan": lesson_plan,
+        "course_assignment": assignment_name,
+        "course_material": {"lecture_note":"","assignment_guideline":"","announcement":""},
+        "students_enrolled": [],  # Empty dictionary where key=student_id, value=student_name
         "course_timetable": []  # Empty list for staff to fill later
     }
 
@@ -73,8 +78,8 @@ def createCourse():
     if insert_data("data/course_data.txt", courses):
         print(f"Course {new_id} successfully created.")
 
-def changeCourseName():
-    courses_data = getCourses()
+def change_course_name():
+    courses_data = get_courses()
     found = False
 
     prompt1 = input("Enter course id: ")
@@ -94,8 +99,8 @@ def changeCourseName():
     else:
         print("Invalid course")
 
-def changeCourseDescription():
-    courses_data = getCourses()
+def change_course_description():
+    courses_data = get_courses()
     found = False
 
     prompt1 = input("Enter course id: ")
@@ -115,8 +120,8 @@ def changeCourseDescription():
     else:
         print("Invalid course")
 
-def updateCourseTimetable():
-    courses_data = getCourses()
+def update_course_timetable():
+    courses_data = get_courses()
     found = False
 
     course_id = input("Enter course id: ")
@@ -180,23 +185,23 @@ def updateCourseTimetable():
     if not found:
         print("Invalid course ID")
 
-def updateCourse():
+def update_course():
     print("'1' - Change course name\n'2' - Change course description\n'3' - Update course timetable")
     choice = input("Enter your choice: ")
 
     if choice == '1':
-        changeCourseName()
+        change_course_name()
     elif choice == '2':
-        changeCourseDescription()
+        change_course_description()
     elif choice == '3':
-        updateCourseTimetable()
+        update_course_timetable()
     else:
         print("Invalid choice")
 
-def deleteCourse():
+def delete_course():
     prompt1 = input("Enter course id: ")
     found = False
-    courses_data = getCourses()
+    courses_data = get_courses()
     
     # Create new list without the course to be deleted
     updated_courses = []
@@ -214,8 +219,8 @@ def deleteCourse():
     else:
         print("Invalid course id")
     
-def viewCourses():
-    courses_data = getCourses()
+def view_courses():
+    courses_data = get_courses()
     
     if not courses_data:
         print("No courses found.")
@@ -238,22 +243,21 @@ def viewCourses():
         
         print("="*50)
 
-def manageCourse():
-    print("'1' - Create Course\n'2' - Update Course\n'3' - Delete Course\n'4' - View Courses\n'5' - Student Enrolment\n'6' - Back")
+
+def manage_course():
+    print("'1' - Create Course\n'2' - Update Course\n'3' - Delete Course\n'4' - View Courses\n'5' - Add Course Material\n'6' - Back")
 
     choice = input("Enter your choice: ")
     if choice == '1':
-        createCourse()
+        create_course()
     elif choice == '2':
-        updateCourse()
+        update_course()
     elif choice == '3':
-        deleteCourse()
+        delete_course()
     elif choice == '4':
-        viewCourses()
+        view_courses()
     elif choice == '5':
-        from Teacher.student_enrolment import manage_stu_enrol
-        manage_stu_enrol()
+        add_course_material()
     elif choice == '6':
-        from Administrator.menu import administrator_user_page
         administrator_user_page()
 

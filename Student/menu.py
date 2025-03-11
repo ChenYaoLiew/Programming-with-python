@@ -1,74 +1,60 @@
 # Student Account Management: Student can choose to manage or update, for the manage part student can
 #                             change their password there. When update is chosen, they can update their
-#                             contact details and emergency information
-# Course Enrolment: When selected, fetch data from txt file and display their timetable
-# Course Material Access: To be found a way to do
-# Grades Tracking: Fetch data from txt file, and display in a row
-# Feedback Submission: Have a prompt that they can input to provide feedback on courses, instructor and overall
-#                      academic experience.
+#                             contact details and emergency information. Data in data.txt
+# Course Enrolment          : When selected, fetch data from txt file and display their timetable
+# Course Material Access    : Fetch data from course_data.txt display course material with corresponding course
+# Assignment Submission     : Insert student's assignment submission inside the course_data.txt with corresponding course
+# Grades Tracking           : Fetch data from txt file, and display grade with corresponding course
+# Feedback Submission       : Have a prompt that they can input to provide feedback on courses and overall
+#                             academic experience. Data will insert to user.data.txt
 
-from Student.Student_Account_Management import *
+from Student.Student_Account_Management import student_account_management
+from Student.Course_Enrolment import time_table
+from Student.Feedback_Submission import feedback_sub
+from Student.Assignment_submission import assignment_sub_menu
+from Student.grades_tracking import show_grade
+from Student.course_material_access import course_material
 
 def student_user_page(student_info):
+    #Display student main menu
     while True:
-        print("Student Menu")
+        print("\n[ Student Menu ]")
         print('"1" - Student Account Management')
-        print('"2" - Course Enrolment')
+        print('"2" - Course Enrolment ')
         print('"3" - Course Material Access')
-        print('"4" - Grades Tracking')
-        print('"5" - Feedback Submission')
-        print('"6" - Exit')
+        print('"4" - Assignment Submission')
+        print('"5" - Grades Tracking')
+        print('"6" - Feedback Submission')
+        print('"7" - Exit')
         print('"0" - Logout')
 
+        # Choose function to use
         choice = input("Enter your choice: ")
-        if choice == '1':
-            while True:
-                print('\nStudent Account Management')
-                print(f'Student Name: {student_info[1]['username']}')
-                print(f'Student ID: {student_info[1]['student_id']}')
-                print(f'Student Fund: {student_info[1]['fund']}')
-                try:
-                    print(f'Student Phone Number: {student_info[1]['phone_num']}')
-                except KeyError:
-                    print('Student Phone Number: Empty')
-                try:
-                    print(f'Student country: {student_info[1]['country']}')
-                except KeyError:
-                    print('Student country: Empty')
-                try:
-                    print(f'Emergency information: {student_info[1]['emergency_info']}')
-                except KeyError:
-                    print('Emergency information: Empty')
-                print('"1" - Change password')
-                print('"2" - Update contact detail')
-                print('"3" - Update emergency information')
-                print('"4" - Back' )
 
-                choice = input("Enter your choice: ")
-                if choice == '1':
-                    if change_password(student_info):
-                        print('Password changed!')
-                elif choice == '2':
-                    if update_contact_detail(student_info):
-                        print('Successfully changed!')
-                elif choice == '3':
-                    if update_emergency_information(student_info):
-                        print('Information saved!')
-                elif choice == '4':
-                    break
-                else:
-                    print("Invalid choice!")
-        elif choice == '2':
-            pass
-        elif choice == '3':
-            pass
-        elif choice == '4':
-            pass
-        elif choice == '5':
-            pass
-        elif choice == '6':
+        if choice == '1': # Student Account Management
+            student_account_management(student_info)
+
+        elif choice == '2': # view time_table
+            time_table(student_info)
+
+        elif choice == '3': # View course material
+            course_material(student_info)
+
+        elif choice == '4': # student can submit assignment here
+            assignment_sub_menu(student_info)
+
+        elif choice == '5': # display their grades
+            show_grade(student_info)
+
+        elif choice == '6': # student can type their feedback here
+            if feedback_sub(student_info): # if they have type in any feedback, it will show 'Feedback saved!'
+                print('Feedback saved!')
+
+        elif choice == '7':
             return 'exit'
+
         elif choice == '0':
             return 'logout'
+
         else:
             print("Invalid choice!")

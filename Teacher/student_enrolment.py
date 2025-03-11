@@ -1,134 +1,155 @@
 # Enrolling student
-from function.query import *
 import os
-import ast
-
-def fetch_courses():
-    # Create absolute file path
-    file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
-    courses = fetch_data(file_path) # Fetch data from file and returns the list
-    if not courses:
-        print("No courses found")
-        return []
-    return courses
-
-def display_course():
-    #Displays available courses
-    courses = fetch_courses()
-    if not courses:  # If courses list is empty, return early
-        return
-
-    print("\nAvailable Courses:")
-    for i, course in enumerate(courses, 1):
-        print(f"{i} - {course['course_id']}: {course['course_title']}")
 
 def view_enrolled_stu():
-    # Get course data
-    courses = fetch_courses()
-    if not courses:
+    from teacher_function import get_valid_selected_course
+    from teacher_function import display_students_in_course
+
+    selected_course, students = get_valid_selected_course("View Enrolled Students")
+
+    if selected_course is None:
         return
 
-    # Display course
-    display_course()
+    if not selected_course[1] or not students:
+        return
 
-    # Get course choice
-    course_choice = int(input("\nSelect a course to view student(0 to go back to main menu): "))
-    if course_choice == 0:
-        manage_stu_enrol() # Go back to manageCourse() menu
-    if 0 < course_choice <= len(courses):
-        selected_course = courses[course_choice - 1] # Get the selected course based on user input (adjust for 0-based index)
-        students = selected_course.get("students_enrolled",{})
-
-        if not students:
-            print("No students enrolled in this course")
-            return
-        else:
-            print(students)
+    # Display student IDs
+    display_students_in_course(selected_course[1])
 
 def enrol_stud():
+    from teacher_function import fetch_courses,display_course,select_course,process_stud_id,get_student_id
+    from function.query import insert_data
+
     courses = fetch_courses()
     if not courses:
         return
 
     display_course()
 
-    course_choice = int(input("\nSelect a course to enroll(0 to go back to main menu): "))
-    if course_choice == 0:
-        manage_stu_enrol()
-    if 0 < course_choice <= len(courses):
-        selected_course = courses[course_choice - 1]
+    try:
+        selected_course = select_course(courses, action="Enroll Students")
 
-        # Get student detail ( Once nengzhe finishes his student part make sure to change this)
-        student_id = input("Enter student ID: ").strip()
-        student_name = input("Enter the student name to enroll: ").strip()
-
-        # Check student_id and student_name exits first only proceed
-
-        # Ensure students_enrolled is a dictionary
-        if not isinstance(selected_course["students_enrolled"], dict):
-                # Convert into dictionary
-                selected_course["students_enrolled"] = ast.literal_eval(selected_course["students_enrolled"])
-
-        # Check if student is already enrolled
-        if student_id in selected_course["students_enrolled"]:
-            print(f"{student_id}:{student_name} is already enrolled in this course")
+        if not selected_course:
+            print("No course selected.")
             return
 
-        # Enroll student
-        elif student_id not in selected_course["students_enrolled"]:
-            selected_course["students_enrolled"][student_id] = student_name
-            print(f"{student_id}:{student_name} is now enrolled")
+        # Get student detail
+        student_id = input("Enter student ID (format STDxxxx): ").strip()
 
+        # Validate student ID format
+        process_stud_id(student_id)
+
+        # Check student_id exits in system first only proceed
+        student_name = get_student_id(student_id)
+        if not student_name:
+            print(f"Student with ID {student_id} not found in the system")
+            return
+
+        # Check if student is already enrolled
+        students_exist = False
+        for student in selected_course[1]["students_enrolled"]:
+            if student.get("student_id") == student_id:
+                students_exist = True
+                break  # Stop looping once a match is found
+
+        if students_exist:
+            print(f"{student_id} is already enrolled in this course")
+            return
+
+        # Create a new student entry with all required fields
+        new_student = {
+            "student_id": student_id,
+            "assignment_grade": "Not graded",
+            "assignment_submission": "Empty",
+            "exam_grade": "Not graded",
+            "feedback": "No feedback yet"
+            }
+
+        # Enroll student
+        selected_course[1]["students_enrolled"].append(new_student)
+        courses[selected_course[0]] = selected_course[1]
+        print(f"Student {student_id} is now enrolled ")
         file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
         insert_data(file_path, courses)
 
+    except ValueError:
+        print("Invalid selection, please try again")
+        enrol_stud()
+
 def remove_enrolled_stu():
+    from teacher_function import fetch_courses,display_course,select_course,display_students_in_course,process_stud_id
+    from function.query import insert_data
+
     courses = fetch_courses()
+    if not courses:
+        return
+
     display_course()
 
-    course_choice = int(input("\nSelect a course to remove: "))
-    if course_choice == 0:
-        manage_stu_enrol()
-    elif 0 < course_choice <= len(courses):
-        selected_course = courses[course_choice - 1]
+    try:
+        selected_course = select_course(courses, action="Remove Enrolled Students")
 
-        # Ensure 'students_enrolled' is a dictionary
-        if isinstance(selected_course["students_enrolled"], str):
-            selected_course["students_enrolled"] = ast.literal_eval(selected_course["students_enrolled"])
+        if not selected_course:
+            print("No course selected.")
+            return
 
-        # View Student to delete
+        # Display enrolled students
+        if not selected_course[1].get("students_enrolled"):  # Check if students exist
+            print("\nNo students enrolled in this course.")
+            return  # Exit early if no students
 
+        display_students_in_course(selected_course[1])
 
+        # Input student_id to delete
         student_id = input("Enter student ID: ").strip()
-        if student_id not in selected_course["students_enrolled"]:
-            print("Student not found")
-        if student_id in selected_course["students_enrolled"]:
-            del selected_course["students_enrolled"][student_id]
-            print("Student removed")
 
-            # Define file path for saving
-            file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
+        # Validate student id format
+        process_stud_id(student_id)
 
-            # Save updated course data back to file
-            try:
-                with open(file_path, 'w') as file:
-                    for course in courses:
-                        file.write(str(course) + "\n")  # Convert dictionary to string and write to file
-                print("Course data updated successfully.")
-            except Exception as e:
-                print(f"Error saving file: {str(e)}")
+        # Check if student exists and remove
+        student_found = False
+        for student in selected_course[1]["students_enrolled"]:
+            if student.get("student_id") == student_id:
+                selected_course[1]["students_enrolled"].remove(student)
+                student_found = True
+                print(f"Student {student_id} has been removed.")
+                break  # Stop searching after removal
+
+        if not student_found:
+            print("Student not found.")
+
+        # Save the deletion back into course_data file
+        file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
+        insert_data(file_path, courses)
+
+    except(ValueError,IndexError):
+        print("Invalid selection, please try again")
+        remove_enrolled_stu()
 
 def manage_stu_enrol():
-    print("1 - View Student Enrolled\n2 - Enroll Student\n3 - Remove Student\n4 - Back")
-    choice = input("Enter your choice: ")
-    if choice == "1":
-        view_enrolled_stu()
-    elif choice == "2":
-        enrol_stud()
-    elif choice == "3":
-        remove_enrolled_stu()
-    elif choice == "4":
-        from Administrator.course_management import manageCourse
-        manageCourse()
+        while True:
+            print("\nWelcome to Student Enrollment Management\n1 - View Enrolled Student\n2 - Enroll Student\n3 - Remove Student\n4 - Back")
+            try:
+                choice = input("\nEnter Choice: ").strip()
+                if not choice:  # Prevent empty input
+                    print("Input cannot be empty. Please enter a number.")
+                    continue
 
-manage_stu_enrol()
+                choice = int(choice)
+
+                if choice == 1:
+                    view_enrolled_stu()
+                elif choice == 2:
+                    enrol_stud()
+                elif choice == 3:
+                    remove_enrolled_stu()
+                elif choice == 4:
+                    from menu import teacher_menu_page
+                    teacher_menu_page()
+                else:
+                    print("Invalid choice. Please enter a number between 1 and 4.")
+            except ValueError:
+                print("Invalid input. Please enter a valid number.")
+
+
+

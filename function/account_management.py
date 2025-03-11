@@ -28,7 +28,7 @@ def register_account(username, password, accountType="student"):
 
     # Check if the account already exists in the accounts list
     accounts = fetch_data("data/user_data.txt")
-
+    # Get the student course data as a list
     for data in accounts:
         if username == data["username"]:
             print("Account already exists, Please try another username!")
@@ -38,22 +38,45 @@ def register_account(username, password, accountType="student"):
     existing_ids = [data.get("student_id", "STD0000") for data in accounts]
     new_id = generate_student_id(existing_ids)
 
-    # Add the new account to user_data.txt with student_id and fund
-    new_account = {
-        "username": username,
-        "password": password,
-        "accountType": accountType,
-        "student_id": new_id,
-        "fund": float(0)
-    }
-    accounts.append(new_account)
+    # Add the new account to user_data.txt with student_id and fund, if accountType is student, it will insert extra details data
+    if accountType == "student":
+        new_account = {
+            "username": username,
+            "password": password,
+            "accountType": accountType,
+            "student_id": new_id,
+            "fund": float(0),
+            "phone_num": "Empty",
+            "country": "Empty",
+            "emergency_info": "Empty",
+            "feedback": "Empty"
+        }
+        accounts.append(new_account) # insert new student account into accounts
 
-    # Save the file
-    if insert_data("data/user_data.txt", accounts):
-        print(f"Account for {username} successfully registered.")
-        print(f"Your student ID is: {new_id}")
-        success = True
+        # Save the file
+        if insert_data("data/user_data.txt", accounts):
+            print(f"Account for {username} successfully registered.")
+            print(f"Your student ID is: {new_id}")
+            success = True
+        else:
+            print("Error registering account. Please try again.")
+
     else:
-        print("Error registering account. Please try again.")
+        new_account = {
+            "username": username,
+            "password": password,
+            "accountType": accountType,
+            "student_id": new_id,
+            "fund": float(0),
+        }
+        accounts.append(new_account)
+
+        # Save the file
+        if insert_data("data/user_data.txt", accounts):
+            print(f"Account for {username} successfully registered.")
+            print(f"Your student ID is: {new_id}")
+            success = True
+        else:
+            print("Error registering account. Please try again.")
         
     return success
