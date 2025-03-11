@@ -20,10 +20,9 @@ def manage_course_teach():
             from Administrator.course_management import view_courses
             view_courses()
         elif choice == '5':
-            from course_material import add_course_material
+            from Teacher.course_material import add_course_material
             add_course_material()
         elif choice == '6':
-            from Teacher.menu import teacher_menu_page
-            teacher_menu_page()
+            return
         else:
             print("Invalid choice. Please enter a number between 1 and 6.")

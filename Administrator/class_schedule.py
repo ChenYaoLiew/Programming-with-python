@@ -24,7 +24,7 @@ def check_time_collision(time1_start, time1_end, time2_start, time2_end):
 
 def view_class_schedule():
     """View and check for time collisions within the same course"""
-    courses_data = fetch_data("../data/course_data.txt")
+    courses_data = fetch_data("data/course_data.txt")
     
     if not courses_data:
         print("\nNo courses found in the system.")

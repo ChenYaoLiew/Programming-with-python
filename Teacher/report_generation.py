@@ -16,7 +16,7 @@ def generate_student_report():
     Generates a report containing a student's course and performance details.
     Displays course selection, enrolled students, and generates a structured report.
     """
-    from teacher_function import fetch_courses, display_course, display_students_in_course, select_course
+    from Teacher.teacher_function import fetch_courses, display_course, display_students_in_course, select_course
 
     courses = fetch_courses()
     if not courses:

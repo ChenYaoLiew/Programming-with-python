@@ -101,19 +101,19 @@ def generate_financial_report(student_id):
 
 def get_total_students():
     """Get the total number of students in the system"""
-    users = fetch_data("../data/user_data.txt")
+    users = fetch_data("data/user_data.txt")
     student_count = sum(1 for user in users if user.get("accountType") == "student")
     return student_count
 
 def get_total_teachers():
     """Get the total number of teachers in the system"""
-    users = fetch_data("../data/user_data.txt")
+    users = fetch_data("data/user_data.txt")
     teacher_count = sum(1 for user in users if user.get("accountType") == "teacher")
     return teacher_count
 
 def get_total_courses():
     """Get the total number of courses in the system"""
-    courses = fetch_data("../data/course_data.txt")
+    courses = fetch_data("data/course_data.txt")
     return len(courses) if courses else 0
 
 def generate_institution_report():
@@ -174,7 +174,7 @@ def get_student_grades(student_id):
         list: List of dictionaries containing grade information
     """
     # Get all course data where student is enrolled
-    courses_data = fetch_data("../data/course_data.txt")
+    courses_data = fetch_data("data/course_data.txt")
     grades = []
     
     # Extract grade information from all courses
@@ -202,7 +202,7 @@ def get_student_attendance(student_id):
         dict: Dictionary containing attendance records and percentage calculations
     """
     # Get all course data
-    courses_data = fetch_data("../data/course_data.txt")
+    courses_data = fetch_data("data/course_data.txt")
     
     # Structure to hold attendance data by course
     attendance_by_course = {}
@@ -290,7 +290,7 @@ def get_student_finances(student_id):
         dict: Dictionary containing balance information
     """
     # Get student data to find balance
-    student_data = fetch_data("../data/user_data.txt")
+    student_data = fetch_data("data/user_data.txt")
     student = next((s for s in student_data if s.get("student_id") == student_id), None)
     
     if not student:

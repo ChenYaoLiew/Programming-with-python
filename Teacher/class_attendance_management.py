@@ -1,7 +1,7 @@
 # Grade attendance of student of selected course
 
 def enrol_stud_class():
-    from teacher_function import fetch_courses, display_course, select_course,select_class,validate_stud_id
+    from Teacher.teacher_function import fetch_courses, display_course, select_course,select_class,validate_stud_id
     from function.query import insert_data
 
     courses = fetch_courses()
@@ -45,7 +45,7 @@ def enrol_stud_class():
 
     # save_data
     courses[selected_course[0]] = selected_course[1]
-    file_path = "../data/course_data.txt"
+    file_path = "data/course_data.txt"
     insert_data(file_path, courses)
 
 def delete_class():
@@ -54,7 +54,7 @@ def delete_class():
     Delete a class by class_id from the course_data file.
     """
     import os
-    file_path = "../data/course_data.txt"
+    file_path = "data/course_data.txt"
     if not os.path.exists(file_path):
         print("File path not found.")
         return
@@ -80,7 +80,7 @@ def delete_class():
         print(f"Class {class_id} not found.")
 
 def delete_stud_class():
-    from teacher_function import fetch_courses, display_course, select_course, select_class, validate_stud_id,display_students_in_class
+    from Teacher.teacher_function import fetch_courses, display_course, select_course, select_class, validate_stud_id,display_students_in_class
     from function.query import insert_data
     import os
 
@@ -132,7 +132,7 @@ def delete_stud_class():
     insert_data(file_path, courses)
 
 def grade_attendance():
-    from teacher_function import fetch_courses, display_course, select_course, select_class, validate_stud_id
+    from Teacher.teacher_function import fetch_courses, display_course, select_course, select_class, validate_stud_id
     from function.query import insert_data
 
     courses = fetch_courses()
@@ -191,11 +191,11 @@ def grade_attendance():
 
         # save_data
         courses[selected_course[0]] = selected_course[1]
-        file_path = "../data/course_data.txt"
+        file_path = "data/course_data.txt"
         insert_data(file_path,courses)
 
 def view_stud_attendance():
-    from teacher_function import fetch_courses, display_course, select_course, select_class
+    from Teacher.teacher_function import fetch_courses, display_course, select_course, select_class
 
     courses = fetch_courses()
     if not courses:
@@ -238,8 +238,7 @@ def manage_attendance():
         elif choice == '5':
             view_stud_attendance()
         elif choice == '6':
-            from menu import teacher_menu_page
-            teacher_menu_page()
+            return
         else:
             print("Invalid choice. Please enter a number between 1 and 6.")
 

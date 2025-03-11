@@ -27,7 +27,7 @@ def register_account(username, password, account_type="student"):
         print("Account Type unavailable")
 
     # Check if the account already exists in the accounts list
-    accounts = fetch_data("../data/user_data.txt")
+    accounts = fetch_data("data/user_data.txt")
     # Get the student course data as a list
     for data in accounts:
         if username == data["username"]:
