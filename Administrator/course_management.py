@@ -1,12 +1,9 @@
 from Administrator.menu import administrator_user_page
-from Teacher.course_material import add_course_material
 from function.query import *
 
 # Add enroll student
 # Course timetable assign student
-
-# Course Management: Create, update, or delete course offerings and assign instructors to courses. 
-
+# Course Management: Create, update, or delete course offerings and assign instructors to courses.
 # {
 #     "course_id" = XXXX,
 #     "course_title" = "XXXX",
@@ -25,48 +22,9 @@ from function.query import *
 # }
 
 def get_courses():
-    data = fetch_data("data/course_data.txt")
+    data = fetch_data("../data/course_data.txt")
 
     return data
-
-def enroll_student():
-    courses_data = get_courses()
-    found = False
-
-    course_id = input("Enter course id: ")
-
-    for data in courses_data:
-        if data['course_id'] == course_id:
-            found = True
-            break
-    
-    if not found:
-        print("Invalid course id")
-        return
-
-    student_id = input("Enter student id: ")
-
-    # Check if student already enrolled
-    for student in data['students_enrolled']:
-        if student.get('student_id') == student_id:
-            print("Student already enrolled")
-            return
-
-    # Add new student enrollment
-    new_enrollment = {
-        "student_id": student_id,
-        "assignment_grade": "",
-        "assignment_submission": "",
-        "exam_grade": "",
-        "feedback": ""
-    }
-    
-    data['students_enrolled'].append(new_enrollment)
-
-    if insert_data("data/course_data.txt", courses_data):
-        print("Student enrolled successfully")
-    else:
-        print("Error enrolling student")
 
 def generate_course_id(existing_ids):
     """
@@ -77,20 +35,49 @@ def generate_course_id(existing_ids):
         str: New unique course ID
     """
     max_num = 0
-    for id in existing_ids:
-        if id.startswith("CRS"):
+    for course_id in existing_ids:
+        if course_id.startswith("CRS"):
             try:
-                num = int(id[3:])
+                num = int(course_id[3:])
                 max_num = max(max_num, num)
             except ValueError:
                 continue
-    
+
     new_num = max_num + 1
     return f"CRS{new_num:04d}"
 
+def generate_class_id():
+    """
+    Generate a new class ID in format CLSXXXX.
+    Retrieves class IDs from course data to ensure no gaps when reusing deleted IDs.
+
+    Returns:
+        str: New unique class ID
+    """
+    from Teacher.teacher_function import fetch_courses
+
+    courses = fetch_courses()
+    if not courses:
+        return "CLS0001"  # Start fresh if no courses exist
+
+    # Extract existing class IDs from all courses
+    existing_ids = set()
+    for course in courses:
+        for class_data in course.get("course_timetable", []):
+            if isinstance(class_data, dict) and "class_id" in class_data:
+                existing_ids.add(class_data["class_id"])
+
+    # Identify the lowest available class ID
+    for i in range(1, len(existing_ids) + 2):  # Ensures it checks one beyond the max
+        new_id = f"CLS{i:04d}"
+        if new_id not in existing_ids:
+            return new_id  # Return the first available ID
+
+    return None  # Should never reach this point
+
 def create_course():
     # Get course details
-    courses = fetch_data("data/course_data.txt")
+    courses = fetch_data("../data/course_data.txt")
     if not courses:
         courses = []
 
@@ -99,8 +86,8 @@ def create_course():
     new_id = generate_course_id(existing_ids)
 
     # Get other course details
-    course_title = input("Enter course title: ")
-    lesson_plan = input("Enter course description: ")
+    course_title = input("Enter course title(Math/Science/English): ")
+    lesson_plan = input("Enter course lesson plan: ")
     assignment_name = input("Enter assignment name: ")
 
     # Create new course with empty timetable
@@ -117,7 +104,7 @@ def create_course():
     # Add to courses list and save
     courses.append(new_course)
     
-    if insert_data("data/course_data.txt", courses):
+    if insert_data("../data/course_data.txt", courses):
         print(f"Course {new_id} successfully created.")
 
 def change_course_name():
@@ -129,19 +116,19 @@ def change_course_name():
     for data in courses_data:
         if data['course_id'] == prompt1:
             found = True
-            prompt2 = input("Enter new name: ")
+            prompt2 = input("Enter new name(Math/Science/English): ")
             data["course_title"] = prompt2  # Update the course in the list
             break
 
     if found:
-        if insert_data("data/course_data.txt", courses_data):  # Consistent path format
+        if insert_data("../data/course_data.txt", courses_data):  # Consistent path format
             print(f"Course name updated successfully.")
         else:
             print("Error updating course name.")
     else:
         print("Invalid course")
 
-def change_course_description():
+def change_course_lesson_plan():
     courses_data = get_courses()
     found = False
 
@@ -150,12 +137,12 @@ def change_course_description():
     for data in courses_data:
         if data['course_id'] == prompt1:
             found = True
-            prompt2 = input("Enter new description: ")
-            data["course_description"] = prompt2  # Update the course description
+            prompt2 = input("Enter new lesson plan: ")
+            data["lesson_plan"] = prompt2  # Update the course description
             break
 
     if found:
-        if insert_data("data/course_data.txt", courses_data):
+        if insert_data("../data/course_data.txt", courses_data):
             print(f"Course description updated successfully.")
         else:
             print("Error updating course description.")
@@ -175,7 +162,7 @@ def update_course_timetable():
             
             # Get and validate teacher
             teacher_id = input("Enter teacher id: ")
-            teachers = fetch_data("data/user_data.txt")
+            teachers = fetch_data("../data/user_data.txt")
             teacher_valid = False
             
             for user in teachers:
@@ -194,9 +181,11 @@ def update_course_timetable():
 
             # Create new timetable entry
             new_slot = {
+                "class_id": generate_class_id(),
                 "time_start": time_start,
                 "time_end": time_end,
-                "course_teacher": teacher_id
+                "course_teacher": teacher_id,
+                "attendance_list": []
             }
 
             # Initialize timetable as list
@@ -217,7 +206,7 @@ def update_course_timetable():
             course['course_timetable'].append(new_slot)
             
             # Save updated courses data
-            if insert_data("data/course_data.txt", courses_data):
+            if insert_data("../data/course_data.txt", courses_data):
                 print("Course timetable updated successfully.")
                 print(f"Added: {time_start} - {time_end} with teacher {teacher_id}")
             else:
@@ -254,16 +243,19 @@ def view_course_timetable():
         print("Invalid course id")
 
 def update_course():
-    print("\n'1' - Change course name\n'2' - Change course description\n'3' - Update course timetable\n'4' - View course timetable")
+    print("\n'1' - Change course name\n'2' - Change course lesson\n'3' - Update course timetable\n'4' - Delete class\n'5' - View course timetable")
     choice = input("Enter your choice: ")
 
     if choice == '1':
         change_course_name()
     elif choice == '2':
-        change_course_description()
+        change_course_lesson_plan()
     elif choice == '3':
         update_course_timetable()
     elif choice == '4':
+        from Teacher.class_attendance_management import delete_class
+        delete_class()
+    elif choice == '5':
         view_course_timetable()
     else:
         print("Invalid choice")
@@ -282,7 +274,7 @@ def delete_course():
             updated_courses.append(data)
     
     if found:
-        if insert_data("data/course_data.txt", updated_courses):
+        if insert_data("../data/course_data.txt", updated_courses):
             print(f"Course {prompt1} has been removed!")
         else:
             print("Error deleting course. Please try again.")
@@ -300,7 +292,7 @@ def view_courses():
         print("\n" + "="*50)
         print(f"Course ID: {course['course_id']}")
         print(f"Title: {course['course_title']}")
-        print(f"Description: {course['course_description']}")
+        print(f"Lesson Plan: {course['lesson_plan']}")
         
         # Display timetable if it exists
         if course['course_timetable']:

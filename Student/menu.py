@@ -8,52 +8,51 @@
 # Feedback Submission       : Have a prompt that they can input to provide feedback on courses and overall
 #                             academic experience. Data will insert to user.data.txt
 
-from Student.Student_Account_Management import student_account_management
-from Student.Course_Enrolment import time_table
-from Student.Feedback_Submission import feedback_sub
-from Student.Assignment_submission import assignment_sub_menu
-from Student.grades_tracking import show_grade
-from Student.course_material_access import course_material
-
 def student_user_page(student_info):
     #Display student main menu
     while True:
         print("\n[ Student Menu ]")
-        print('"1" - Student Account Management')
-        print('"2" - Course Enrolment ')
-        print('"3" - Course Material Access')
-        print('"4" - Assignment Submission')
-        print('"5" - Grades Tracking')
-        print('"6" - Feedback Submission')
-        print("'7' - Communication ")
-        print('"8" - Exit')
-        print('"0" - Logout')
+        print('1 - Student Account Management')
+        print('2 - Course Enrolment ')
+        print('3 - Course Material Access')
+        print('4 - Assignment Submission')
+        print('5 - Grades Tracking')
+        print('6 - Feedback Submission')
+        print('7 - Communication ')
+        print('8 - Exit')
+        print('0 - Logout')
 
         # Choose function to use
         choice = input("Enter your choice: ")
 
         if choice == '1': # Student Account Management
+            from Student.Student_Account_Management import student_account_management
             student_account_management(student_info)
 
         elif choice == '2': # view time_table
+            from Student.Course_Enrolment import time_table
             time_table(student_info)
 
         elif choice == '3': # View course material
+            from Student.course_material_access import course_material
             course_material(student_info)
 
         elif choice == '4': # student can submit assignment here
+            from Student.Assignment_submission import assignment_sub_menu
             assignment_sub_menu(student_info)
 
         elif choice == '5': # display their grades
+            from Student.grades_tracking import show_grade
             show_grade(student_info)
 
         elif choice == '6': # student can type their feedback here
+            from Student.Feedback_Submission import feedback_sub
             if feedback_sub(student_info): # if they have type in any feedback, it will show 'Feedback saved!'
                 print('Feedback saved!')
 
         elif choice == '7':
             from Staff.Communication import communication_main
-            communication_main
+            communication_main()
 
         elif choice == '8':
             return 'exit'

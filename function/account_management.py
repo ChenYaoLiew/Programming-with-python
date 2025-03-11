@@ -1,16 +1,16 @@
 from function.query import *
 
-def generate_student_id(existing_ids):
+def generate_user_id(existing_ids):
     """
-    Generate a new student ID in format STDXXXX
+    Generate a new user ID in format UIDXXXX
     Args:
         existing_ids (list): List of existing student IDs
     Returns:
-        str: New unique student ID
+        str: New unique user ID
     """
     max_num = 0
     for id in existing_ids:
-        if id.startswith("STD"):
+        if id.startswith("UID"):
             try:
                 num = int(id[3:])
                 max_num = max(max_num, num)
@@ -18,7 +18,7 @@ def generate_student_id(existing_ids):
                 continue
     
     new_num = max_num + 1
-    return f"STD{new_num:04d}"
+    return f"UID{new_num:04d}"
 
 def register_account(username, password, accountType="student"):
     success = False
@@ -27,7 +27,7 @@ def register_account(username, password, accountType="student"):
         print("Account Type unavailable")
 
     # Check if the account already exists in the accounts list
-    accounts = fetch_data("data/user_data.txt")
+    accounts = fetch_data("../data/user_data.txt")
     # Get the student course data as a list
     for data in accounts:
         if username == data["username"]:
@@ -35,8 +35,8 @@ def register_account(username, password, accountType="student"):
             return success
 
     # Generate new student ID
-    existing_ids = [data.get("student_id", "STD0000") for data in accounts]
-    new_id = generate_student_id(existing_ids)
+    existing_ids = [data.get("student_id", "UID0000") for data in accounts]
+    new_id = generate_user_id(existing_ids)
 
     # Add the new account to user_data.txt with student_id and fund, if accountType is student, it will insert extra details data
     if accountType == "student":

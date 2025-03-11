@@ -1,7 +1,6 @@
 # Grade student
 # Grade assignments, exams, and provide detailed feedback to students
 
-import os
 
 def grade_assignment():
     from teacher_function import fetch_courses,display_course,select_course,display_students_in_course,process_stud_id,get_valid_grade
@@ -51,7 +50,7 @@ def grade_assignment():
 
         # Save the updated data
         courses[selected_course[0]] = selected_course[1]
-        file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
+        file_path = "../data/course_data.txt"
         insert_data(file_path, courses)
         print("Updated assignment grades saved successfully.")
 
@@ -96,7 +95,7 @@ def grade_exam():
 
         courses[selected_course[0]] = selected_course[1]
 
-        file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
+        file_path = "../data/course_data.txt"
         insert_data(file_path, courses)
         print("Updated exam grades saved successfully.")
 
@@ -144,7 +143,7 @@ def give_feedback():
         # Update the courses list with the modified course
         courses[selected_course[0]] = selected_course[1]
 
-        file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
+        file_path = "../data/course_data.txt"
         insert_data(file_path, courses)
         print("Feedback saved successfully.")
 
@@ -155,26 +154,21 @@ def give_feedback():
 def manage_grading_assessment():
     while True:
         print("\nWelcome to Grading & Assessment Management\n1 - Grade Assignment\n2 - Grade Exam\n3 - Provide Feedback for student\n4 - Back")
-        try:
-            choice = input("\nEnter Choice: ").strip()
-            if not choice:  # Prevent empty input
-                print("Input cannot be empty. Please enter a number.")
-                continue
 
-            choice = int(choice)
-            if choice == 1:
-                grade_assignment()
-            elif choice == 2:
-                grade_exam()
-            elif choice == 3:
-                give_feedback()
-            elif choice == 4:
-                from menu import teacher_menu_page
-                teacher_menu_page()
-            else:
-                print("Invalid choice. Please enter a number between 1 and 4.")
-        except ValueError:
-            print("Invalid input. Please enter a valid number.")
+        choice = input("\nEnter Choice: ").strip()
+
+        if choice == '1':
+            grade_assignment()
+        elif choice == '2':
+            grade_exam()
+        elif choice == '3':
+            give_feedback()
+        elif choice == '4':
+            from menu import teacher_menu_page
+            teacher_menu_page()
+        else:
+            print("Invalid choice. Please enter a number between 1 and 4.")
+
 
 
 

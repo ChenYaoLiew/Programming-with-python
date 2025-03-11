@@ -1,7 +1,5 @@
 # Helper functions for student enrollment, course selection, grading, and attendance tracking.
 
-import os
-
 # For Student Enrolment
 def process_stud_id(student_id):
     """
@@ -25,7 +23,7 @@ def get_student_id(student_id):
     """
        Retrieves the student ID from the student data file if it exists.
 
-       This function reads student data from the 'student_data.txt' file located in the data directory.
+       This function reads student data from the 'user_data.txt' file located in the data directory.
        It iterates through the student_id and returns the student_id if a matching record is found.
 
        Args:
@@ -35,7 +33,7 @@ def get_student_id(student_id):
            str or None: The matching student ID if found; otherwise, None.
        """
     from function.query import fetch_data
-    file_path = os.path.join(os.path.dirname(__file__), "..", "data", "student_data.txt")
+    file_path = "../data/user_data.txt"
     accounts = fetch_data(file_path)
 
     for data in accounts:
@@ -45,15 +43,16 @@ def get_student_id(student_id):
     return None
 
 def validate_stud_id(student_id):
-    """Validates student ID format (should be 'STDxxxx')."""
-    if not student_id.startswith("STD") or not student_id[3:].isdigit() or len(student_id) != 7:
-        print("Invalid student ID format. Should be STD followed by 4 digits (e.g., STD0001)")
+    """Validates student ID format (should be 'UIDxxxx')."""
+    if not student_id.startswith("UID") or not student_id[3:].isdigit() or len(student_id) != 7:
+        print("Invalid student ID format. Should be STD followed by 4 digits (e.g., UID0001)")
         return False
     return True
 
 def fetch_courses():
+    import os
     """Reads course data from a text file and returns it as a list of dictionaries."""
-    file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
+    file_path = "../data/course_data.txt"
 
     if not os.path.exists(file_path):
         return []  # Return an empty list if the file does not exist
@@ -62,7 +61,7 @@ def fetch_courses():
     course = fetch_data(file_path)
     return course
 
-def get_valid_selected_course(action="perform this action"):
+def get_course_students_enrolled(action="perform this action"):
     """Fetches a course, ensures 'students_enrolled' is a valid list, and returns both."""
 
     courses = fetch_courses()
@@ -202,23 +201,9 @@ def select_class(selected_course, action="Select"):
         print(f"Class ID '{class_id}' not found. Please try again.")
 
 def validate_class_id(class_id):
-    """
-    Validates the format of a class ID.
-
-    Args:
-        class_id (str): The class ID to validate.
-
-    Returns:
-        bool: True if valid, False otherwise.
-    """
-    if len(class_id) != 7:  # Ensure correct length
-        print("Invalid Class ID format. It should be exactly 7 characters (e.g., CLS0001).")
-        return False
-    if not class_id.startswith("CLS"):  # Ensure it starts with 'CLS'
-        print("Invalid Class ID format. It should start with 'CLS' (e.g., CLS0001).")
-        return False
-    if not class_id[3:].isdigit():  # Ensure last 4 characters are digits
-        print("Invalid Class ID format. The last four characters should be numbers (e.g., CLS0001).")
+    """Validates Class ID format (should be 'CLSxxxx')."""
+    if not class_id.startswith("CLS") or not class_id[3:].isdigit() or len(class_id) != 7:
+        print("Invalid class ID format. Should be CLS followed by 4 digits (e.g., UID0001)")
         return False
     return True
 

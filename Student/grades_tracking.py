@@ -1,8 +1,6 @@
 from function.query import fetch_data
 from Student.Student_function import get_student_course_id
 
-all_courses = fetch_data('./data/course_data.txt') # A list of all student's course data
-
 def show_subject_grade(student_info, student_course, subject):
     """
     To display student's course grade with particular subject
@@ -13,6 +11,7 @@ def show_subject_grade(student_info, student_course, subject):
     return:
         have_subject_course(Bool): If student have course in particular subject it will be True
     """
+    all_courses = fetch_data('./data/course_data.txt')  # A list of all student's course data
     student_data = student_info[1]
     have_subject_course = False # Initially student's have subject course will be defined as False.
 
@@ -41,15 +40,17 @@ def show_grade(student_info):
     return:
         None
     """
+    # A list of all student's course data
+    all_courses = fetch_data('./data/course_data.txt')
     # A dictionary which contain student's every subject and corresponding course_id
     student_course = get_student_course_id(student_info, all_courses)
 
     while True:
         print('\nCourses Grade')
-        print('"1" - Math')
-        print('"2" - Science')
-        print('"3" - English')
-        print('"0" - Back')
+        print('1 - Math')
+        print('2 - Science')
+        print('3 - English')
+        print('0 - Back')
 
         choice = input('Enter your choice: ')
         if choice == '1':

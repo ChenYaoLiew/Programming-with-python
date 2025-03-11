@@ -1,7 +1,7 @@
 from function.query import *
 from Student.Student_function import get_student_course_id
 
-all_courses = fetch_data('./data/course_data.txt') # get a list of all courses data inside the txt file
+all_courses = fetch_data('../data/course_data.txt') # get a list of all courses data inside the txt file
 
 def subject_assignment(student_info, student_course, subject):
     """
@@ -45,7 +45,7 @@ def subject_assignment(student_info, student_course, subject):
                 chosen_course = next(course for course in all_courses if course['course_id'] == course_id)
                 student_course_data = next(student_course_data for student_course_data in chosen_course['students_enrolled'] if student_course_data['student_id'] == student_data['student_id'])
                 student_course_data['assignment_submission'] = assignment
-                print("Assignment uploaded")
+                print('Assignment uploaded!')
                 continue
 
             else:
@@ -67,10 +67,10 @@ def assignment_sub_menu(student_info):
 
     while True:
         print('\n[ Course Assignment Submission ]')
-        print('"1" - Math')
-        print('"2" - Science')
-        print('"3" - English')
-        print('"0" - Save changes and Back')
+        print('1 - Math')
+        print('2 - Science')
+        print('3 - English')
+        print('0 - Save changes and Back')
 
         choice = input('Enter your choice: ')
         # If student got no course in that particular subject, it will display no courses enrolled.

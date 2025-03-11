@@ -39,10 +39,10 @@ def course_material(student_info):
     while True:
         # Display menu
         print('\n[ Course Material ]')
-        print('"1" - Math')
-        print('"2" - Science')
-        print('"3" - English')
-        print('"0" - Back')
+        print('1 - Math')
+        print('2 - Science')
+        print('3 - English')
+        print('0 - Back')
 
         choice = input('Enter your choice: ')
 

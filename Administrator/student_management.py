@@ -226,8 +226,8 @@ def student_management_menu():
         if choice == '1':
             view_student_menu()
         elif choice == '2':
-            from Administrator.course_management import enroll_student
-            enroll_student()
+            from Teacher.student_enrolment import enrol_stud
+            enrol_stud()
         elif choice == '3':
             student_id = input("Enter student ID: ")
             remove_student(student_id)

@@ -1,5 +1,4 @@
 # Grade attendance of student of selected course
-import os
 
 def enrol_stud_class():
     from teacher_function import fetch_courses, display_course, select_course,select_class,validate_stud_id
@@ -46,8 +45,39 @@ def enrol_stud_class():
 
     # save_data
     courses[selected_course[0]] = selected_course[1]
-    file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
+    file_path = "../data/course_data.txt"
     insert_data(file_path, courses)
+
+def delete_class():
+    from function.query import fetch_data,insert_data
+    """
+    Delete a class by class_id from the course_data file.
+    """
+    import os
+    file_path = "../data/course_data.txt"
+    if not os.path.exists(file_path):
+        print("File path not found.")
+        return
+
+    courses = fetch_data(file_path)
+    found = False
+
+    class_id = input("Enter class ID: ").strip()
+    from Teacher.teacher_function import validate_class_id
+    if not validate_class_id(class_id):
+        return
+
+    for course in courses:
+        original_length = len(course["course_timetable"])
+        course["course_timetable"] = [cls for cls in course["course_timetable"] if cls["class_id"] != class_id]
+        if len(course["course_timetable"]) < original_length:
+            found = True
+
+    if found:
+        insert_data(file_path, courses)
+        print(f"Class {class_id} deleted successfully.")
+    else:
+        print(f"Class {class_id} not found.")
 
 def delete_stud_class():
     from teacher_function import fetch_courses, display_course, select_course, select_class, validate_stud_id,display_students_in_class
@@ -141,10 +171,10 @@ def grade_attendance():
 
         # Enter attendance
         print("1 - Mark Present\n2 - Mark Absent ")
-        choice = int(input("Enter Choice: "))
-        if choice == 1:
+        choice = input("Enter Choice: ")
+        if choice == '1':
             attendance_status = "Present"
-        elif choice == 2:
+        elif choice == '2':
             attendance_status = "Absent"
         else:
             print("Invalid choice. Attendance not updated.")
@@ -161,7 +191,7 @@ def grade_attendance():
 
         # save_data
         courses[selected_course[0]] = selected_course[1]
-        file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
+        file_path = "../data/course_data.txt"
         insert_data(file_path,courses)
 
 def view_stud_attendance():
@@ -193,30 +223,26 @@ def view_stud_attendance():
 
 def manage_attendance():
     while True:
-        print("\nWelcome to Class Enrolment and Attendance Management\n1 - Enrol Student into a Class\n2 - Remove Student from Enrolled Class\n3 - Grade Attendance\n4 - View Attendance\n5 - Back")
-        try:
-            choice = input("\nEnter Choice: ").strip()
-            if not choice:  # Prevent empty input
-                print("Input cannot be empty. Please enter a number.")
-                continue
+        print("\nWelcome to Class & Attendance Management\n1 - Enrol Student into a Class\n2 - Remove Student from Enrolled Class\n3 - Delete class\n4 - Grade Attendance\n5 - View Attendance\n6 - Back")
 
-            choice = int(choice)
+        choice = input("\nEnter Choice: ").strip()
 
-            if choice == 1:
-                enrol_stud_class()
-            elif choice == 2:
-                delete_stud_class()
-            elif choice == 3:
-                grade_attendance()
-            elif choice == 4:
-                view_stud_attendance()
-            elif choice == 5:
-                from menu import teacher_menu_page
-                teacher_menu_page()
-            else:
-                print("Invalid choice. Please enter a number between 1 and 4.")
-        except ValueError:
-            print("Invalid input. Please enter a valid number.")
+        if choice == '1':
+            enrol_stud_class()
+        elif choice == '2':
+            delete_stud_class()
+        elif choice == '3':
+            delete_class()
+        elif choice == '4':
+            grade_attendance()
+        elif choice == '5':
+            view_stud_attendance()
+        elif choice == '6':
+            from menu import teacher_menu_page
+            teacher_menu_page()
+        else:
+            print("Invalid choice. Please enter a number between 1 and 6.")
+
 
 
 

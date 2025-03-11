@@ -10,7 +10,7 @@ from Staff.Menu import staff_user_page
 
 def read_student_file():
     # Read and return all student records from file, Returns list of student dictionaries
-    student_list = fetch_data("data/user_data.txt")
+    student_list = fetch_data("../data/user_data.txt")
     return student_list
 
 def update_student_record(student_list):

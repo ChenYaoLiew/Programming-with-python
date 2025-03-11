@@ -1,7 +1,7 @@
 from function.query import fetch_data
 from Student.Student_function import get_student_course_id
 
-all_courses = fetch_data('./data/course_data.txt')  # get a list of all courses data inside the txt file
+all_courses = fetch_data('../data/course_data.txt')  # get a list of all courses data inside the txt file
 
 def display_time_table(student_course, subject):
     """
@@ -18,18 +18,19 @@ def display_time_table(student_course, subject):
     for course in all_courses:
         if course['course_id'] in student_course[subject]:
             print('-----------------------------------------------------------')
-            print(f'Course ID: {course["course_id"]}\n'
-                  f'Course Title: {course["course_title"]}\n'
-                  f'Course Description: {course["course_description"]}\n'
-                  f'Course Assignment: {course["course_assignment"]}\n'
+            print(f'Course ID         : {course['course_id']}\n'
+                  f'Course Title      : {course['course_title']}\n'
+                  f'Lesson Plan       : {course['lesson_plan']}\n'
+                  f'Course Assignment : {course['course_assignment']}\n'
                   f'Time Table:')
 
             # To iterate out every class in that course
             for index, time in enumerate(course["course_timetable"], start=1):
                 print(f'\nClass [ {index} ]\n'
+                      f'Class ID     : {time['class_id']}'
                       f'Class teacher: {time['course_teacher']}\n'
-                      f'Time Start: {time['time_start']}\n'
-                      f'Time End: {time['time_end']}')
+                      f'Time Start   : {time['time_start']}\n'
+                      f'Time End     : {time['time_end']}')
             print('-----------------------------------------------------------')
 
             subject_course = True

@@ -61,9 +61,9 @@ def update_contact_detail(student_info):
 
     while True:
         print('\n[ Contact detail settings ]')
-        print('"1" - Edit Phone Number')
-        print('"2" - Edit Country')
-        print('"3" - Back')
+        print('1 - Edit Phone Number')
+        print('2 - Edit Country')
+        print('0 - Back')
 
         choice = input('Enter your choice: ')
 
@@ -87,7 +87,7 @@ def update_contact_detail(student_info):
                 update_student_data(index_in_list, student_data)
                 return True
 
-        elif choice == '3':
+        elif choice == '0':
             return False
         else:
             print('Invalid choice!')
@@ -130,10 +130,10 @@ def student_account_management(student_info):
         print(f'Student Phone Number : {student_info[1]['phone_num']}')
         print(f'Student country      : {student_info[1]['country']}')
         print(f'Emergency information: {student_info[1]['emergency_info']}')
-        print('\n"1" - Change password')
-        print('"2" - Update contact detail')
-        print('"3" - Update emergency information')
-        print('"4" - Back')
+        print('\n1 - Change password')
+        print('2 - Update contact detail')
+        print('3 - Update emergency information')
+        print('0 - Back')
 
         choice = input("Enter your choice: ")
 
@@ -149,7 +149,7 @@ def student_account_management(student_info):
             if update_emergency_information(student_info):
                 print('Information saved!')
 
-        elif choice == '4':  # back to main page
+        elif choice == '0':  # back to main page
             break
 
         else:
