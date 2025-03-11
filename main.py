@@ -87,7 +87,6 @@ def main_thread():
             user_data = get_user_data(input_username)
             if user_data:
                 set_student_id(user_data["student_id"])
-                print(f"Debug: Cached student ID: {get_student_id()}")  # Debug line
 
             input_password = input("Enter your password: ")
 
