@@ -9,10 +9,10 @@ def generate_user_id(existing_ids):
         str: New unique user ID
     """
     max_num = 0
-    for id in existing_ids:
-        if id.startswith("UID"):
+    for user_id in existing_ids:
+        if user_id.startswith("UID"):
             try:
-                num = int(id[3:])
+                num = int(user_id[3:])
                 max_num = max(max_num, num)
             except ValueError:
                 continue
@@ -20,10 +20,10 @@ def generate_user_id(existing_ids):
     new_num = max_num + 1
     return f"UID{new_num:04d}"
 
-def register_account(username, password, accountType="student"):
+def register_account(username, password, account_type="student"):
     success = False
     # Check if account type is valid
-    if accountType not in ["staff", "administrator", "teacher", "student"]:
+    if account_type not in ["staff", "administrator", "teacher", "student"]:
         print("Account Type unavailable")
 
     # Check if the account already exists in the accounts list
@@ -38,12 +38,12 @@ def register_account(username, password, accountType="student"):
     existing_ids = [data.get("student_id", "UID0000") for data in accounts]
     new_id = generate_user_id(existing_ids)
 
-    # Add the new account to user_data.txt with student_id and fund, if accountType is student, it will insert extra details data
-    if accountType == "student":
+    # Add the new account to user_data.txt with student_id and fund, if account_type is student, it will insert extra details data
+    if account_type == "student":
         new_account = {
             "username": username,
             "password": password,
-            "accountType": accountType,
+            "account_type": account_type,
             "student_id": new_id,
             "fund": float(0),
             "phone_num": "Empty",
@@ -65,7 +65,7 @@ def register_account(username, password, accountType="student"):
         new_account = {
             "username": username,
             "password": password,
-            "accountType": accountType,
+            "account_type": account_type,
             "student_id": new_id,
             "fund": float(0),
         }
