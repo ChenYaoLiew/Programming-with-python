@@ -1,7 +1,7 @@
 from function.query import fetch_data
 from Student.Student_function import get_student_course_id
 
-all_courses = fetch_data('./data/course_data.txt')  # get a list of all courses data inside the txt file
+all_courses = fetch_data('../data/course_data.txt')  # get a list of all courses data inside the txt file
 
 def display_time_table(student_course, subject):
     """

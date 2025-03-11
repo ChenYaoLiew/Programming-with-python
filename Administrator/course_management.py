@@ -26,45 +26,6 @@ def get_courses():
 
     return data
 
-def enroll_student():
-    courses_data = get_courses()
-    found = False
-
-    course_id = input("Enter course id: ")
-
-    for data in courses_data:
-        if data['course_id'] == course_id:
-            found = True
-            break
-    
-    if not found:
-        print("Invalid course id")
-        return
-
-    student_id = input("Enter student id: ")
-
-    # Check if student already enrolled
-    for student in data['students_enrolled']:
-        if student.get('student_id') == student_id:
-            print("Student already enrolled")
-            return
-
-    # Add new student enrollment
-    new_enrollment = {
-        "student_id": student_id,
-        "assignment_grade": "",
-        "assignment_submission": "",
-        "exam_grade": "",
-        "feedback": ""
-    }
-    
-    data['students_enrolled'].append(new_enrollment)
-
-    if insert_data("../data/course_data.txt", courses_data):
-        print("Student enrolled successfully")
-    else:
-        print("Error enrolling student")
-
 def generate_course_id(existing_ids):
     """
     Generate a new course ID in format CRSXXXX
@@ -74,16 +35,45 @@ def generate_course_id(existing_ids):
         str: New unique course ID
     """
     max_num = 0
-    for id in existing_ids:
-        if id.startswith("CRS"):
+    for course_id in existing_ids:
+        if course_id.startswith("CRS"):
             try:
-                num = int(id[3:])
+                num = int(course_id[3:])
                 max_num = max(max_num, num)
             except ValueError:
                 continue
-    
+
     new_num = max_num + 1
     return f"CRS{new_num:04d}"
+
+def generate_class_id():
+    """
+    Generate a new class ID in format CLSXXXX.
+    Retrieves class IDs from course data to ensure no gaps when reusing deleted IDs.
+
+    Returns:
+        str: New unique class ID
+    """
+    from Teacher.teacher_function import fetch_courses
+
+    courses = fetch_courses()
+    if not courses:
+        return "CLS0001"  # Start fresh if no courses exist
+
+    # Extract existing class IDs from all courses
+    existing_ids = set()
+    for course in courses:
+        for class_data in course.get("course_timetable", []):
+            if isinstance(class_data, dict) and "class_id" in class_data:
+                existing_ids.add(class_data["class_id"])
+
+    # Identify the lowest available class ID
+    for i in range(1, len(existing_ids) + 2):  # Ensures it checks one beyond the max
+        new_id = f"CLS{i:04d}"
+        if new_id not in existing_ids:
+            return new_id  # Return the first available ID
+
+    return None  # Should never reach this point
 
 def create_course():
     # Get course details
@@ -159,32 +149,6 @@ def change_course_lesson_plan():
     else:
         print("Invalid course")
 
-def generate_class_id(courses_data):
-    """
-    Generate a new class ID in format CLSXXXX
-    Args:
-        courses_data (list): List of course data containing timetables
-    Returns:
-        str: New unique class ID
-    """
-    max_num = 0
-    
-    # Search through all courses and their timetables
-    for course in courses_data:
-        for session in course.get('course_timetable', []):
-            if isinstance(session, dict) and 'class_id' in session:
-                class_id = session['class_id']
-                if class_id.startswith("CLS"):
-                    try:
-                        num = int(class_id[3:])
-                        max_num = max(max_num, num)
-                    except ValueError:
-                        continue
-    
-    # Generate new ID with number incremented by 1
-    new_num = max_num + 1
-    return f"CLS{new_num:04d}"  # Formats number to 4 digits with leading zeros
-
 def update_course_timetable():
     courses_data = get_courses()
     found = False
@@ -198,7 +162,7 @@ def update_course_timetable():
             
             # Get and validate teacher
             teacher_id = input("Enter teacher id: ")
-            teachers = fetch_data("data/user_data.txt")
+            teachers = fetch_data("../data/user_data.txt")
             teacher_valid = False
             
             for user in teachers:
@@ -215,16 +179,13 @@ def update_course_timetable():
             time_start = input("Enter start time (e.g., 9:00 AM): ")
             time_end = input("Enter end time (e.g., 12:00 PM): ")
 
-            # Generate a unique class ID
-            class_id = generate_class_id(courses_data)
-
             # Create new timetable entry
             new_slot = {
-                "class_id": class_id,
+                "class_id": generate_class_id(),
                 "time_start": time_start,
                 "time_end": time_end,
                 "course_teacher": teacher_id,
-                "attendance_list": []  # Initialize empty attendance list
+                "attendance_list": []
             }
 
             # Initialize timetable as list
@@ -247,7 +208,7 @@ def update_course_timetable():
             # Save updated courses data
             if insert_data("../data/course_data.txt", courses_data):
                 print("Course timetable updated successfully.")
-                print(f"Added Class {class_id}: {time_start} - {time_end} with teacher {teacher_id}")
+                print(f"Added: {time_start} - {time_end} with teacher {teacher_id}")
             else:
                 print("Error updating course timetable.")
             break
@@ -282,7 +243,7 @@ def view_course_timetable():
         print("Invalid course id")
 
 def update_course():
-    print("\n'1' - Change course name\n'2' - Change course lesson\n'3' - Update course timetable\n'4' - View course timetable")
+    print("\n'1' - Change course name\n'2' - Change course lesson\n'3' - Update course timetable\n'4' - Delete class\n'5' - View course timetable")
     choice = input("Enter your choice: ")
 
     if choice == '1':
@@ -292,6 +253,9 @@ def update_course():
     elif choice == '3':
         update_course_timetable()
     elif choice == '4':
+        from Teacher.class_attendance_management import delete_class
+        delete_class()
+    elif choice == '5':
         view_course_timetable()
     else:
         print("Invalid choice")

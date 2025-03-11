@@ -5,7 +5,7 @@ from function.cache import set_student_id
 from function.cache import *
 
 def get_user_account_type(username):
-    accounts = fetch_data("data/user_data.txt")
+    accounts = fetch_data("../data/user_data.txt")
     account_type = None
 
     for data in accounts:
@@ -16,7 +16,7 @@ def get_user_account_type(username):
     return account_type
 
 def check_account_credentials(username, password):
-    accounts = fetch_data("data/user_data.txt")
+    accounts = fetch_data("../data/user_data.txt")
     found = False
 
     for data in accounts:

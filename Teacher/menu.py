@@ -7,7 +7,7 @@
 
 def teacher_menu_page():
     while True:
-        print("\nTeacher's Menu\n1 - Course Creation & Management\n2 - Student Enrolment & Management  \n3 - Grading & Assessment\n4 - Class Enrolment and Attendance Management\n5 - Report Generation\n6 - Exit\n7 - Logout")
+        print("\nTeacher's Menu\n1 - Course Creation & Management\n2 - Student Enrolment & Management  \n3 - Grading & Assessment\n4 - Class & Attendance Management\n5 - Report Generation\n6 - Exit\n7 - Logout")
 
         choice = input("\nEnter Choice: ").strip()
 
@@ -32,3 +32,5 @@ def teacher_menu_page():
             return 'logout'
         else:
             print("Invalid choice. Please enter a number between 1 and 6.")
+
+teacher_menu_page()
