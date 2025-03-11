@@ -20,7 +20,7 @@ def manage_course_teach():
             from Administrator.course_management import view_courses
             view_courses()
         elif choice == '5':
-            from Administrator.course_management import add_course_material
+            from course_material import add_course_material
             add_course_material()
         elif choice == '6':
             from Teacher.menu import teacher_menu_page
