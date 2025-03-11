@@ -27,6 +27,7 @@ def display_time_table(student_course, subject):
             # To iterate out every class in that course
             for index, time in enumerate(course["course_timetable"], start=1):
                 print(f'\nClass [ {index} ]\n'
+                      f'Class ID     : {time['class_id']}'
                       f'Class teacher: {time['course_teacher']}\n'
                       f'Time Start   : {time['time_start']}\n'
                       f'Time End     : {time['time_end']}')
