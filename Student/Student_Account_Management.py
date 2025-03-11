@@ -133,7 +133,7 @@ def student_account_management(student_info):
         print('\n1 - Change password')
         print('2 - Update contact detail')
         print('3 - Update emergency information')
-        print('4 - Back')
+        print('0 - Back')
 
         choice = input("Enter your choice: ")
 
@@ -149,7 +149,7 @@ def student_account_management(student_info):
             if update_emergency_information(student_info):
                 print('Information saved!')
 
-        elif choice == '4':  # back to main page
+        elif choice == '0':  # back to main page
             break
 
         else:

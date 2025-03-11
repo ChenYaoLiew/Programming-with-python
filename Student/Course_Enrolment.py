@@ -18,10 +18,10 @@ def display_time_table(student_course, subject):
     for course in all_courses:
         if course['course_id'] in student_course[subject]:
             print('-----------------------------------------------------------')
-            print(f'Course ID         : {course["course_id"]}\n'
-                  f'Course Title      : {course["course_title"]}\n'
-                  f'Course Description: {course["course_description"]}\n'
-                  f'Course Assignment : {course["course_assignment"]}\n'
+            print(f'Course ID         : {course['course_id']}\n'
+                  f'Course Title      : {course['course_title']}\n'
+                  f'Lesson Plan       : {course['lesson_plan']}\n'
+                  f'Course Assignment : {course['course_assignment']}\n'
                   f'Time Table:')
 
             # To iterate out every class in that course
