@@ -162,6 +162,32 @@ def change_course_lesson_plan():
     else:
         print("Invalid course")
 
+def generate_class_id(courses_data):
+    """
+    Generate a new class ID in format CLSXXXX
+    Args:
+        courses_data (list): List of course data containing timetables
+    Returns:
+        str: New unique class ID
+    """
+    max_num = 0
+    
+    # Search through all courses and their timetables
+    for course in courses_data:
+        for session in course.get('course_timetable', []):
+            if isinstance(session, dict) and 'class_id' in session:
+                class_id = session['class_id']
+                if class_id.startswith("CLS"):
+                    try:
+                        num = int(class_id[3:])
+                        max_num = max(max_num, num)
+                    except ValueError:
+                        continue
+    
+    # Generate new ID with number incremented by 1
+    new_num = max_num + 1
+    return f"CLS{new_num:04d}"  # Formats number to 4 digits with leading zeros
+
 def update_course_timetable():
     courses_data = get_courses()
     found = False
@@ -192,11 +218,16 @@ def update_course_timetable():
             time_start = input("Enter start time (e.g., 9:00 AM): ")
             time_end = input("Enter end time (e.g., 12:00 PM): ")
 
+            # Generate a unique class ID
+            class_id = generate_class_id(courses_data)
+
             # Create new timetable entry
             new_slot = {
+                "class_id": class_id,
                 "time_start": time_start,
                 "time_end": time_end,
-                "course_teacher": teacher_id
+                "course_teacher": teacher_id,
+                "attendance_list": []  # Initialize empty attendance list
             }
 
             # Initialize timetable as list
@@ -219,7 +250,7 @@ def update_course_timetable():
             # Save updated courses data
             if insert_data("data/course_data.txt", courses_data):
                 print("Course timetable updated successfully.")
-                print(f"Added: {time_start} - {time_end} with teacher {teacher_id}")
+                print(f"Added Class {class_id}: {time_start} - {time_end} with teacher {teacher_id}")
             else:
                 print("Error updating course timetable.")
             break
