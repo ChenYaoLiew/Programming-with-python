@@ -1,7 +1,7 @@
 from function.query import *
 from Student.Student_function import get_student_course_id
 
-all_courses = fetch_data('../data/course_data.txt') # get a list of all courses data inside the txt file
+all_courses = fetch_data('./data/course_data.txt') # get a list of all courses data inside the txt file
 
 def subject_assignment(student_info, student_course, subject):
     """

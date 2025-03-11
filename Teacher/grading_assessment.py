@@ -3,7 +3,7 @@
 
 
 def grade_assignment():
-    from teacher_function import fetch_courses,display_course,select_course,display_students_in_course,process_stud_id,get_valid_grade
+    from Teacher.teacher_function import fetch_courses,display_course,select_course,display_students_in_course,process_stud_id,get_valid_grade
     from function.query import insert_data
 
     courses = fetch_courses()
@@ -50,7 +50,7 @@ def grade_assignment():
 
         # Save the updated data
         courses[selected_course[0]] = selected_course[1]
-        file_path = "../data/course_data.txt"
+        file_path = "data/course_data.txt"
         insert_data(file_path, courses)
         print("Updated assignment grades saved successfully.")
 
@@ -59,7 +59,7 @@ def grade_assignment():
         grade_assignment()
 
 def grade_exam():
-    from teacher_function import fetch_courses, display_course, select_course, display_students_in_course, process_stud_id, \
+    from Teacher.teacher_function import fetch_courses, display_course, select_course, display_students_in_course, process_stud_id, \
         get_valid_grade
     from function.query import insert_data
 
@@ -95,7 +95,7 @@ def grade_exam():
 
         courses[selected_course[0]] = selected_course[1]
 
-        file_path = "../data/course_data.txt"
+        file_path = "data/course_data.txt"
         insert_data(file_path, courses)
         print("Updated exam grades saved successfully.")
 
@@ -104,7 +104,7 @@ def grade_exam():
         grade_exam()
 
 def give_feedback():
-    from teacher_function import fetch_courses, display_course, select_course, display_students_in_course, process_stud_id
+    from Teacher.teacher_function import fetch_courses, display_course, select_course, display_students_in_course, process_stud_id
     from function.query import insert_data
 
     courses = fetch_courses()
@@ -143,7 +143,7 @@ def give_feedback():
         # Update the courses list with the modified course
         courses[selected_course[0]] = selected_course[1]
 
-        file_path = "../data/course_data.txt"
+        file_path = "data/course_data.txt"
         insert_data(file_path, courses)
         print("Feedback saved successfully.")
 
@@ -164,7 +164,7 @@ def manage_grading_assessment():
         elif choice == '3':
             give_feedback()
         elif choice == '4':
-            from menu import teacher_menu_page
+            from Teacher.menu import teacher_menu_page
             teacher_menu_page()
         else:
             print("Invalid choice. Please enter a number between 1 and 4.")

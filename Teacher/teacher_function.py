@@ -33,7 +33,7 @@ def get_student_id(student_id):
            str or None: The matching student ID if found; otherwise, None.
        """
     from function.query import fetch_data
-    file_path = "../data/user_data.txt"
+    file_path = "data/user_data.txt"
     accounts = fetch_data(file_path)
 
     for data in accounts:
@@ -52,7 +52,7 @@ def validate_stud_id(student_id):
 def fetch_courses():
     import os
     """Reads course data from a text file and returns it as a list of dictionaries."""
-    file_path = "../data/course_data.txt"
+    file_path = "data/course_data.txt"
 
     if not os.path.exists(file_path):
         return []  # Return an empty list if the file does not exist

@@ -17,7 +17,7 @@ def validate_student_id(student_id):
         bool: True if student ID exists, False otherwise
     """
     try:
-        user_list = fetch_data("../data/user_data.txt")
+        user_list = fetch_data("data/user_data.txt")
         return any(user["student_id"] == student_id for user in user_list)
     except Exception as e:
         print(f"Error validating student ID: {e}")

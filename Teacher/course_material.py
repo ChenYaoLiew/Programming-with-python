@@ -1,7 +1,7 @@
 # Add course materials such as lecture slides, assignment guideline and announcement for students to view and download
 
 def add_course_material():
-    from teacher_function import fetch_courses,display_course,select_course
+    from Teacher.teacher_function import fetch_courses,display_course,select_course
     from function.query import insert_data
 
     courses = fetch_courses()
@@ -30,7 +30,7 @@ def add_course_material():
 
         courses[selected_course[0]] = selected_course[1]
 
-        file_path = "../data/course_data.txt"
+        file_path = "data/course_data.txt"
         insert_data(file_path,courses)
         print("Successfully added course material.")
 

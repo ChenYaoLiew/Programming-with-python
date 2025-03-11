@@ -22,7 +22,7 @@ from function.query import *
 # }
 
 def get_courses():
-    data = fetch_data("../data/course_data.txt")
+    data = fetch_data("data/course_data.txt")
 
     return data
 
@@ -77,7 +77,7 @@ def generate_class_id():
 
 def create_course():
     # Get course details
-    courses = fetch_data("../data/course_data.txt")
+    courses = fetch_data("data/course_data.txt")
     if not courses:
         courses = []
 
@@ -86,7 +86,7 @@ def create_course():
     new_id = generate_course_id(existing_ids)
 
     # Get other course details
-    course_title = input("Enter course title(Math/Science/English): ")
+    course_title = input("Enter course title(Math/Science/English): ").strip()
     lesson_plan = input("Enter course lesson plan: ")
     assignment_name = input("Enter assignment name: ")
 
@@ -104,7 +104,7 @@ def create_course():
     # Add to courses list and save
     courses.append(new_course)
     
-    if insert_data("../data/course_data.txt", courses):
+    if insert_data("data/course_data.txt", courses):
         print(f"Course {new_id} successfully created.")
 
 def change_course_name():
@@ -121,7 +121,7 @@ def change_course_name():
             break
 
     if found:
-        if insert_data("../data/course_data.txt", courses_data):  # Consistent path format
+        if insert_data("data/course_data.txt", courses_data):  # Consistent path format
             print(f"Course name updated successfully.")
         else:
             print("Error updating course name.")
@@ -142,7 +142,7 @@ def change_course_lesson_plan():
             break
 
     if found:
-        if insert_data("../data/course_data.txt", courses_data):
+        if insert_data("data/course_data.txt", courses_data):
             print(f"Course description updated successfully.")
         else:
             print("Error updating course description.")
@@ -162,7 +162,7 @@ def update_course_timetable():
             
             # Get and validate teacher
             teacher_id = input("Enter teacher id: ")
-            teachers = fetch_data("../data/user_data.txt")
+            teachers = fetch_data("data/user_data.txt")
             teacher_valid = False
             
             for user in teachers:
@@ -206,7 +206,7 @@ def update_course_timetable():
             course['course_timetable'].append(new_slot)
             
             # Save updated courses data
-            if insert_data("../data/course_data.txt", courses_data):
+            if insert_data("data/course_data.txt", courses_data):
                 print("Course timetable updated successfully.")
                 print(f"Added: {time_start} - {time_end} with teacher {teacher_id}")
             else:
@@ -274,7 +274,7 @@ def delete_course():
             updated_courses.append(data)
     
     if found:
-        if insert_data("../data/course_data.txt", updated_courses):
+        if insert_data("data/course_data.txt", updated_courses):
             print(f"Course {prompt1} has been removed!")
         else:
             print("Error deleting course. Please try again.")

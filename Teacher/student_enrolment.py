@@ -1,7 +1,7 @@
 # Enrolling student
 
 def view_enrolled_stu():
-    from teacher_function import get_course_students_enrolled,display_students_in_course
+    from Teacher.teacher_function import get_course_students_enrolled,display_students_in_course
 
     selected_course, students = get_course_students_enrolled("View Enrolled Students")
 
@@ -15,7 +15,7 @@ def view_enrolled_stu():
     display_students_in_course(selected_course[1])
 
 def enrol_stud():
-    from teacher_function import fetch_courses,display_course,select_course,process_stud_id,get_student_id
+    from Teacher.teacher_function import fetch_courses,display_course,select_course,process_stud_id,get_student_id
     from function.query import insert_data
 
     courses = fetch_courses()
@@ -67,7 +67,7 @@ def enrol_stud():
         selected_course[1]["students_enrolled"].append(new_student)
         courses[selected_course[0]] = selected_course[1]
         print(f"Student {student_id} is now enrolled ")
-        file_path = "../data/course_data.txt"
+        file_path = "data/course_data.txt"
         insert_data(file_path, courses)
 
     except ValueError:
@@ -75,7 +75,7 @@ def enrol_stud():
         enrol_stud()
 
 def remove_enrolled_stu():
-    from teacher_function import fetch_courses,display_course,select_course,display_students_in_course,process_stud_id
+    from Teacher.teacher_function import fetch_courses,display_course,select_course,display_students_in_course,process_stud_id
     from function.query import insert_data
 
     courses = fetch_courses()
@@ -117,7 +117,7 @@ def remove_enrolled_stu():
             print("Student not found.")
 
         # Save the deletion back into course_data file
-        file_path = "../data/course_data.txt"
+        file_path = "data/course_data.txt"
         insert_data(file_path, courses)
 
     except(ValueError,IndexError):
@@ -137,7 +137,7 @@ def manage_stu_enrol():
             elif choice == '3':
                 remove_enrolled_stu()
             elif choice == '4':
-                from menu import teacher_menu_page
+                from Teacher.menu import teacher_menu_page
                 teacher_menu_page()
             else:
                 print("Invalid choice. Please enter a number between 1 and 4.")
