@@ -18,18 +18,18 @@ def display_time_table(student_course, subject):
     for course in all_courses:
         if course['course_id'] in student_course[subject]:
             print('-----------------------------------------------------------')
-            print(f'Course ID: {course["course_id"]}\n'
-                  f'Course Title: {course["course_title"]}\n'
+            print(f'Course ID         : {course["course_id"]}\n'
+                  f'Course Title      : {course["course_title"]}\n'
                   f'Course Description: {course["course_description"]}\n'
-                  f'Course Assignment: {course["course_assignment"]}\n'
+                  f'Course Assignment : {course["course_assignment"]}\n'
                   f'Time Table:')
 
             # To iterate out every class in that course
             for index, time in enumerate(course["course_timetable"], start=1):
                 print(f'\nClass [ {index} ]\n'
                       f'Class teacher: {time['course_teacher']}\n'
-                      f'Time Start: {time['time_start']}\n'
-                      f'Time End: {time['time_end']}')
+                      f'Time Start   : {time['time_start']}\n'
+                      f'Time End     : {time['time_end']}')
             print('-----------------------------------------------------------')
 
             subject_course = True

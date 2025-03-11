@@ -67,10 +67,10 @@ def assignment_sub_menu(student_info):
 
     while True:
         print('\n[ Course Assignment Submission ]')
-        print('"1" - Math')
-        print('"2" - Science')
-        print('"3" - English')
-        print('"0" - Save changes and Back')
+        print('1 - Math')
+        print('2 - Science')
+        print('3 - English')
+        print('0 - Save changes and Back')
 
         choice = input('Enter your choice: ')
         # If student got no course in that particular subject, it will display no courses enrolled.

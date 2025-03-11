@@ -1,20 +1,19 @@
 from Administrator.menu import administrator_user_page
 from function.query import *
 from function.account_management import register_account
-from Student.menu import student_user_page
 from function.cache import set_student_id
 from function.cache import *
 
 def get_user_account_type(username):
     accounts = fetch_data("data/user_data.txt")
-    accountType = None
+    account_type = None
 
     for data in accounts:
         if data["username"] == username:
-            accountType = data["accountType"]
+            account_type = data["accountType"]
             break
 
-    return accountType
+    return account_type
 
 def check_account_credentials(username, password):
     accounts = fetch_data("data/user_data.txt")
@@ -82,62 +81,62 @@ def get_user_data(username):
 def main_thread():
     while True:
         user_input = input("'1' - Login Account \n'2' - Register Account \n'3' - Exit\n => ")
-        if user_input in ['1','2','3']:
-            if user_input == "1":
-                input_username = input("Enter your username: ")
-                # Get user data and cache student ID immediately
-                user_data = get_user_data(input_username)
-                if user_data:
-                    set_student_id(user_data["student_id"])
-                    print(f"Debug: Cached student ID: {get_student_id()}")  # Debug line
-                
-                input_password = input("Enter your password: ")
+        if user_input == "1":
+            input_username = input("Enter your username: ")
+            # Get user data and cache student ID immediately
+            user_data = get_user_data(input_username)
+            if user_data:
+                set_student_id(user_data["student_id"])
+                print(f"Debug: Cached student ID: {get_student_id()}")  # Debug line
 
-                if check_account_credentials(input_username, input_password):
-                    account_type = get_user_account_type(input_username)
-                    
-                    # Start session loop for logged-in user
-                    while True:
-                        print(f'\nWelcome Back {input_username} ({account_type})')
-                        
-                        if account_type == 'administrator':
-                            choice = administrator_user_page()
-                            if choice == 'logout':
-                                break  # Break inner loop to return to log in screen
-                            elif choice == 'exit':
-                                exit()
+            input_password = input("Enter your password: ")
 
-                        elif account_type == 'student':
-                            choice = student_user_page(get_account_info(input_username))
-                            if choice == 'logout':
-                                break  # Break inner loop to return to log in screen
-                            elif choice == 'exit':
-                                exit()
-                            else:
-                                pass # notting in here LOL
-                            
-                        elif account_type == 'teacher':
-                            from Teacher.menu import teacher_menu_page
-                            choice = teacher_menu_page()
-                            if choice == 'logout':
-                                break
-                            elif choice == 'exit':
-                                exit()
+            if check_account_credentials(input_username, input_password):
+                account_type = get_user_account_type(input_username)
 
-                        elif account_type == 'staff':
-                            from Staff.Menu import staff_user_page
-                            staff_user_page()
-                            
-                else:
-                    print("Login failed, please try again.")
-                    
-            elif user_input == "2":
-                input_username = input("Enter your username: ")
-                input_password = input("Enter your password: ")
-                register_account(input_username, input_password)
-                
-            elif user_input == "3":
-                exit()
+                # Start session loop for logged-in user
+                while True:
+                    print(f'\nWelcome Back {input_username} ({account_type})')
+
+                    if account_type == 'administrator':
+                        choice = administrator_user_page()
+                        if choice == 'logout':
+                            break  # Break inner loop to return to log in screen
+                        elif choice == 'exit':
+                            exit()
+
+                    elif account_type == 'student':
+                        from Student.menu import student_user_page
+                        choice = student_user_page(get_account_info(input_username))
+                        if choice == 'logout':
+                            break  # Break inner loop to return to log in screen
+                        elif choice == 'exit':
+                            exit()
+                        else:
+                            pass # notting in here LOL
+
+                    elif account_type == 'teacher':
+                        from Teacher.menu import teacher_menu_page
+                        choice = teacher_menu_page()
+                        if choice == 'logout':
+                            break
+                        elif choice == 'exit':
+                            exit()
+
+                    elif account_type == 'staff':
+                        from Staff.Menu import staff_user_page
+                        staff_user_page()
+
+            else:
+                print("Login failed, please try again.")
+
+        elif user_input == "2":
+            input_username = input("Enter your username: ")
+            input_password = input("Enter your password: ")
+            register_account(input_username, input_password)
+
+        elif user_input == "3":
+            exit()
         else:
             print("Invalid input, please try again.")
 
