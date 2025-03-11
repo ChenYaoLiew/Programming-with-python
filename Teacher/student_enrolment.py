@@ -137,8 +137,7 @@ def manage_stu_enrol():
             elif choice == '3':
                 remove_enrolled_stu()
             elif choice == '4':
-                from Teacher.menu import teacher_menu_page
-                teacher_menu_page()
+                return
             else:
                 print("Invalid choice. Please enter a number between 1 and 4.")
 

@@ -164,8 +164,7 @@ def manage_grading_assessment():
         elif choice == '3':
             give_feedback()
         elif choice == '4':
-            from Teacher.menu import teacher_menu_page
-            teacher_menu_page()
+            return
         else:
             print("Invalid choice. Please enter a number between 1 and 4.")
 
