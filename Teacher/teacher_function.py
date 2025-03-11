@@ -201,23 +201,9 @@ def select_class(selected_course, action="Select"):
         print(f"Class ID '{class_id}' not found. Please try again.")
 
 def validate_class_id(class_id):
-    """
-    Validates the format of a class ID.
-
-    Args:
-        class_id (str): The class ID to validate.
-
-    Returns:
-        bool: True if valid, False otherwise.
-    """
-    if len(class_id) != 7:  # Ensure correct length
-        print("Invalid Class ID format. It should be exactly 7 characters (e.g., CLS0001).")
-        return False
-    if not class_id.startswith("CLS"):  # Ensure it starts with 'CLS'
-        print("Invalid Class ID format. It should start with 'CLS' (e.g., CLS0001).")
-        return False
-    if not class_id[3:].isdigit():  # Ensure last 4 characters are digits
-        print("Invalid Class ID format. The last four characters should be numbers (e.g., CLS0001).")
+    """Validates Class ID format (should be 'CLSxxxx')."""
+    if not class_id.startswith("CLS") or not class_id[3:].isdigit() or len(class_id) != 7:
+        print("Invalid class ID format. Should be CLS followed by 4 digits (e.g., UID0001)")
         return False
     return True
 

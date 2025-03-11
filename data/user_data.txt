@@ -1,3 +1,4 @@
 {"username": "student1", "password": "student1", "accountType": "student", "student_id": "UID0001", "fund": 0.0, "phone_num": "011-111-111", "country": "Soviet Union", "emergency_info": "NO EnoUGh VODkA!", "feedback": "FEEDBACK"}
 {"username": "student2", "password": "student2", "accountType": "student", "student_id": "UID0002", "fund": 0.0, "phone_num": "Empty", "country": "Empty", "emergency_info": "Empty", "feedback": "Empty"}
 {"username": "student3", "password": "student3", "accountType": "student", "student_id": "UID0003", "fund": 0.0, "phone_num": "033-333-3333", "country": "Empty", "emergency_info": "Empty", "feedback": "Empty"}
+{"username": "teacher1", "password": "teacher1", "accountType": "teacher", "student_id": "UID0005", "fund": 0.0, "phone_num": "033-333-3333", "country": "Empty", "emergency_info": "Empty", "feedback": "Empty"}
