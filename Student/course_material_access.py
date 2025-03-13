@@ -1,58 +1,50 @@
 from Student.Student_function import get_student_course_id
+from Student.Student_function import display_subject_menu
 from function.query import fetch_data
+
 
 all_courses = fetch_data('./data/course_data.txt')  # get a list of all courses data inside the txt file
 
-def show_course_material(student_course, subject):
-    """
-    To display course material with corresponding subject
-    Args:
-        student_course(dict): A dictionary which contain student's every subject and corresponding course_id
-        subject(str): Subject name
-    return:
-        None
-    """
-    print(f'[ {subject} material ]')
-    # To make sure student have course in that subject, if no print no course enrolled
-    if student_course[subject]:
-        # print out all the course material with its course_id
-        for course in all_courses:
-            if course['course_id'] in student_course[subject]:
-                print('----------------------------------------------------------------------------')
-                print(f'Course ID            : {course['course_id']}')
-                print(f'lecture Note         : {course['course_material']['lecture_note']}')
-                print(f'Assignment Guideline : {course['course_material']['assignment_guideline']}')
-                print(f'Announcement         : {course['course_material']['announcement']}')
-    else:
-        print(f'No {subject} course enrolled!')
-
 def course_material(student_info):
     """
-    To display course material menu
+    Display all the course and its course material
     Args:
         student_info(list): ["Index of the student in data_list"(int), "data of the student(one student only)"(dict)]
-    return:
+    Returns:
         None
     """
+    # A dictionary that contain all the student's subject and corresponding course
     student_course = get_student_course_id(student_info, all_courses)
+    # A list of the student's subject
+    subject_list = list(student_course)
 
     while True:
         # Display menu
-        print('\n[ Course Material ]')
-        print('1 - Math')
-        print('2 - Science')
-        print('3 - English')
-        print('0 - Back')
-
-        choice = input('Enter your choice: ')
-
-        if choice == '1':
-            show_course_material(student_course, 'Math')
-        elif choice == '2':
-            show_course_material(student_course, 'Science')
-        elif choice == '3':
-            show_course_material(student_course, 'English')
-        elif choice == '0':
+        if not display_subject_menu(student_course, 'Course Material'):
+            print('No courses enrolled!')
             break
-        else:
+
+        sub_choice = input('Enter your choice: ')
+        try:
+            sub_choice = int(sub_choice) # Convert the choice to an integer to ensure subject that selected by the student
+
+            if sub_choice == 0: # if choice is 0 student will back to main page
+                break
+
+            # Make sure student input the correct choice and display the course material in the course
+            elif 1 <= sub_choice <= len(subject_list):
+                subject = subject_list[sub_choice - 1] # Get the subject name with corresponding index
+                # Display assignment info
+                print(f'\n[ {subject} ]')
+                for sub_info in student_course[subject]:
+                        print('----------------------------------------------------------------------------')
+                        print(f'Course ID            : {sub_info['course_id']}')
+                        print(f'lecture Note         : {sub_info['course_material']['lecture_note']}')
+                        print(f'Assignment Guideline : {sub_info['course_material']['assignment_guideline']}')
+                        print(f'Announcement         : {sub_info['course_material']['announcement']}')
+
+            else:
+                print('Invalid choice!')
+
+        except ValueError:
             print('Invalid choice!')

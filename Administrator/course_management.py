@@ -26,6 +26,17 @@ def get_courses():
 
     return data
 
+
+def display_course(all_course):
+    # Display all the course ID and course title if got any course
+    print('\n[ Available Courses ]')
+    if all_course:
+        for course in all_course:
+            print(f'- {course['course_id']} {course['course_title']}')
+    else:
+        print('None')
+
+
 def generate_course_id(existing_ids):
     """
     Generate a new course ID in format CRSXXXX
@@ -45,6 +56,7 @@ def generate_course_id(existing_ids):
 
     new_num = max_num + 1
     return f"CRS{new_num:04d}"
+
 
 def generate_class_id():
     """
@@ -75,6 +87,7 @@ def generate_class_id():
 
     return None  # Should never reach this point
 
+
 def create_course():
     # Get course details
     courses = fetch_data("data/course_data.txt")
@@ -86,7 +99,7 @@ def create_course():
     new_id = generate_course_id(existing_ids)
 
     # Get other course details
-    course_title = input("Enter course title(Math/Science/English): ").strip()
+    course_title = input("Enter course title: ")
     lesson_plan = input("Enter course lesson plan: ")
     assignment_name = input("Enter assignment name: ")
 
@@ -96,21 +109,23 @@ def create_course():
         "course_title": course_title,
         "lesson_plan": lesson_plan,
         "course_assignment": assignment_name,
-        "course_material": {"lecture_note":"","assignment_guideline":"","announcement":""},
+        "course_material": {"lecture_note": "", "assignment_guideline": "", "announcement": ""},
         "students_enrolled": [],  # Empty dictionary where key=student_id, value=student_name
         "course_timetable": []  # Empty list for staff to fill later
     }
 
     # Add to courses list and save
     courses.append(new_course)
-    
+
     if insert_data("data/course_data.txt", courses):
         print(f"Course {new_id} successfully created.")
+
 
 def change_course_name():
     courses_data = get_courses()
     found = False
 
+    display_course(courses_data)
     prompt1 = input("Enter course id: ")
 
     for data in courses_data:
@@ -128,10 +143,12 @@ def change_course_name():
     else:
         print("Invalid course")
 
+
 def change_course_lesson_plan():
     courses_data = get_courses()
     found = False
 
+    display_course(courses_data)
     prompt1 = input("Enter course id: ")
 
     for data in courses_data:
@@ -149,27 +166,29 @@ def change_course_lesson_plan():
     else:
         print("Invalid course")
 
+
 def update_course_timetable():
     courses_data = get_courses()
     found = False
 
+    display_course(courses_data)
     course_id = input("Enter course id: ")
 
     # Find the course
     for course in courses_data:
         if course['course_id'] == course_id:
             found = True
-            
+
             # Get and validate teacher
             teacher_id = input("Enter teacher id: ")
             teachers = fetch_data("data/user_data.txt")
             teacher_valid = False
-            
+
             for user in teachers:
                 if user["student_id"] == teacher_id and user["accountType"] == "teacher":
                     teacher_valid = True
                     break
-            
+
             if not teacher_valid:
                 print("Invalid teacher ID! Please enter a valid teacher username.")
                 return
@@ -201,10 +220,10 @@ def update_course_timetable():
 
             if not isinstance(course['course_timetable'], list):
                 course['course_timetable'] = []
-            
+
             # Add to course timetable
             course['course_timetable'].append(new_slot)
-            
+
             # Save updated courses data
             if insert_data("data/course_data.txt", courses_data):
                 print("Course timetable updated successfully.")
@@ -212,38 +231,42 @@ def update_course_timetable():
             else:
                 print("Error updating course timetable.")
             break
-    
+
     if not found:
         print("Invalid course ID")
+
 
 def view_course_timetable():
     courses_data = get_courses()
     found = False
 
+    display_course(courses_data)
     course_id = input("Enter course id: ")
 
     for data in courses_data:
         if data['course_id'] == course_id:
             found = True
             timetable_data = data.get('course_timetable', [])
-            
+
             if not timetable_data:
                 print("No timetable entries found for this course.")
                 return
-                
+
             for slot in timetable_data:
                 print("\nTimetable Entry:")
                 print("Start time:", slot.get('time_start'))
                 print("End time:", slot.get('time_end'))
                 print("Teacher:", slot.get('course_teacher'))
-                print("-"*50)
+                print("-" * 50)
             return
 
     if not found:
         print("Invalid course id")
 
+
 def update_course():
-    print("\n'1' - Change course name\n'2' - Change course lesson\n'3' - Update course timetable\n'4' - Delete class\n'5' - View course timetable")
+    print(
+        "\n'1' - Change course name\n'2' - Change course lesson\n'3' - Update course timetable\n'4' - Delete class\n'5' - View course timetable")
     choice = input("Enter your choice: ")
 
     if choice == '1':
@@ -260,11 +283,14 @@ def update_course():
     else:
         print("Invalid choice")
 
+
 def delete_course():
-    prompt1 = input("Enter course id: ")
-    found = False
     courses_data = get_courses()
-    
+    found = False
+
+    display_course(courses_data)
+    prompt1 = input("Enter course id: ")
+
     # Create new list without the course to be deleted
     updated_courses = []
     for data in courses_data:
@@ -272,7 +298,7 @@ def delete_course():
             found = True
         else:
             updated_courses.append(data)
-    
+
     if found:
         if insert_data("data/course_data.txt", updated_courses):
             print(f"Course {prompt1} has been removed!")
@@ -280,20 +306,21 @@ def delete_course():
             print("Error deleting course. Please try again.")
     else:
         print("Invalid course id")
-    
+
+
 def view_courses():
     courses_data = get_courses()
-    
+
     if not courses_data:
         print("No courses found.")
         return
 
     for course in courses_data:
-        print("\n" + "="*50)
+        print("\n" + "=" * 50)
         print(f"Course ID: {course['course_id']}")
         print(f"Title: {course['course_title']}")
         print(f"Lesson Plan: {course['lesson_plan']}")
-        
+
         # Display timetable if it exists
         if course['course_timetable']:
             print("\nTimetable:")
@@ -302,8 +329,9 @@ def view_courses():
                 print(f"    Teacher: {slot['course_teacher']}")
         else:
             print("\nTimetable: No schedule yet")
-        
-        print("="*50)
+
+        print("=" * 50)
+
 
 def manage_course():
     while True:

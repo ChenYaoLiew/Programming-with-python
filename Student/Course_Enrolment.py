@@ -3,59 +3,56 @@ from Student.Student_function import get_student_course_id
 
 all_courses = fetch_data('./data/course_data.txt')  # get a list of all courses data inside the txt file
 
-def display_time_table(student_course, subject):
+def get_all_teacher(file_path):
     """
-    To display student's timetable with corresponding subject
+    To get all the teacher id and their name in a dictionary
     Args:
-        student_course(dict): A dictionary which contain student's every subject and corresponding course_id
-        subject(str): Subject name
-    return:
-        subject_course(Bool): if no enrolled yet return False
+        file_path (str): The directory of the file
+    Returns:
+        teacher_dict(dict): A dictionary that store all the teacher ID and their name
     """
-    subject_course = False # Initially student's have subject course will be defined as False.
+    from function.query import fetch_data
+    all_user = fetch_data(file_path)
+    teacher_dict = {}
 
-    # To iterate out every course the student have with corresponding subject.
-    for course in all_courses:
-        if course['course_id'] in student_course[subject]:
-            print('-----------------------------------------------------------')
-            print(f'Course ID         : {course['course_id']}\n'
-                  f'Course Title      : {course['course_title']}\n'
-                  f'Lesson Plan       : {course['lesson_plan']}\n'
-                  f'Course Assignment : {course['course_assignment']}\n'
-                  f'Time Table:')
+    # To get all the user in the file and insert into teacher_dict
+    for user in all_user:
+        if user['accountType'] == 'teacher':
+            teacher_dict[user['student_id']] = user['username']
 
-            # To iterate out every class in that course
-            for index, time in enumerate(course["course_timetable"], start=1):
-                print(f'\nClass [ {index} ]\n'
-                      f'Class ID     : {time['class_id']}\n'
-                      f'Class teacher: {time['course_teacher']}\n'
-                      f'Time Start   : {time['time_start']}\n'
-                      f'Time End     : {time['time_end']}')
-            print('-----------------------------------------------------------')
-
-            subject_course = True
-
-    return subject_course
+    return teacher_dict
 
 def time_table(student_info):
     """
-    To display all timetable with its subject
+    Display all the course and its timetable with specified student_id
     Args:
         student_info(list): ["Index of the student in data_list"(int), "data of the student(one student only)"(dict)]
-    return:
+    Returns:
         None
     """
-    # A dictionary which contain student's every subject and corresponding course_id
+    # A dictionary that contain all the student's subject and corresponding course
     student_course = get_student_course_id(student_info, all_courses)
+    # A dictionary that store all the teacher ID and their name
+    teacher_dict = get_all_teacher('./data/user_data.txt')
 
-    print('\n[ Math ]')
-    if not display_time_table(student_course, 'Math'): # if no subject's course enrolled, print No Math courses enrolled!
-        print('No Math courses enrolled!')
+    if student_course: # Check if student got any subject that was already enrolled
+        for subject in student_course: # Check the subject of the student one by one
+            print(f'\n[ {subject} ]')
+            for sub_info in student_course[subject]: # Check all the courses of the subject one by one
+                print('-----------------------------------------------------------')
+                print(f'Course ID         : {sub_info['course_id']}\n'
+                      f'Course Title      : {sub_info['course_title']}\n'
+                      f'Lesson Plan       : {sub_info['lesson_plan']}\n'
+                      f'Course Assignment : {sub_info['course_assignment']}\n'
+                      f'Time Table:')
 
-    print('\n[ Science ]')
-    if not display_time_table(student_course, 'Science'):
-        print('No Science courses enrolled!')
-
-    print('\n[ English ]')
-    if not display_time_table(student_course, 'English'):
-        print('No English courses enrolled!')
+                # To iterate out every class in that course
+                for index, classes in enumerate(sub_info["course_timetable"], start=1):
+                    print(f'\nClass [ {index} ]\n'
+                          f'Class ID     : {classes['class_id']}\n'
+                          f'Class teacher: {teacher_dict[classes['course_teacher']]}\n'
+                          f'Time Start   : {classes['time_start']}\n'
+                          f'Time End     : {classes['time_end']}')
+                print('-----------------------------------------------------------')
+    else:
+        print('\nNo courses enrolled!')
