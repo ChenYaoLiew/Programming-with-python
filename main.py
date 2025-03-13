@@ -1,7 +1,6 @@
 from Administrator.menu import administrator_user_page
 from function.query import *
 from function.account_management import register_account
-from function.cache import set_student_id
 from function.cache import *
 
 def get_user_account_type(username):
