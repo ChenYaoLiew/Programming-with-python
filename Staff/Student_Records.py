@@ -9,6 +9,18 @@ from function.utils import *
 from Staff.Menu import staff_user_page
 
 def read_student_file():
+    """
+    Read and return all student records from the user data file.
+    
+    This function retrieves all student records stored in the user_data.txt file
+    using the fetch_data utility function.
+    
+    Parameters:
+        None
+        
+    Returns:
+        list: A list of dictionaries containing student records
+    """
     # Read and return all student records from file, Returns list of student dictionaries
     student_list = fetch_data("data/user_data.txt")
     return student_list
@@ -16,8 +28,10 @@ def read_student_file():
 def update_student_record(student_list):
     """
     Update student records in the file using the query functions
-    Args:
+    
+    Parameters:
         student_list (list): List of student dictionaries to update
+        
     Returns:
         bool: True if successful, False otherwise
     """
@@ -40,12 +54,38 @@ def update_student_record(student_list):
         return False
 
 def view_records():
+    """
+    Display all student account records with their details.
+    
+    This function retrieves all student records and prints each student's 
+    username, password, account type, student ID, and fund balance.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     account_list = read_student_file()
     for account in account_list:
         print(f"Username: {account['username']}, Password: {account['password']}, Account Type: {account['accountType']}, student_id: {account['student_id']}, Fund: {account['fund']}")
         print("-" * 100)  # Add a separator line between accounts
 
 def deposit(student_id, name):
+    """
+    Add funds to a student's account.
+    
+    This function allows a specified amount to be added to a student's
+    fund balance after validating the student ID and ensuring the 
+    deposit amount is positive.
+    
+    Parameters:
+        student_id (str): ID of the student receiving the deposit
+        name (str): Name of the student (for reference)
+        
+    Returns:
+        None
+    """
     student_list = read_student_file()
     
     # Check if student exists by ID
@@ -75,6 +115,20 @@ def deposit(student_id, name):
         print(f"New balance: ${float(student['fund']):.2f}")
 
 def withdrawal(student_id, name):
+    """
+    Withdraw funds from a student's account.
+    
+    This function allows a specified amount to be withdrawn from a student's
+    fund balance after validating the student ID, ensuring the withdrawal
+    amount is positive, and checking for sufficient funds.
+    
+    Parameters:
+        student_id (str): ID of the student making the withdrawal
+        name (str): Name of the student (for reference)
+        
+    Returns:
+        None
+    """
     student_list = read_student_file()
     
     # Check if student exists by ID
@@ -107,6 +161,20 @@ def withdrawal(student_id, name):
         print(f"New balance: ${float(student['fund']):.2f}")
 
 def transfer(student_id, name):
+    """
+    Transfer funds from one student's account to another.
+    
+    This function allows funds to be transferred between student accounts
+    after validating both student IDs, ensuring the transfer amount is
+    positive, and checking that the sender has sufficient funds.
+    
+    Parameters:
+        student_id (str): ID of the student sending the funds
+        name (str): Name of the student (for reference)
+        
+    Returns:
+        None
+    """
     student_list = read_student_file()
     
     # Check if student exists by ID

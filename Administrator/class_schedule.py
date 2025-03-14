@@ -2,12 +2,17 @@ from function.query import *
 
 def check_time_collision(time1_start, time1_end, time2_start, time2_end):
     """
-    Check if two time slots overlap
-    Args:
+    Check if two time slots overlap.
+    
+    This function compares two time periods and determines if they have any
+    overlap. It converts time strings to datetime objects for comparison.
+    
+    Parameters:
         time1_start (str): Start time of first slot (format: "HH:MM AM/PM")
-        time1_end (str): End time of first slot
-        time2_start (str): Start time of second slot
-        time2_end (str): End time of second slot
+        time1_end (str): End time of first slot (format: "HH:MM AM/PM")
+        time2_start (str): Start time of second slot (format: "HH:MM AM/PM")
+        time2_end (str): End time of second slot (format: "HH:MM AM/PM")
+        
     Returns:
         bool: True if times overlap, False otherwise
     """
@@ -23,7 +28,20 @@ def check_time_collision(time1_start, time1_end, time2_start, time2_end):
     return (t1_start < t2_end) and (t2_start < t1_end)
 
 def view_class_schedule():
-    """View and check for time collisions within the same course"""
+    """
+    View and check for time collisions within class schedules.
+    
+    This function displays the current class schedule for all courses
+    and identifies any scheduling conflicts where the same teacher is
+    assigned to multiple classes at overlapping times. When conflicts
+    are detected, it offers options to resolve them.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     courses_data = fetch_data("data/course_data.txt")
     
     if not courses_data:
@@ -87,6 +105,18 @@ def view_class_schedule():
         print("All class schedules are properly arranged.")
 
 def class_schedule_menu():
+    """
+    Display the class schedule management menu.
+    
+    This function presents options for viewing class schedules
+    or returning to the previous menu.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     while True:
         print("\n'1' - View Class Schedule\n'2' - Back")
         choice = input("Enter your choice: ")

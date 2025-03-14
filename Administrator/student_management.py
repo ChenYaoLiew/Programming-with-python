@@ -8,6 +8,19 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from function.query import *
 
 def view_all_student():
+    """
+    Display information for all students in the system.
+    
+    This function retrieves all user records from the data file and
+    prints details for accounts with the "student" account type, including
+    username, student ID, phone number, and country.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     student_data = fetch_data("data/user_data.txt")
 
     for student in student_data:
@@ -15,6 +28,19 @@ def view_all_student():
             print(f"Username: {student['username']}, Student ID: {student['student_id']}, Phone Number: {student['phone_num']}, Country: {student['country']}")
 
 def view_student(student_id):
+    """
+    Display information for a specific student by ID.
+    
+    This function retrieves and displays the details of a student
+    matching the provided student ID, including username, ID,
+    phone number, and country.
+    
+    Parameters:
+        student_id (str): The ID of the student to view
+        
+    Returns:
+        None
+    """
     student_data = fetch_data("data/user_data.txt")
 
     for student in student_data:
@@ -22,6 +48,19 @@ def view_student(student_id):
             print(f"Username: {student['username']}, Student ID: {student['student_id']}, Phone Number: {student['phone_num']}, Country: {student['country']}")
 
 def view_student_menu():
+    """
+    Display a menu for student viewing options.
+    
+    This function presents options for viewing all students,
+    viewing a specific student by ID, or returning to the
+    previous menu.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     while True:
         print("'1' - View All Student\n'2' - View Student\n'3' - Back")
         choice = input("Enter your choice: ")
@@ -40,7 +79,10 @@ def remove_student(student_id):
     """
     Remove a student from the system by their student ID.
     
-    Args:
+    This function removes a student account from the user data file
+    based on the provided student ID.
+    
+    Parameters:
         student_id (str): The ID of the student to remove
         
     Returns:
@@ -73,7 +115,11 @@ def update_student_details(student_id):
     """
     Update student details in the system.
     
-    Args:
+    This function allows updating a student's phone number, country,
+    or emergency information. It displays the current values before
+    prompting for changes.
+    
+    Parameters:
         student_id (str): The ID of the student to update
         
     Returns:
@@ -136,9 +182,17 @@ def update_student_details(student_id):
 
 def view_enrollment_status(student_id):
     """
-    View all courses a student is enrolled in
-    Args:
+    View all courses a student is enrolled in.
+    
+    This function retrieves and displays a list of all courses the
+    specified student is enrolled in, including course ID, title,
+    and current grades.
+    
+    Parameters:
         student_id (str): The ID of the student to check
+        
+    Returns:
+        None
     """
     # First verify the student exists
     student_data = fetch_data("data/user_data.txt")
@@ -178,9 +232,17 @@ def view_enrollment_status(student_id):
 
 def view_academic_performance(student_id):
     """
-    View academic performance (assignment and exam grades) for all courses a student is enrolled in
-    Args:
+    View academic performance for all courses a student is enrolled in.
+    
+    This function displays detailed academic information for a student
+    across all enrolled courses, including assignment status, assignment
+    grade, exam grade, and teacher feedback.
+    
+    Parameters:
         student_id (str): The ID of the student to check
+        
+    Returns:
+        None
     """
     # First verify the student exists
     student_data = fetch_data("data/user_data.txt")
@@ -220,6 +282,20 @@ def view_academic_performance(student_id):
         print("\nStudent is not enrolled in any courses.")
 
 def student_management_menu():
+    """
+    Display the main student management menu.
+    
+    This function presents options for viewing student information,
+    enrolling students, removing students, updating details, viewing
+    enrollment status, checking academic performance, or returning
+    to the previous menu.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     while True:
         print("\n'1' - View Student\n'2' - Enroll Student\n'3' - Remove Student\n'4' - Update Personal Details\n'5' - View Enrollment Status\n'6' - View Academic Performance\n'7' - Back")
         choice = input("Enter your choice: ")

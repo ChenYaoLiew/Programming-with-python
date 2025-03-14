@@ -1,10 +1,3 @@
-# Teacher Menu Page
-# Course Creation & Management : Create and update courses, including lesson plans, assignments, and schedules.
-# Student Enrolment: Enrol and remove students from the courses they are teaching.
-# Grading and Assessment: Grade assignments, exams, and provide detailed feedback to students.
-# Attendance Tracking: Record and monitor student attendance during classes.
-# Report Generation: Generate reports on student performance and participation for administrative review.
-
 def teacher_menu_page():
 
     while True:

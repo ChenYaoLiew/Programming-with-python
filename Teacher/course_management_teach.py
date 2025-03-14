@@ -1,6 +1,3 @@
-# Course Creation and Management
-# Create and update courses, including lesson plans, assignments, and schedules
-
 def manage_course_teach():
     while True:
         print("\nWelcome to Course Creation and Management\n'1' - Create Course\n'2' - Update Course\n'3' - Delete Course\n'4' - View Courses\n'5' - Add Course Material\n'6' - Back")

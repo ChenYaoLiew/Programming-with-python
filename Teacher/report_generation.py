@@ -13,8 +13,20 @@
 
 def generate_student_report():
     """
-    Generates a report containing a student's course and performance details.
-    Displays course selection, enrolled students, and generates a structured report.
+    Generate a comprehensive report for a specific student in a selected course.
+    
+    This function guides teachers through selecting a course and student, then
+    generates a detailed performance report including course information, 
+    assignment status, grades, attendance, and feedback. The report is displayed
+    on screen and returned as a dictionary.
+    
+    Parameters:
+        None
+        
+    Returns:
+        dict: A dictionary containing the student's performance data with keys:
+              course_id, course_title, assignment_submission, assignment_grade,
+              exam_grade, class_id, attendance, and feedback
     """
     from Teacher.teacher_function import fetch_courses, display_course, display_students_in_course, select_course
 
@@ -77,4 +89,3 @@ def generate_student_report():
         print(f"{key}: {value}")
 
     return report
-

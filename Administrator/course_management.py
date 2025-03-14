@@ -22,12 +22,35 @@ from function.query import *
 # }
 
 def get_courses():
+    """
+    Retrieve all course records from the course data file.
+    
+    This function fetches all course data stored in the course_data.txt file
+    using the fetch_data utility function.
+    
+    Parameters:
+        None
+        
+    Returns:
+        list: A list of dictionaries containing course records
+    """
     data = fetch_data("data/course_data.txt")
 
     return data
 
-
 def display_course(all_course):
+    """
+    Display a list of all available courses.
+    
+    This function prints course IDs and titles for all courses in the provided list.
+    If no courses are available, it displays "None".
+    
+    Parameters:
+        all_course (list): List of course dictionaries to display
+        
+    Returns:
+        None
+    """
     # Display all the course ID and course title if got any course
     print('\n[ Available Courses ]')
     if all_course:
@@ -36,12 +59,13 @@ def display_course(all_course):
     else:
         print('None')
 
-
 def generate_course_id(existing_ids):
     """
     Generate a new course ID in format CRSXXXX
-    Args:
+    
+    Parameters:
         existing_ids (list): List of existing course IDs
+        
     Returns:
         str: New unique course ID
     """
@@ -57,12 +81,15 @@ def generate_course_id(existing_ids):
     new_num = max_num + 1
     return f"CRS{new_num:04d}"
 
-
 def generate_class_id():
     """
     Generate a new class ID in format CLSXXXX.
+    
     Retrieves class IDs from course data to ensure no gaps when reusing deleted IDs.
-
+    
+    Parameters:
+        None
+        
     Returns:
         str: New unique class ID
     """
@@ -87,8 +114,20 @@ def generate_class_id():
 
     return None  # Should never reach this point
 
-
 def create_course():
+    """
+    Create a new course in the system.
+    
+    This function prompts for course details, generates a new course ID,
+    and adds the course to the course data file. The new course is initialized
+    with empty lists for enrolled students and timetable entries.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     # Get course details
     courses = fetch_data("data/course_data.txt")
     if not courses:
@@ -120,8 +159,19 @@ def create_course():
     if insert_data("data/course_data.txt", courses):
         print(f"Course {new_id} successfully created.")
 
-
 def change_course_name():
+    """
+    Update the name of an existing course.
+    
+    This function displays all available courses, prompts for a course ID
+    and new name, then updates the course record if found.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     courses_data = get_courses()
     found = False
 
@@ -145,6 +195,18 @@ def change_course_name():
 
 
 def change_course_lesson_plan():
+    """
+    Update the lesson plan of an existing course.
+    
+    This function displays all available courses, prompts for a course ID
+    and new lesson plan, then updates the course record if found.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     courses_data = get_courses()
     found = False
 
@@ -166,8 +228,20 @@ def change_course_lesson_plan():
     else:
         print("Invalid course")
 
-
 def update_course_timetable():
+    """
+    Add a new timetable entry to an existing course.
+    
+    This function prompts for course ID, teacher ID, and time slot details,
+    then adds a new class to the course's timetable. It validates the teacher ID
+    and generates a unique class ID for the new entry.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     courses_data = get_courses()
     found = False
 
@@ -235,8 +309,19 @@ def update_course_timetable():
     if not found:
         print("Invalid course ID")
 
-
 def view_course_timetable():
+    """
+    Display the timetable for a specific course.
+    
+    This function prompts for a course ID and displays all timetable entries
+    for the selected course, including start time, end time, and assigned teacher.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     courses_data = get_courses()
     found = False
 
@@ -263,8 +348,19 @@ def view_course_timetable():
     if not found:
         print("Invalid course id")
 
-
 def update_course():
+    """
+    Present a menu for various course update operations.
+    
+    This function displays options for changing course name or lesson plan,
+    updating timetable, deleting a class, or viewing the timetable.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     print(
         "\n'1' - Change course name\n'2' - Change course lesson\n'3' - Update course timetable\n'4' - Delete class\n'5' - View course timetable")
     choice = input("Enter your choice: ")
@@ -283,8 +379,19 @@ def update_course():
     else:
         print("Invalid choice")
 
-
 def delete_course():
+    """
+    Delete a course from the system.
+    
+    This function displays all available courses, prompts for a course ID,
+    and removes the selected course from the course data file.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     courses_data = get_courses()
     found = False
 
@@ -307,8 +414,19 @@ def delete_course():
     else:
         print("Invalid course id")
 
-
 def view_courses():
+    """
+    Display detailed information for all courses.
+    
+    This function retrieves and displays comprehensive details for each course,
+    including course ID, title, lesson plan, and timetable entries.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     courses_data = get_courses()
 
     if not courses_data:
@@ -332,8 +450,19 @@ def view_courses():
 
         print("=" * 50)
 
-
 def manage_course():
+    """
+    Present the main course management menu.
+    
+    This function displays options for creating, updating, deleting,
+    and viewing courses, or returning to the previous menu.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     while True:
         print("'1' - Create Course\n'2' - Update Course\n'3' - Delete Course\n'4' - View Courses\n'5' - Back")
 

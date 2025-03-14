@@ -171,7 +171,6 @@ def send_message():
     Send a new message to another user
     """
     student_id = get_student_id()
-    print(f"Debug: Current student ID in send_message: {student_id}")  # Debug line
     
     if not student_id or student_id == "None":
         print("Error: Not logged in. Please log in again.")
@@ -234,7 +233,6 @@ def communication_main():
     Main communication menu loop
     """
     student_id = get_student_id()
-    print(f"Debug: Starting communication with student ID: {student_id}")  # Debug line
 
     while True:
         delete_chat()

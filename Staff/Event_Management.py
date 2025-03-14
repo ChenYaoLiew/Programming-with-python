@@ -8,11 +8,35 @@ from function.query import *
 # event Management: Create, update, or delete event offerings and assign instructors to events. 
 
 def read_event_file():
+    """
+    Read and return all event records from the event data file.
+    
+    This function retrieves all event records stored in the event_data.txt file
+    using the fetch_data utility function.
+    
+    Parameters:
+        None
+        
+    Returns:
+        list: A list of dictionaries containing event records
+    """
     # Read and return all event records from file, Returns list of event dictionaries
     event_list = fetch_data("data/event_data.txt")
     return event_list
 
 def read_student_file():
+    """
+    Read and return all student records from the student data file.
+    
+    This function retrieves all student records stored in the student_data.txt file
+    using the fetch_data utility function.
+    
+    Parameters:
+        None
+        
+    Returns:
+        list: A list of dictionaries containing student records
+    """
     # Read and return all student records from file, Returns list of student dictionaries
     student_list = fetch_data("data/student_data.txt")
     return student_list
@@ -20,8 +44,10 @@ def read_student_file():
 def generate_event_id(existing_ids):
     """
     Generate a new event ID in format EVEXXXX
-    Args:
+    
+    Parameters:
         existing_ids (list): List of existing event IDs
+        
     Returns:
         str: New unique event ID
     """
@@ -40,12 +66,14 @@ def generate_event_id(existing_ids):
 def register_event(event_id, event_title, event_description, students_enrolled, event_time):
     """
     Register a new event
-    Args:
+    
+    Parameters:
         event_id (str): Unique event ID
         event_title (str): Event title
         event_description (str): Event description
         students_enrolled (list): List of enrolled student IDs
         event_time (str): Event time
+        
     Returns:
         bool: True if successful, False otherwise
     """
@@ -87,6 +115,16 @@ def register_event(event_id, event_title, event_description, students_enrolled, 
     return success
 
 def validate_event_id(event_id, event_list):
+    """
+    Check if an event ID exists in the event records.
+    
+    Parameters:
+        event_id (str): The event ID to validate
+        event_list (list): List of event dictionaries to check against
+        
+    Returns:
+        tuple: (bool, dict) - Boolean indicating if ID exists and the event data if found
+    """
     # Check if event_id exists in records
     for event in event_list:
         if event['event_id'] == event_id:
@@ -94,6 +132,16 @@ def validate_event_id(event_id, event_list):
     return False, None
 
 def validate_event_title(event_title, event_list):
+    """
+    Check if an event title exists in the event records.
+    
+    Parameters:
+        event_title (str): The event title to validate
+        event_list (list): List of event dictionaries to check against
+        
+    Returns:
+        tuple: (bool, dict) - Boolean indicating if title exists and the event data if found
+    """
     # Check if event_title exists in records
     for event in event_list:
         if event['event_title'] == event_title:
@@ -103,8 +151,10 @@ def validate_event_title(event_title, event_list):
 def update_event_record(event_list):
     """
     Update event records in the file using the query functions
-    Args:
+    
+    Parameters:
         event_list (list): List of event dictionaries to update
+        
     Returns:
         bool: True if successful, False otherwise
     """
@@ -128,7 +178,16 @@ def update_event_record(event_list):
 
 def view_event():
     """
-    Display all events with enrolled students
+    Display all events with enrolled students.
+    
+    This function retrieves all event records and prints each event's
+    ID, title, description, time, and list of enrolled students.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
     """
     event_list = read_event_file()
     print("-" * 100)
@@ -142,7 +201,17 @@ def view_event():
 
 def add_event():
     """
-    Add a new event with multiple student enrollments
+    Add a new event with multiple student enrollments.
+    
+    This function prompts for event information, generates a new
+    event ID, and allows adding multiple students to the event.
+    It validates student IDs against existing records before enrollment.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
     """
     event_title = input("Enter event title: ")
     event_description = input("Enter event description: ")
@@ -205,6 +274,18 @@ def add_event():
     )
 
 def change_event_title():
+    """
+    Update the title of an existing event.
+    
+    This function prompts for an event ID and a new title,
+    then updates the event record if the ID is found.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     event_list = read_event_file()
     found = False
 
@@ -226,6 +307,18 @@ def change_event_title():
         print("Invalid event")
 
 def change_event_description():
+    """
+    Update the description of an existing event.
+    
+    This function prompts for an event ID and a new description,
+    then updates the event record if the ID is found.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     event_list = read_event_file()
     found = False
 
@@ -247,6 +340,18 @@ def change_event_description():
         print("Invalid event")
 
 def update_event():
+    """
+    Present a menu for updating event information.
+    
+    This function displays options for changing an event's title,
+    description, or viewing the event timetable.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     print("\n'1' - Change event title\n'2' - Change event description\n'3' - View event timetable")
     choice = input("Enter your choice: ")
 
@@ -260,6 +365,18 @@ def update_event():
         print("Invalid choice")
 
 def delete_event():
+    """
+    Delete an event from the system.
+    
+    This function prompts for an event ID and removes the event
+    from the event data file if the ID is found.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     event_list = read_event_file()
     event_id = input("Enter want to delete event id: ")
     for data in event_list:

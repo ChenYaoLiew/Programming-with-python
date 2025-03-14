@@ -1,7 +1,19 @@
-# Grade student
-# Grade assignments, exams, and provide detailed feedback to students
-
 def grade_assignment():
+    """
+    Allow teachers to grade student assignments for a selected course.
+    
+    This function guides teachers through the process of selecting a course,
+    choosing a student, and assigning a grade for their submitted assignment.
+    The function verifies that the student exists in the course and has 
+    submitted an assignment before allowing grading. Updated grades are saved
+    to the course data file.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     from Teacher.teacher_function import fetch_courses,display_course,select_course,display_students_in_course,process_stud_id,get_valid_grade
     from function.query import insert_data
 
@@ -58,6 +70,20 @@ def grade_assignment():
         grade_assignment()
 
 def grade_exam():
+    """
+    Allow teachers to grade student exams for a selected course.
+    
+    This function guides teachers through the process of selecting a course,
+    choosing a student, and assigning an exam grade. The function verifies 
+    that the student exists in the course before allowing grading. Updated 
+    exam grades are saved to the course data file.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     from Teacher.teacher_function import fetch_courses, display_course, select_course, display_students_in_course, process_stud_id, \
         get_valid_grade
     from function.query import insert_data
@@ -103,6 +129,20 @@ def grade_exam():
         grade_exam()
 
 def give_feedback():
+    """
+    Allow teachers to provide written feedback to students in a selected course.
+    
+    This function guides teachers through the process of selecting a course,
+    choosing a student, and entering written feedback. The function verifies 
+    that the student exists in the course before allowing feedback entry.
+    Updated feedback is saved to the course data file.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     from Teacher.teacher_function import fetch_courses, display_course, select_course, display_students_in_course, process_stud_id
     from function.query import insert_data
 
@@ -151,6 +191,19 @@ def give_feedback():
         give_feedback()
 
 def manage_grading_assessment():
+    """
+    Present a menu interface for teachers to access grading and assessment functions.
+    
+    This function displays a menu with options for grading assignments, grading exams,
+    providing student feedback, or returning to the previous menu. It loops until the
+    user chooses to go back.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     while True:
         print("\nWelcome to Grading & Assessment Management\n'1' - Grade Assignment\n'2' - Grade Exam\n'3' - Provide Feedback for student\n'4' - Back")
 
@@ -166,8 +219,3 @@ def manage_grading_assessment():
             return
         else:
             print("Invalid choice. Please enter a number between 1 and 4.")
-
-
-
-
-

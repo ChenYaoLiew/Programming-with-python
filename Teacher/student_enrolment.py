@@ -1,6 +1,16 @@
-# Enrolling student
-
 def view_enrolled_stu():
+    """
+    Display all students enrolled in a selected course.
+    
+    This function retrieves and displays the list of students 
+    enrolled in a course that the teacher selects.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     from Teacher.teacher_function import get_course_students_enrolled,display_students_in_course
 
     selected_course, students = get_course_students_enrolled("View Enrolled Students")
@@ -15,6 +25,19 @@ def view_enrolled_stu():
     display_students_in_course(selected_course[1])
 
 def enroll_student():
+    """
+    Enroll a student into a selected course.
+    
+    This function allows teachers to add a student to a course's enrollment list.
+    It validates the student ID, checks if the student exists in the system,
+    and ensures they aren't already enrolled before adding them.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     from Teacher.teacher_function import fetch_courses,display_course,select_course,process_stud_id,get_student_id
     from function.query import insert_data
 
@@ -75,6 +98,19 @@ def enroll_student():
         enroll_student()
 
 def remove_enrolled_student():
+    """
+    Remove a student from a selected course.
+    
+    This function allows teachers to remove a student from a course's enrollment list.
+    It displays the list of enrolled students, validates the student ID to remove,
+    and updates the course data file after removal.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     from Teacher.teacher_function import fetch_courses,display_course,select_course,display_students_in_course,process_stud_id
     from function.query import insert_data
 
@@ -125,6 +161,19 @@ def remove_enrolled_student():
         remove_enrolled_student()
 
 def manage_student_enroll():
+    """
+    Provide a menu interface for student enrollment management.
+    
+    This function displays options for viewing enrolled students,
+    enrolling new students, removing students, or returning to
+    the previous menu.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     while True:
         print("\nWelcome to Student Enrollment Management\n'1' - View Enrolled Student\n'2' - Enroll Student\n'3' - Remove Student\n'4' - Back")
 
