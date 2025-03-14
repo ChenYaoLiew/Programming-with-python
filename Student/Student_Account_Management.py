@@ -61,9 +61,9 @@ def update_contact_detail(student_info):
 
     while True:
         print('\n[ Contact detail settings ]')
-        print('1 - Edit Phone Number')
-        print('2 - Edit Country')
-        print('0 - Back')
+        print("'1' - Edit Phone Number")
+        print("'2' - Edit Country")
+        print("'0' - Back")
 
         choice = input('Enter your choice: ')
 
@@ -130,10 +130,10 @@ def student_account_management(student_info):
         print(f'Student Phone Number : {student_info[1]['phone_num']}')
         print(f'Student country      : {student_info[1]['country']}')
         print(f'Emergency information: {student_info[1]['emergency_info']}')
-        print('\n1 - Change password')
-        print('2 - Update contact detail')
-        print('3 - Update emergency information')
-        print('0 - Back')
+        print("\n'1' - Change password")
+        print("'2' - Update contact detail")
+        print("'3' - Update emergency information")
+        print("'0' - Back")
 
         choice = input("Enter your choice: ")
 

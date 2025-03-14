@@ -223,7 +223,7 @@ def view_stud_attendance():
 
 def manage_attendance():
     while True:
-        print("\nWelcome to Class & Attendance Management\n1 - Enrol Student into a Class\n2 - Remove Student from Enrolled Class\n3 - Delete class\n4 - Grade Attendance\n5 - View Attendance\n6 - Back")
+        print("\nWelcome to Class & Attendance Management\n'1' - Enrol Student into a Class\n'2' - Remove Student from Enrolled Class\n'3' - Delete class\n'4' - Grade Attendance\n'5' - View Attendance\n'6' - Back")
 
         choice = input("\nEnter Choice: ").strip()
 

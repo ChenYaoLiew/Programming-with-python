@@ -296,5 +296,3 @@ def event_management_main():
             staff_user_page()
         else:
             print("Invalid choice")
-
-event_management_main()

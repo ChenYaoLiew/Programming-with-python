@@ -125,22 +125,18 @@ def remove_enrolled_stu():
         remove_enrolled_stu()
 
 def manage_stu_enrol():
-        while True:
-            print("\nWelcome to Student Enrollment Management\n1 - View Enrolled Student\n2 - Enroll Student\n3 - Remove Student\n4 - Back")
+    while True:
+        print("\nWelcome to Student Enrollment Management\n'1' - View Enrolled Student\n'2' - Enroll Student\n'3' - Remove Student\n'4' - Back")
 
-            choice = input("\nEnter your choice: ").strip()
+        choice = input("\nEnter your choice: ").strip()
 
-            if choice == '1':
-                view_enrolled_stu()
-            elif choice == '2':
-                enrol_stud()
-            elif choice == '3':
-                remove_enrolled_stu()
-            elif choice == '4':
-                return
-            else:
-                print("Invalid choice. Please enter a number between 1 and 4.")
-
-
-
-
+        if choice == '1':
+            view_enrolled_stu()
+        elif choice == '2':
+            enrol_stud()
+        elif choice == '3':
+            remove_enrolled_stu()
+        elif choice == '4':
+            return
+        else:
+            print("Invalid choice. Please enter a number between 1 and 4.")

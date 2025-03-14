@@ -242,9 +242,9 @@ def communication_main():
         view_new_messages()
         
         print("\nCommunication")
-        print("1. View Chat")
-        print("2. Send Message")
-        print("3. Quit")
+        print("'1' - View Chat")
+        print("'2' - Send Message")
+        print("'3' - Quit")
 
         choice = input("\nEnter your choice (1-3): ")
 
@@ -257,5 +257,3 @@ def communication_main():
         else:
             print("Invalid choice. Please try again.")
             continue
-
-communication_main()

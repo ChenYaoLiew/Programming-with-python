@@ -207,9 +207,9 @@ def update_resource():
         if data["resource_id"] == resource_id:
             found = True
             print("\nWhat would you like to update?")
-            print("1 - Update Resource Name")
-            print("2 - Update Amount")
-            print("3 - Update Status")
+            print("'1' - Update Resource Name")
+            print("'2' - Update Amount")
+            print("'3' - Update Status")
             
             choice = input("Enter your choice: ")
             
@@ -284,13 +284,13 @@ def delete_resource():
 def manage_resource_allocation_main():
     while True:
         print("\nResource Allocation Management")
-        print("1. View All Resources")
-        print("2. View Resource by ID")
-        print("3. Manage Resource")
-        print("4. Add Resource")
-        print("5. Update Resource")
-        print("6. Delete Resource")
-        print("7. Back")
+        print("'1' - View All Resources")
+        print("'2' - View Resource by ID")
+        print("'3' - Manage Resource")
+        print("'4' - Add Resource")
+        print("'5' - Update Resource")
+        print("'6' - Delete Resource")
+        print("'7' - Back")
 
         choice = input("\nEnter your choice (1-7): ")
 
@@ -312,5 +312,3 @@ def manage_resource_allocation_main():
         else:
             print("Invalid choice. Please try again.")
             continue
-
-manage_resource_allocation_main()

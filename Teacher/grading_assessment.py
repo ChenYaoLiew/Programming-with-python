@@ -1,7 +1,6 @@
 # Grade student
 # Grade assignments, exams, and provide detailed feedback to students
 
-
 def grade_assignment():
     from Teacher.teacher_function import fetch_courses,display_course,select_course,display_students_in_course,process_stud_id,get_valid_grade
     from function.query import insert_data
@@ -153,7 +152,7 @@ def give_feedback():
 
 def manage_grading_assessment():
     while True:
-        print("\nWelcome to Grading & Assessment Management\n1 - Grade Assignment\n2 - Grade Exam\n3 - Provide Feedback for student\n4 - Back")
+        print("\nWelcome to Grading & Assessment Management\n'1' - Grade Assignment\n'2' - Grade Exam\n'3' - Provide Feedback for student\n'4' - Back")
 
         choice = input("\nEnter Choice: ").strip()
 

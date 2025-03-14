@@ -8,7 +8,7 @@
 def teacher_menu_page():
 
     while True:
-        print("\nTeacher's Menu\n1 - Course Creation & Management\n2 - Student Enrolment & Management  \n3 - Grading & Assessment\n4 - Class & Attendance Management\n5 - Report Generation\n6 - Exit\n7 - Logout")
+        print("\nTeacher's Menu\n'1' - Course Creation & Management\n'2' - Student Enrolment & Management  \n'3' - Grading & Assessment\n'4' - Class & Attendance Management\n'5' - Report Generation\n'6' - Exit\n'7' - Logout")
 
         choice = input("\nEnter Choice: ").strip()
 

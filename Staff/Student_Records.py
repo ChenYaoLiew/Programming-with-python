@@ -162,11 +162,11 @@ def manage_student_records():
     # starting point(start the loop)
     while True:
         print("\nStudent Records Management")
-        print("1. View Student Records")
-        print("2. Process Deposit")
-        print("3. Process Withdrawal")
-        print("4. Process Transfer")
-        print("5. Back")
+        print("'1' - View Student Records")
+        print("'2' - Process Deposit")
+        print("'3' - Process Withdrawal")
+        print("'4' - Process Transfer")
+        print("'5' - Back")
 
         choice = input("\nEnter your choice (1-5): ")
 
@@ -191,6 +191,3 @@ def manage_student_records():
             transfer(student_id, name)
         elif choice == '5':
             staff_user_page()
-
-manage_student_records()
-#hi
