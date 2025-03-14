@@ -92,7 +92,7 @@ def register_resource(resource_id, resource_name, amount, status, amend_date_sta
         "resource_id": resource_id,
         "resource_name": resource_name,
         "amount": amount,
-        "status": status,  # Now using boolean value
+        "status": str(status).capitalize(),  # Ensure boolean is saved as "True" or "False"
         "amend_date_start": amend_date_start,
         "amend_date_end": amend_date_end,
         "amend_for": amend_for
@@ -154,9 +154,11 @@ def update_resource_record(resource_list):
         bool: True if successful, False otherwise
     """
     try:
-        # Convert all amount values to int before saving
+        # Convert all amount values to int and ensure status is properly capitalized
         for resource in resource_list:
             resource['amount'] = int(resource['amount'])
+            if isinstance(resource['status'], bool):
+                resource['status'] = str(resource['status']).capitalize()
             
         # Use insert_data function to write the updated list
         success = insert_data("data/resource_data.txt", resource_list)
@@ -187,7 +189,7 @@ def view_resource():
     resource_list = read_resource_file()
     for resource in resource_list:
         print(f"Resource ID: {resource['resource_id']}, Resource Name: {resource['resource_name']}, Amount: {resource['amount']}, Status: {resource['status']}, Amend Date Start: {resource['amend_date_start']}, Amend Date End: {resource['amend_date_end']}, Amend For: {resource['amend_for']}")
-        print("-" * 100)  # Add a separator line between resources
+        print("-" * 80)  # Add a separator line between resources
 
 def manage_resource():
     """
@@ -223,7 +225,7 @@ def manage_resource():
             data["amend_for"] = amend_for
             data["amend_date_start"] = amend_date_start
             data["amend_date_end"] = amend_date_end
-            data["status"] = False
+            data["status"] = str(False).capitalize()  # Store as "False" with capital F
             
             # Use insert_data from query.py to save the changes
             if insert_data("data/resource_data.txt", resource_list):
@@ -257,10 +259,10 @@ def add_resource():
     resource_id = generate_resource_id(existing_ids)
     
     # Set empty strings for amend dates and amend_for
-    amend_date_start = ""
-    amend_date_end = ""
-    amend_for = ""
-    status = False  # Default status is False for new resources
+    amend_date_start = "None"
+    amend_date_end = "None"
+    amend_for = "None"
+    status = str(True).capitalize()  # Default status is False for new resources
 
     # Try to register the resource
     register_resource(resource_id, resource_name, amount, status, amend_date_start, amend_date_end, amend_for)
@@ -344,21 +346,23 @@ def update_resource():
             elif choice == "3":
                 current_status = data["status"]
                 if current_status:  # If True (Available)
-                    print("\nCurrent status: Available")
-                    print("1 - Set to Unavailable")
-                    if input("Enter 1 to change status: ") == "1":
-                        data["status"] = False
-                        print("Status updated to Unavailable!")
-                else:  # If False (Unavailable)
                     print("\nCurrent status: Unavailable")
                     print("1 - Set to Available")
                     if input("Enter 1 to change status: ") == "1":
-                        data["status"] = True
+                        data["status"] = str(True).capitalize()  # Store as "True" with capital T
                         # Clear amendment data
-                        data["amend_date_start"] = ""
-                        data["amend_date_end"] = ""
-                        data["amend_for"] = ""
+                        data["amend_date_start"] = "None"
+                        data["amend_date_end"] = "None"
+                        data["amend_for"] = "None"
                         print("Status updated to Available and amendment data cleared!")
+
+                else:  # If False (Unavailable)
+                    print("\nCurrent status: Available")
+                    print("1 - Set to Unavailable")
+                    if input("Enter 1 to change status: ") == "1":
+                        data["status"] = str(False).capitalize()  # Store as "False" with capital F
+                        print("Status updated to Unavailable!")
+
                 
             else:
                 print("Invalid choice!")

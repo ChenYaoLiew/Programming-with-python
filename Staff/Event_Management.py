@@ -242,7 +242,7 @@ def add_event():
             
             for user in users:
                 if (user.get("student_id") == student_id and 
-                    user.get("accountType") == "student"):
+                    user.get("account_type") == "student"):
                     valid_student = True
                     if student_id not in students_enrolled:
                         students_enrolled.append(student_id)
@@ -260,7 +260,7 @@ def add_event():
                 continue
             break
         elif choice == '3':
-            return add_event()
+            return
         else:
             print("Invalid choice. Please try again.")
     

@@ -123,4 +123,4 @@ def class_schedule_menu():
         if choice == '1':
             view_class_schedule()
         elif choice == '2':
-            break
+            return

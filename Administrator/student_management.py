@@ -21,10 +21,10 @@ def view_all_student():
     Returns:
         None
     """
-    student_data = fetch_data("data/user_data.txt")
+    student_data = fetch_data("./data/user_data.txt")
 
     for student in student_data:
-        if student["accountType"] == "student":
+        if student["account_type"] == "student":
             print(f"Username: {student['username']}, Student ID: {student['student_id']}, Phone Number: {student['phone_num']}, Country: {student['country']}")
 
 def view_student(student_id):
@@ -70,8 +70,7 @@ def view_student_menu():
             student_id = input("Enter student ID: ")
             view_student(student_id)
         elif choice == '3':
-            from menu import administrator_user_page
-            administrator_user_page()
+            return 'back'
         else:
             print("Invalid choice")
 
@@ -317,7 +316,6 @@ def student_management_menu():
             student_id = input("Enter student ID: ")
             view_academic_performance(student_id)
         elif choice == '7':
-            from Administrator.menu import administrator_user_page
-            administrator_user_page()
+            return
         else:
             print("Invalid choice")

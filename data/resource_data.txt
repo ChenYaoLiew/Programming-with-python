@@ -1,3 +1,0 @@
-{"resource_id": "RES0001", "resource_name": "Test123", "amount": "1", "status": "False", "amend_date_start": "2025-01-01", "amend_date_end": "2025-01-01", "amend_for": "testing"}
-{"resource_id": "RES0002", "resource_name": "Test1234", "amount": "1", "status": "False", "amend_date_start": "2025-01-01", "amend_date_end": "2025-01-01", "amend_for": "testing"}
-{"resource_id": "RES0003", "resource_name": "Test1234", "amount": "1", "status": "False", "amend_date_start": "123", "amend_date_end": "123", "amend_for": "testing"}

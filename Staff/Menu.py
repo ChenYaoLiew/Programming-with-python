@@ -13,6 +13,7 @@ def staff_user_page():
         print("'4' - Event Management")
         print("'5' - Communication ")
         print("'6' - Exit")
+        print("'7' - Logout")
 
         choice = input("Enter your choice: ")
         if choice == '1':
@@ -31,6 +32,8 @@ def staff_user_page():
             from Staff.Communication import communication_main
             communication_main()
         elif choice == '6':
-            quit()
+            return 'exit'
+        elif choice == '7':
+            return 'logout'
         else:
             print("Invalid choice!")

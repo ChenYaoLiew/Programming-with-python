@@ -159,7 +159,7 @@ def get_total_students():
         int: The total number of student accounts
     """
     users = fetch_data("data/user_data.txt")
-    student_count = sum(1 for user in users if user.get("accountType") == "student")
+    student_count = sum(1 for user in users if user.get("account_type") == "student")
     return student_count
 
 def get_total_teachers():
@@ -176,7 +176,7 @@ def get_total_teachers():
         int: The total number of teacher accounts
     """
     users = fetch_data("data/user_data.txt")
-    teacher_count = sum(1 for user in users if user.get("accountType") == "teacher")
+    teacher_count = sum(1 for user in users if user.get("account_type") == "teacher")
     return teacher_count
 
 def get_total_courses():
@@ -251,13 +251,10 @@ def generate_reports():
                 generate_attendance_report(student_id)
             elif choice == "3":
                 generate_financial_report(student_id)
-                
         elif choice == "4":
             generate_institution_report()
-            
         elif choice == "5":
             return
-            
         else:
             print("Invalid option. Please try again.")
         
