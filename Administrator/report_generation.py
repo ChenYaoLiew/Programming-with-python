@@ -1,7 +1,19 @@
 from function.query import *  # Import database query functions
 
 def format_table(data, headers=None):
-    """Format data as a table using only built-in Python"""
+    """
+    Format data as a table using only built-in Python.
+    
+    This function takes data (either as a list of lists or list of dictionaries)
+    and formats it into a text-based table with proper column alignment.
+    
+    Parameters:
+        data (list): The data to format as a table
+        headers (list, optional): Column headers if not included in data
+        
+    Returns:
+        str: Formatted table as a string
+    """
     if not data:
         return "No data available"
     
@@ -40,7 +52,19 @@ def format_table(data, headers=None):
     return '\n'.join(result)
 
 def generate_academic_report(student_id):
-    """Generate academic performance report for a student"""
+    """
+    Generate academic performance report for a student.
+    
+    This function retrieves and displays a student's academic performance
+    including grades for assignments and exams across all enrolled courses.
+    It calculates and displays the average score when possible.
+    
+    Parameters:
+        student_id (str): The ID of the student to generate report for
+        
+    Returns:
+        None
+    """
     # Pull academic data from database
     grades = get_student_grades(student_id)  # Assuming this function exists in your query module
     
@@ -62,7 +86,18 @@ def generate_academic_report(student_id):
         print("Could not calculate average score.")
 
 def generate_attendance_report(student_id):
-    """Generate attendance report for a student"""
+    """
+    Generate attendance report for a student.
+    
+    This function retrieves and displays a student's attendance records
+    across all courses, including an overall attendance percentage.
+    
+    Parameters:
+        student_id (str): The ID of the student to generate report for
+        
+    Returns:
+        None
+    """
     # Pull attendance data
     attendance = get_student_attendance(student_id)  # Assuming this function exists
     
@@ -82,7 +117,18 @@ def generate_attendance_report(student_id):
         print("Could not calculate overall attendance rate.")
 
 def generate_financial_report(student_id):
-    """Generate financial report for a student"""
+    """
+    Generate financial report for a student.
+    
+    This function retrieves and displays a student's financial information,
+    including current balance and transaction history if available.
+    
+    Parameters:
+        student_id (str): The ID of the student to generate report for
+        
+    Returns:
+        None
+    """
     # Pull financial data
     finances = get_student_finances(student_id)  # Assuming this function exists
     
@@ -100,24 +146,67 @@ def generate_financial_report(student_id):
         print(format_table(transactions))
 
 def get_total_students():
-    """Get the total number of students in the system"""
+    """
+    Get the total number of students in the system.
+    
+    This function counts the number of user accounts with the 'student'
+    account type in the user data file.
+    
+    Parameters:
+        None
+        
+    Returns:
+        int: The total number of student accounts
+    """
     users = fetch_data("data/user_data.txt")
     student_count = sum(1 for user in users if user.get("accountType") == "student")
     return student_count
 
 def get_total_teachers():
-    """Get the total number of teachers in the system"""
+    """
+    Get the total number of teachers in the system.
+    
+    This function counts the number of user accounts with the 'teacher'
+    account type in the user data file.
+    
+    Parameters:
+        None
+        
+    Returns:
+        int: The total number of teacher accounts
+    """
     users = fetch_data("data/user_data.txt")
     teacher_count = sum(1 for user in users if user.get("accountType") == "teacher")
     return teacher_count
 
 def get_total_courses():
-    """Get the total number of courses in the system"""
+    """
+    Get the total number of courses in the system.
+    
+    This function counts the number of courses stored in the course data file.
+    
+    Parameters:
+        None
+        
+    Returns:
+        int: The total number of courses
+    """
     courses = fetch_data("data/course_data.txt")
     return len(courses) if courses else 0
 
 def generate_institution_report():
-    """Generate overall institution report with counts"""
+    """
+    Generate overall institution report with system-wide statistics.
+    
+    This function retrieves and displays high-level metrics about the 
+    institution, including total numbers of students, teachers, and courses.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     # Get counts from database
     student_count = get_total_students()  # Assuming these functions exist
     teacher_count = get_total_teachers()
@@ -131,7 +220,18 @@ def generate_institution_report():
     # Could add more metrics like average GPA, financial stats, etc.
 
 def generate_reports():
-    """Main function to handle report generation"""
+    """
+    Present a menu interface for generating various reports.
+    
+    This function displays a menu of available report types and handles
+    the user interaction for selecting and generating reports.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     while True:
         print("\n=== REPORT GENERATION ===")
         print("1. Student Academic Report")
@@ -165,9 +265,12 @@ def generate_reports():
 
 def get_student_grades(student_id):
     """
-    Retrieve all grades for a student across all enrolled courses
+    Retrieve all grades for a student across all enrolled courses.
     
-    Args:
+    This function fetches assignment and exam grades for a specific student
+    from all courses they are enrolled in, along with related feedback.
+    
+    Parameters:
         student_id (str): The student ID to get grades for
     
     Returns:
@@ -193,9 +296,12 @@ def get_student_grades(student_id):
 
 def get_student_attendance(student_id):
     """
-    Retrieve attendance records for a student across all classes with percentage calculations
+    Retrieve attendance records for a student with percentage calculations.
     
-    Args:
+    This function gathers attendance data for all classes a student is enrolled in,
+    calculates attendance percentages by course, and provides overall attendance statistics.
+    
+    Parameters:
         student_id (str): The student ID to get attendance for
     
     Returns:
@@ -281,13 +387,16 @@ def get_student_attendance(student_id):
 
 def get_student_finances(student_id):
     """
-    Retrieve financial information for a student
+    Retrieve financial information for a student.
     
-    Args:
+    This function fetches a student's current account balance and financial
+    data from the user records.
+    
+    Parameters:
         student_id (str): The student ID to get finances for
     
     Returns:
-        dict: Dictionary containing balance information
+        dict: Dictionary containing balance information or None if student not found
     """
     # Get student data to find balance
     student_data = fetch_data("data/user_data.txt")

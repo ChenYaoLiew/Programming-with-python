@@ -8,6 +8,18 @@ from function.query import *
 from function.account_management import register_account
 
 def manage_account():
+    """
+    Display a menu for account management operations.
+    
+    This function presents options for viewing, adding, updating,
+    and deleting user accounts, or returning to the previous menu.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     print("'1' - View Accounts\n'2' - Add Account\n'3' - Update Account\n'4' - Delete Account\n'5' - Back")
 
     choice = input("Enter your choice: ")
@@ -24,17 +36,55 @@ def manage_account():
         administrator_user_page()
 
 def fetch_accounts():
+    """
+    Retrieve all user accounts from the data file.
+    
+    This function uses the fetch_data utility to get all user account
+    records from the user_data.txt file.
+    
+    Parameters:
+        None
+        
+    Returns:
+        list: A list of dictionaries containing user account information
+    """
     accounts = fetch_data("data/user_data.txt")
 
     return accounts
 
 def view_accounts():
+    """
+    Display all user accounts with their details.
+    
+    This function retrieves all account records and prints each account's
+    username, password, account type, student ID, and fund balance.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     account_list = fetch_accounts()
     for account in account_list:
         print(f"Username: {account['username']}, Password: {account['password']}, Account Type: {account['accountType']}, Student ID: {account['student_id']}, Fund: {account['fund']}")
         print("-" * 100)  # Add a separator line between accounts
 
 def add_account_into_db(username, password, account_type):
+    """
+    Add a new account to the database after verifying username uniqueness.
+    
+    This function checks if the username already exists and, if not,
+    registers a new account with the provided details.
+    
+    Parameters:
+        username (str): Username for the new account
+        password (str): Password for the new account
+        account_type (str): Type of account to create
+        
+    Returns:
+        None
+    """
     accounts = fetch_accounts()
 
     for data in accounts:
@@ -45,6 +95,19 @@ def add_account_into_db(username, password, account_type):
     register_account(username, password, account_type)
 
 def update_account():
+    """
+    Update an existing user account's details.
+    
+    This function allows updating username, password, or account type
+    for an existing account. It ensures the new username is unique
+    and validates the account type selection.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     username = input("Enter username to update: ")
     accounts = fetch_accounts()
     found = False
@@ -109,6 +172,18 @@ def update_account():
         print(f"Account with username {username} not found!")
 
 def add_account():
+    """
+    Collect user input and register a new account.
+    
+    This function prompts for username, password, and account type,
+    then calls the register_account function to create the account.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     username = input("Enter username: ")
     password = input("Enter password: ")
     print("\nAvailable account types:")
@@ -136,6 +211,18 @@ def add_account():
     register_account(username, password, account_type)
 
 def delete_account():
+    """
+    Delete a user account from the system.
+    
+    This function removes an account based on the provided username
+    and updates the user data file.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     username = input("Enter username: ")
     accounts = fetch_accounts()
     found = False

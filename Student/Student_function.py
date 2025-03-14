@@ -28,7 +28,7 @@ def display_subject_menu(student_course, menu_title):
             menu_title(str):  the title of the Page
         Returns:
             have_course(bool): if student has any subject that is already enrolled it will return True
-        """
+    """
     have_course = False
 
     print(f'\n[ {menu_title} ]')

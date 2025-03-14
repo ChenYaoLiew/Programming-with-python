@@ -7,6 +7,18 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from function.query import *
 
 def read_resource_file():
+    """
+    Read and return all resource records from the resource data file.
+    
+    This function retrieves all resource records stored in the resource_data.txt file
+    using the fetch_data utility function.
+    
+    Parameters:
+        None
+        
+    Returns:
+        list: A list of dictionaries containing resource records
+    """
     # Read and return all resource records from file, Returns list of resource dictionaries
     resource_list = fetch_data("data/resource_data.txt")
     return resource_list
@@ -14,8 +26,10 @@ def read_resource_file():
 def generate_resource_id(existing_ids):
     """
     Generate a new resource ID in format RESXXXX
-    Args:
+    
+    Parameters:
         existing_ids (list): List of existing resource IDs
+        
     Returns:
         str: New unique resource ID
     """
@@ -32,6 +46,24 @@ def generate_resource_id(existing_ids):
     return f"RES{new_num:04d}"
 
 def register_resource(resource_id, resource_name, amount, status, amend_date_start, amend_date_end, amend_for):
+    """
+    Register a new resource in the system.
+    
+    This function validates the resource information, checks for duplicates,
+    and adds the new resource to the resource data file.
+    
+    Parameters:
+        resource_id (str): Unique identifier for the resource
+        resource_name (str): Name of the resource
+        amount (int): Quantity of the resource available
+        status (bool): Availability status of the resource
+        amend_date_start (str): Start date for resource amendment
+        amend_date_end (str): End date for resource amendment
+        amend_for (str): Purpose of resource amendment
+        
+    Returns:
+        bool: True if registration successful, False otherwise
+    """
     success = False
     
     # Check if the resource already exists in the resource list
@@ -78,6 +110,16 @@ def register_resource(resource_id, resource_name, amount, status, amend_date_sta
     return success
 
 def validate_resource_id(resource_id, resource_list):
+    """
+    Check if a resource ID exists in the resource records.
+    
+    Parameters:
+        resource_id (str): The resource ID to validate
+        resource_list (list): List of resource dictionaries to check against
+        
+    Returns:
+        tuple: (bool, dict) - Boolean indicating if ID exists and the resource data if found
+    """
     # Check if resource_id exists in records
     for resource in resource_list:
         if resource['resource_id'] == resource_id:
@@ -85,6 +127,16 @@ def validate_resource_id(resource_id, resource_list):
     return False, None
 
 def validate_resource_name(resource_name, resource_list):
+    """
+    Check if a resource name exists in the resource records.
+    
+    Parameters:
+        resource_name (str): The resource name to validate
+        resource_list (list): List of resource dictionaries to check against
+        
+    Returns:
+        tuple: (bool, dict) - Boolean indicating if name exists and the resource data if found
+    """
     # Check if resource_name exists in records
     for resource in resource_list:
         if resource['resource_name'] == resource_name:
@@ -94,8 +146,10 @@ def validate_resource_name(resource_name, resource_list):
 def update_resource_record(resource_list):
     """
     Update resource records in the file using the query functions
-    Args:
+    
+    Parameters:
         resource_list (list): List of resource dictionaries to update
+        
     Returns:
         bool: True if successful, False otherwise
     """
@@ -118,12 +172,36 @@ def update_resource_record(resource_list):
         return False
 
 def view_resource():
+    """
+    Display all resources with their details.
+    
+    This function retrieves all resource records and prints each resource's
+    ID, name, amount, status, and amendment information.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     resource_list = read_resource_file()
     for resource in resource_list:
         print(f"Resource ID: {resource['resource_id']}, Resource Name: {resource['resource_name']}, Amount: {resource['amount']}, Status: {resource['status']}, Amend Date Start: {resource['amend_date_start']}, Amend Date End: {resource['amend_date_end']}, Amend For: {resource['amend_for']}")
         print("-" * 100)  # Add a separator line between resources
 
 def manage_resource():
+    """
+    Manage a specific resource by updating its usage information.
+    
+    This function allows a resource to be marked as unavailable and
+    updates its amendment information including usage purpose and dates.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     resource_id = input("Enter resource_id: ")
     # Use fetch_data from query.py
     resource_list = fetch_data("data/resource_data.txt")
@@ -158,6 +236,18 @@ def manage_resource():
         print("Resource not found!")
 
 def add_resource():
+    """
+    Add a new resource to the system.
+    
+    This function prompts for resource information, generates a new
+    resource ID, and registers the resource in the system.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     resource_name = input("Enter resource_name: ")
     amount = input("Enter amount: ")
     
@@ -176,6 +266,18 @@ def add_resource():
     register_resource(resource_id, resource_name, amount, status, amend_date_start, amend_date_end, amend_for)
 
 def view_resource_by_id():
+    """
+    Display detailed information for a specific resource by ID.
+    
+    This function prompts for a resource ID and displays all information
+    for that specific resource if found.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     resource_id = input("Enter resource_id: ")
     resource_list = read_resource_file()
     found = False
@@ -199,6 +301,18 @@ def view_resource_by_id():
         print("Resource not found!")
 
 def update_resource():
+    """
+    Update information for an existing resource.
+    
+    This function allows updating a resource's name, amount, or status.
+    When status is changed to available, amendment data is cleared.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     resource_id = input("Enter resource_id to update: ")
     resource_list = read_resource_file()
     found = False
@@ -207,9 +321,9 @@ def update_resource():
         if data["resource_id"] == resource_id:
             found = True
             print("\nWhat would you like to update?")
-            print("1 - Update Resource Name")
-            print("2 - Update Amount")
-            print("3 - Update Status")
+            print("'1' - Update Resource Name")
+            print("'2' - Update Amount")
+            print("'3' - Update Status")
             
             choice = input("Enter your choice: ")
             
@@ -261,6 +375,18 @@ def update_resource():
         print(f"Resource with resource_id {resource_id} not found!")
 
 def delete_resource():
+    """
+    Delete a resource from the system.
+    
+    This function removes a resource from the resource data file
+    based on the provided resource ID.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     resource_id = input("Enter resource_id: ")
     resource_list = read_resource_file()
     found = False
@@ -284,13 +410,13 @@ def delete_resource():
 def manage_resource_allocation_main():
     while True:
         print("\nResource Allocation Management")
-        print("1. View All Resources")
-        print("2. View Resource by ID")
-        print("3. Manage Resource")
-        print("4. Add Resource")
-        print("5. Update Resource")
-        print("6. Delete Resource")
-        print("7. Back")
+        print("'1' - View All Resources")
+        print("'2' - View Resource by ID")
+        print("'3' - Manage Resource")
+        print("'4' - Add Resource")
+        print("'5' - Update Resource")
+        print("'6' - Delete Resource")
+        print("'7' - Back")
 
         choice = input("\nEnter your choice (1-7): ")
 
@@ -312,5 +438,3 @@ def manage_resource_allocation_main():
         else:
             print("Invalid choice. Please try again.")
             continue
-
-manage_resource_allocation_main()

@@ -1,6 +1,16 @@
-# Enrolling student
-
 def view_enrolled_stu():
+    """
+    Display all students enrolled in a selected course.
+    
+    This function retrieves and displays the list of students 
+    enrolled in a course that the teacher selects.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     from Teacher.teacher_function import get_course_students_enrolled,display_students_in_course
 
     selected_course, students = get_course_students_enrolled("View Enrolled Students")
@@ -14,7 +24,20 @@ def view_enrolled_stu():
     # Display student IDs
     display_students_in_course(selected_course[1])
 
-def enrol_stud():
+def enroll_student():
+    """
+    Enroll a student into a selected course.
+    
+    This function allows teachers to add a student to a course's enrollment list.
+    It validates the student ID, checks if the student exists in the system,
+    and ensures they aren't already enrolled before adding them.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     from Teacher.teacher_function import fetch_courses,display_course,select_course,process_stud_id,get_student_id
     from function.query import insert_data
 
@@ -72,9 +95,22 @@ def enrol_stud():
 
     except ValueError:
         print("Invalid selection, please try again")
-        enrol_stud()
+        enroll_student()
 
-def remove_enrolled_stu():
+def remove_enrolled_student():
+    """
+    Remove a student from a selected course.
+    
+    This function allows teachers to remove a student from a course's enrollment list.
+    It displays the list of enrolled students, validates the student ID to remove,
+    and updates the course data file after removal.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     from Teacher.teacher_function import fetch_courses,display_course,select_course,display_students_in_course,process_stud_id
     from function.query import insert_data
 
@@ -122,25 +158,34 @@ def remove_enrolled_stu():
 
     except(ValueError,IndexError):
         print("Invalid selection, please try again")
-        remove_enrolled_stu()
+        remove_enrolled_student()
 
-def manage_stu_enrol():
-        while True:
-            print("\nWelcome to Student Enrollment Management\n1 - View Enrolled Student\n2 - Enroll Student\n3 - Remove Student\n4 - Back")
+def manage_student_enroll():
+    """
+    Provide a menu interface for student enrollment management.
+    
+    This function displays options for viewing enrolled students,
+    enrolling new students, removing students, or returning to
+    the previous menu.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
+    while True:
+        print("\nWelcome to Student Enrollment Management\n'1' - View Enrolled Student\n'2' - Enroll Student\n'3' - Remove Student\n'4' - Back")
 
-            choice = input("\nEnter your choice: ").strip()
+        choice = input("\nEnter your choice: ").strip()
 
-            if choice == '1':
-                view_enrolled_stu()
-            elif choice == '2':
-                enrol_stud()
-            elif choice == '3':
-                remove_enrolled_stu()
-            elif choice == '4':
-                return
-            else:
-                print("Invalid choice. Please enter a number between 1 and 4.")
-
-
-
-
+        if choice == '1':
+            view_enrolled_stu()
+        elif choice == '2':
+            enroll_student()
+        elif choice == '3':
+            remove_enrolled_student()
+        elif choice == '4':
+            return
+        else:
+            print("Invalid choice. Please enter a number between 1 and 4.")

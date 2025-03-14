@@ -1,6 +1,16 @@
 # Grade attendance of student of selected course
 
 def enrol_stud_class():
+    """
+    Enrols a student into a selected class.
+    
+    This function guides the teacher through selecting a course, selecting a class
+    within that course, and enrolling a student by their ID. It validates the student ID
+    and checks if the student is already enrolled in the class before proceeding.
+    
+    Returns:
+        None
+    """
     from Teacher.teacher_function import fetch_courses, display_course, select_course,select_class,validate_stud_id
     from function.query import insert_data
 
@@ -49,10 +59,16 @@ def enrol_stud_class():
     insert_data(file_path, courses)
 
 def delete_class():
+    """
+    Deletes a class from the course data.
+    
+    This function prompts the user for a class ID and removes that class from all courses
+    in the course data file. It validates the class ID before proceeding with deletion.
+    
+    Returns:
+        None
+    """
     from function.query import fetch_data,insert_data
-    """
-    Delete a class by class_id from the course_data file.
-    """
     import os
     file_path = "data/course_data.txt"
     if not os.path.exists(file_path):
@@ -80,6 +96,17 @@ def delete_class():
         print(f"Class {class_id} not found.")
 
 def delete_stud_class():
+    """
+    Removes a student from an enrolled class.
+    
+    This function allows a teacher to select a course, a class within that course,
+    and then remove a specific student from the class attendance list. It displays
+    all students currently enrolled in the selected class and validates the student ID
+    before removing them.
+    
+    Returns:
+        None
+    """
     from Teacher.teacher_function import fetch_courses, display_course, select_course, select_class, validate_stud_id,display_students_in_class
     from function.query import insert_data
     import os
@@ -132,6 +159,16 @@ def delete_stud_class():
     insert_data(file_path, courses)
 
 def grade_attendance():
+    """
+    Marks a student's attendance for a selected class.
+    
+    This function allows a teacher to select a course and class, view all enrolled students,
+    and mark a specific student as present or absent. It validates the student ID and
+    updates the attendance record in the course data file.
+    
+    Returns:
+        None
+    """
     from Teacher.teacher_function import fetch_courses, display_course, select_course, select_class, validate_stud_id
     from function.query import insert_data
 
@@ -195,6 +232,15 @@ def grade_attendance():
         insert_data(file_path,courses)
 
 def view_stud_attendance():
+    """
+    Displays attendance records for all students in a selected class.
+    
+    This function guides the teacher through selecting a course and class, then
+    displays the attendance status for all students enrolled in that class.
+    
+    Returns:
+        None
+    """
     from Teacher.teacher_function import fetch_courses, display_course, select_course, select_class
 
     courses = fetch_courses()
@@ -222,8 +268,18 @@ def view_stud_attendance():
 
 
 def manage_attendance():
+    """
+    Provides a menu interface for class and attendance management functions.
+    
+    This function displays a menu with options for enrolling students into classes,
+    removing students from classes, deleting classes, grading attendance, and viewing
+    attendance records. It loops until the user chooses to exit.
+    
+    Returns:
+        None
+    """
     while True:
-        print("\nWelcome to Class & Attendance Management\n1 - Enrol Student into a Class\n2 - Remove Student from Enrolled Class\n3 - Delete class\n4 - Grade Attendance\n5 - View Attendance\n6 - Back")
+        print("\nWelcome to Class & Attendance Management\n'1' - Enrol Student into a Class\n'2' - Remove Student from Enrolled Class\n'3' - Delete class\n'4' - Grade Attendance\n'5' - View Attendance\n'6' - Back")
 
         choice = input("\nEnter Choice: ").strip()
 
@@ -241,14 +297,3 @@ def manage_attendance():
             return
         else:
             print("Invalid choice. Please enter a number between 1 and 6.")
-
-
-
-
-
-
-
-
-
-
-

@@ -21,6 +21,23 @@ def generate_user_id(existing_ids):
     return f"UID{new_num:04d}"
 
 def register_account(username, password, account_type="student"):
+    """
+    Register a new user account in the system.
+    
+    This function creates a new user account with the provided username, password,
+    and account type. It validates that the username is unique and the account type
+    is valid. For student accounts, additional fields are initialized.
+    A unique user ID is generated for all account types.
+    
+    Parameters:
+        username (str): Unique username for the new account
+        password (str): Password for the new account
+        account_type (str): Type of account to create (default: "student")
+                          Valid types: "staff", "administrator", "teacher", "student"
+        
+    Returns:
+        bool: True if account registration was successful, False otherwise
+    """
     success = False
     # Check if account type is valid
     if account_type not in ["staff", "administrator", "teacher", "student"]:

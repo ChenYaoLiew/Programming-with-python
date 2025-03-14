@@ -12,15 +12,15 @@ def student_user_page(student_info):
     #Display student main menu
     while True:
         print("\n[ Student Menu ]")
-        print('1 - Student Account Management')
-        print('2 - Course Enrolment ')
-        print('3 - Course Material Access')
-        print('4 - Assignment Submission')
-        print('5 - Grades Tracking')
-        print('6 - Feedback Submission')
-        print('7 - Communication ')
-        print('8 - Exit')
-        print('0 - Logout')
+        print("'1' - Student Account Management")
+        print("'2' - Course Enrolment ")
+        print("'3' - Course Material Access")
+        print("'4' - Assignment Submission")
+        print("'5' - Grades Tracking")
+        print("'6' - Feedback Submission")
+        print("'7' - Communication ")
+        print("'8' - Exit")
+        print("'0' - Logout")
 
         # Choose function to use
         choice = input("Enter your choice: ")

@@ -34,5 +34,3 @@ def staff_user_page():
             quit()
         else:
             print("Invalid choice!")
-
-staff_user_page()

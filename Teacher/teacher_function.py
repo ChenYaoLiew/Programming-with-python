@@ -3,35 +3,34 @@
 # For Student Enrolment
 def process_stud_id(student_id):
     """
-        Process the provided student ID by validating its format.
-
-        This function checks whether the given student ID adheres to the expected format
-        using the 'validate_stud_id' function. If the student ID is invalid, the function
-        returns immediately. Additional processing for valid student IDs can be implemented
-        as needed.
-
-        Args:
-            student_id (str): The student ID to be processed.
-
-        Returns:
-            None: If the student ID is invalid or no further processing is defined.
-        """
+    Process the provided student ID by validating its format.
+    
+    This function checks whether the given student ID adheres to the expected format
+    using the 'validate_stud_id' function. If the student ID is invalid, the function
+    returns immediately.
+    
+    Parameters:
+        student_id (str): The student ID to be processed.
+        
+    Returns:
+        None
+    """
     if not validate_stud_id(student_id):
         return
 
 def get_student_id(student_id):
     """
-       Retrieves the student ID from the student data file if it exists.
-
-       This function reads student data from the 'user_data.txt' file located in the data directory.
-       It iterates through the student_id and returns the student_id if a matching record is found.
-
-       Args:
-           student_id (str): The student ID to search for.
-
-       Returns:
-           str or None: The matching student ID if found; otherwise, None.
-       """
+    Retrieve the student ID from the student data file if it exists.
+    
+    This function reads student data from the 'user_data.txt' file and
+    iterates through the records to find a matching student ID.
+    
+    Parameters:
+        student_id (str): The student ID to search for.
+        
+    Returns:
+        str or None: The matching student ID if found; otherwise, None.
+    """
     from function.query import fetch_data
     file_path = "data/user_data.txt"
     accounts = fetch_data(file_path)
@@ -43,15 +42,37 @@ def get_student_id(student_id):
     return None
 
 def validate_stud_id(student_id):
-    """Validates student ID format (should be 'UIDxxxx')."""
+    """
+    Validate student ID format.
+    
+    This function checks if the student ID follows the required format (UID followed
+    by 4 digits, e.g., UID0001).
+    
+    Parameters:
+        student_id (str): The student ID to validate.
+        
+    Returns:
+        bool: True if the ID format is valid, False otherwise.
+    """
     if not student_id.startswith("UID") or not student_id[3:].isdigit() or len(student_id) != 7:
         print("Invalid student ID format. Should be STD followed by 4 digits (e.g., UID0001)")
         return False
     return True
 
 def fetch_courses():
+    """
+    Read course data from a text file and return as a list of dictionaries.
+    
+    This function retrieves course information from the course_data.txt file.
+    If the file doesn't exist, an empty list is returned.
+    
+    Parameters:
+        None
+        
+    Returns:
+        list: A list of course dictionaries or an empty list if no data is found.
+    """
     import os
-    """Reads course data from a text file and returns it as a list of dictionaries."""
     file_path = "data/course_data.txt"
 
     if not os.path.exists(file_path):
@@ -62,7 +83,18 @@ def fetch_courses():
     return course
 
 def get_course_students_enrolled(action="perform this action"):
-    """Fetches a course, ensures 'students_enrolled' is a valid list, and returns both."""
+    """
+    Fetch a course and its enrolled students.
+    
+    This function retrieves a course selected by the user and ensures the
+    'students_enrolled' field is a valid list.
+    
+    Parameters:
+        action (str): Description of the action being performed.
+        
+    Returns:
+        tuple: (selected_course, students_list) or (None, []) if no course or students.
+    """
 
     courses = fetch_courses()
     if not courses:
@@ -87,8 +119,21 @@ def get_course_students_enrolled(action="perform this action"):
 
     return selected_course, students
 
-def select_course(courses, action="view students",return_to_menu=None):
-    """Prompts the user to select a course and returns the selected course or None if canceled."""
+def select_course(courses, action="view students", return_to_menu=None):
+    """
+    Prompt the user to select a course from a list.
+    
+    This function displays a numbered list of courses and allows the user
+    to select one by number.
+    
+    Parameters:
+        courses (list): List of course dictionaries to select from.
+        action (str): Description of the action being performed.
+        return_to_menu (function): Optional callback function to return to menu.
+        
+    Returns:
+        list or None: [course_index, course_data] or None if selection is canceled.
+    """
     while True:
         try:
             course1 = []
@@ -111,7 +156,18 @@ def select_course(courses, action="view students",return_to_menu=None):
             return select_course(courses, action)  # Recursive call for invalid input
 
 def display_students_in_course(course):
-    """Displays student IDs for a given course."""
+    """
+    Display all students enrolled in a specified course.
+    
+    This function prints a list of student IDs for the students enrolled
+    in the given course.
+    
+    Parameters:
+        course (dict): Course dictionary containing student enrollment data.
+        
+    Returns:
+        None
+    """
 
     students = course.get("students_enrolled", [])  # Always expect a list
 
@@ -125,15 +181,17 @@ def display_students_in_course(course):
 
 def display_course():
     """
-       Displays available courses fetched from the data source.
-
-       This function retrieves the list of courses using the fetch_courses() function.
-       If courses are available, it prints a numbered list of courses showing each course's
-       ID and title. If no courses are found, the function returns without output.
-
-       Returns:
-           None
-       """
+    Display available courses fetched from the data source.
+    
+    This function retrieves and prints a numbered list of courses showing 
+    each course's ID and title.
+    
+    Parameters:
+        None
+        
+    Returns:
+        None
+    """
     courses = fetch_courses()
     if not courses:  # If courses list is empty, return early
         return
@@ -145,7 +203,18 @@ def display_course():
 
 # For Grading_assessment
 def get_valid_grade(student_id):
-    """Prompts the user to enter a valid assignment grade (A-F) and returns it."""
+    """
+    Prompt for and validate a student grade input.
+    
+    This function repeatedly asks for a grade until a valid grade (A-F)
+    is entered.
+    
+    Parameters:
+        student_id (str): ID of the student being graded.
+        
+    Returns:
+        str: The valid grade (A, B, C, D, E, or F).
+    """
     while True:
         grade = input(f"\nEnter assignment grade for {student_id} (Grade can only be A, B, C, D, E, or F): ").strip().upper()
         if grade in ["A", "B", "C", "D", "E", "F"]:
@@ -156,12 +225,15 @@ def get_valid_grade(student_id):
 # For attendance_tracking and managing class
 def select_class(selected_course, action="Select"):
     """
-    Displays available classes in a course and allows the user to select one.
-
-    Args:
+    Display available classes in a course and allow user to select one.
+    
+    This function shows a list of classes for the selected course and
+    prompts the user to enter a class ID.
+    
+    Parameters:
         selected_course (tuple): A tuple containing the course index and course data.
-        action (str): The action being performed (e.g., "Grade Attendance", "View Attendance").
-
+        action (str): Description of the action being performed.
+        
     Returns:
         dict or None: The selected class dictionary or None if not found.
     """
@@ -201,14 +273,36 @@ def select_class(selected_course, action="Select"):
         print(f"Class ID '{class_id}' not found. Please try again.")
 
 def validate_class_id(class_id):
-    """Validates Class ID format (should be 'CLSxxxx')."""
+    """
+    Validate class ID format.
+    
+    This function checks if the class ID follows the required format (CLS followed
+    by 4 digits, e.g., CLS0001).
+    
+    Parameters:
+        class_id (str): The class ID to validate.
+        
+    Returns:
+        bool: True if the ID format is valid, False otherwise.
+    """
     if not class_id.startswith("CLS") or not class_id[3:].isdigit() or len(class_id) != 7:
         print("Invalid class ID format. Should be CLS followed by 4 digits (e.g., UID0001)")
         return False
     return True
 
 def display_students_in_class(class_match):
-    """Displays student IDs enrolled in a selected class."""
+    """
+    Display all students enrolled in a specific class.
+    
+    This function prints a list of student IDs for students enrolled
+    in the given class.
+    
+    Parameters:
+        class_match (dict): Class dictionary containing attendance data.
+        
+    Returns:
+        None
+    """
 
     students = class_match.get("attendance_list", [])  # List of students in the class
 
