@@ -409,7 +409,6 @@ def event_management_main():
         elif choice == '4':
             view_event()
         elif choice == '5':
-            from Staff.Menu import staff_user_page
-            staff_user_page()
+            return
         else:
             print("Invalid choice")
