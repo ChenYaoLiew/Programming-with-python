@@ -1,7 +1,7 @@
 from function.query import fetch_data
 from Student.Student_function import get_student_course_id
 
-all_courses = fetch_data('data/course_data.txt')  # get a list of all courses data inside the txt file
+all_courses = fetch_data('./data/course_data.txt')  # get a list of all courses data inside the txt file
 
 def get_all_teacher(file_path):
     """
@@ -17,7 +17,7 @@ def get_all_teacher(file_path):
 
     # To get all the user in the file and insert into teacher_dict
     for user in all_user:
-        if user['accountType'] == 'teacher':
+        if user['account_type'] == 'teacher':
             teacher_dict[user['student_id']] = user['username']
 
     return teacher_dict
@@ -33,7 +33,7 @@ def time_table(student_info):
     # A dictionary that contain all the student's subject and corresponding course
     student_course = get_student_course_id(student_info, all_courses)
     # A dictionary that store all the teacher ID and their name
-    teacher_dict = get_all_teacher('data/user_data.txt')
+    teacher_dict = get_all_teacher('./data/user_data.txt')
 
     if student_course: # Check if student got any subject that was already enrolled
         for subject in student_course: # Check the subject of the student one by one

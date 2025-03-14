@@ -181,7 +181,7 @@ def change_course_name():
     for data in courses_data:
         if data['course_id'] == prompt1:
             found = True
-            prompt2 = input("Enter new name(Math/Science/English): ")
+            prompt2 = input("Enter new name for the course: ")
             data["course_title"] = prompt2  # Update the course in the list
             break
 
@@ -259,7 +259,7 @@ def update_course_timetable():
             teacher_valid = False
 
             for user in teachers:
-                if user["student_id"] == teacher_id and user["accountType"] == "teacher":
+                if user["student_id"] == teacher_id and user["account_type"] == "teacher":
                     teacher_valid = True
                     break
 
@@ -362,7 +362,7 @@ def update_course():
         None
     """
     print(
-        "\n'1' - Change course name\n'2' - Change course lesson\n'3' - Update course timetable\n'4' - Delete class\n'5' - View course timetable")
+        "\n'1' - Change course name\n'2' - Change course lesson\n'3' - Update / Create course timetable\n'4' - Delete class\n'5' - View course timetable")
     choice = input("Enter your choice: ")
 
     if choice == '1':
@@ -476,6 +476,6 @@ def manage_course():
         elif choice == '4':
             view_courses()
         elif choice == '5':
-            administrator_user_page()
+            return
         else:
             print("Invalid choice")

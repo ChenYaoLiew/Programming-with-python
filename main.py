@@ -18,7 +18,7 @@ def get_user_account_type(username):
 
     for data in accounts:
         if data["username"] == username:
-            account_type = data["accountType"]
+            account_type = data["account_type"]
             break
 
     return account_type
@@ -100,7 +100,6 @@ def main_thread():
                             break  # Break inner loop to return to log in screen
                         elif choice == 'exit':
                             exit()
-
                     elif account_type == 'student':
                         from Student.menu import student_user_page
                         choice = student_user_page(get_account_info(input_username))
@@ -108,9 +107,6 @@ def main_thread():
                             break  # Break inner loop to return to log in screen
                         elif choice == 'exit':
                             exit()
-                        else:
-                            pass # notting in here LOL
-
                     elif account_type == 'teacher':
                         from Teacher.menu import teacher_menu_page
                         choice = teacher_menu_page()
@@ -118,11 +114,13 @@ def main_thread():
                             break
                         elif choice == 'exit':
                             exit()
-
                     elif account_type == 'staff':
                         from Staff.Menu import staff_user_page
-                        staff_user_page()
-
+                        choice = staff_user_page()
+                        if choice == 'logout':
+                            break
+                        elif choice == 'exit':
+                            exit()
             else:
                 print("Login failed, please try again.")
 

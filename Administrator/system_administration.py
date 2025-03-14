@@ -32,8 +32,7 @@ def manage_account():
     elif choice == '4':
         delete_account()
     elif choice == '5':
-        from Administrator.menu import administrator_user_page
-        administrator_user_page()
+        return
 
 def fetch_accounts():
     """
@@ -67,7 +66,7 @@ def view_accounts():
     """
     account_list = fetch_accounts()
     for account in account_list:
-        print(f"Username: {account['username']}, Password: {account['password']}, Account Type: {account['accountType']}, Student ID: {account['student_id']}, Fund: {account['fund']}")
+        print(f"Username: {account['username']}, Password: {account['password']}, Account Type: {account['account_type']}, Student ID: {account['student_id']}, Fund: {account['fund']}")
         print("-" * 100)  # Add a separator line between accounts
 
 def add_account_into_db(username, password, account_type):
@@ -145,13 +144,13 @@ def update_account():
                 
                 type_choice = input("Enter account type number: ")
                 if type_choice == "1":
-                    data["accountType"] = "administrator"
+                    data["account_type"] = "administrator"
                 elif type_choice == "2":
-                    data["accountType"] = "teacher"
+                    data["account_type"] = "teacher"
                 elif type_choice == "3":
-                    data["accountType"] = "student"
+                    data["account_type"] = "student"
                 elif type_choice == "4":
-                    data["accountType"] = "staff"
+                    data["account_type"] = "staff"
                 else:
                     print("Invalid account type selected!")
                     return

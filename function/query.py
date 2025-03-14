@@ -11,7 +11,7 @@ def fetch_data(file_path):
     try:
         import ast
         with open(file_path, "r") as file:
-            return [ast.literal_eval(line.strip()) for line in file if line.strip()]
+            return [ast.literal_eval(str(line.strip())) for line in file if line.strip()]
     except FileNotFoundError:
         print(f"File Not Found: {file_path}")
         return []

@@ -1,7 +1,7 @@
 def teacher_menu_page():
 
     while True:
-        print("\nTeacher's Menu\n'1' - Course Creation & Management\n'2' - Student Enrolment & Management  \n'3' - Grading & Assessment\n'4' - Class & Attendance Management\n'5' - Report Generation\n'6' - Exit\n'7' - Logout")
+        print("\nTeacher's Menu\n'1' - Course Creation & Management\n'2' - Student Enrolment & Management  \n'3' - Grading & Assessment\n'4' - Class & Attendance Management\n'5' - Report Generation\n'6' - Communication\n'7' - Exit\n'8' - Logout")
 
         choice = input("\nEnter Choice: ").strip()
 
@@ -21,8 +21,11 @@ def teacher_menu_page():
             from Teacher.report_generation import generate_student_report
             generate_student_report()
         elif choice == '6':
-            return 'exit'
+            from Staff.Communication import communication_main
+            communication_main()
         elif choice == '7':
+            return 'exit'
+        elif choice == '8':
             return 'logout'
         else:
-            print("Invalid choice. Please enter a number between 1 and 6.")
+            print("Invalid choice. Please enter a number between 1 and 8.")

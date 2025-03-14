@@ -68,7 +68,7 @@ def view_records():
     """
     account_list = read_student_file()
     for account in account_list:
-        print(f"Username: {account['username']}, Password: {account['password']}, Account Type: {account['accountType']}, student_id: {account['student_id']}, Fund: {account['fund']}")
+        print(f"Username: {account['username']}, Password: {account['password']}, Account Type: {account['account_type']}, student_id: {account['student_id']}, Fund: {account['fund']}")
         print("-" * 100)  # Add a separator line between accounts
 
 def deposit(student_id, name):
@@ -258,4 +258,4 @@ def manage_student_records():
             name = input("Enter your name: ")
             transfer(student_id, name)
         elif choice == '5':
-            staff_user_page()
+            return

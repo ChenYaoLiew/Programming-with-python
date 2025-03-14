@@ -1,1 +1,3 @@
-{"sendrt": "STD0004", "receiver": "STD0005", "data": "hi", "date": "2025-03-09 17:59:43", "viewed": "True", "view_limit": "2"}
+{"sendrt": "UID0004", "receiver": "UID0001", "data": "burger!", "date": "2025-03-14 11:01:18", "viewed": "True", "view_limit": "2"}
+{"sendrt": "UID0003", "receiver": "UID0002", "data": "hello", "date": "2025-03-14 15:25:30", "viewed": "True", "view_limit": "2"}
+{"sendrt": "UID0003", "receiver": "UID0002", "data": "Hello elson", "date": "2025-03-14 15:34:53", "viewed": "True", "view_limit": "2"}

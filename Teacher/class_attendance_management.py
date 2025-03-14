@@ -158,6 +158,28 @@ def delete_stud_class():
     file_path = os.path.join(os.path.dirname(__file__), "..", "data", "course_data.txt")
     insert_data(file_path, courses)
 
+def valid_student_in_class(student_id,class_match):
+    """
+    Checks if a student is enrolled in a specific class.
+    
+    This function verifies if a given student ID is present in the attendance list of a class.
+    
+    Args:
+        student_id (str): The ID of the student to check.
+        class_match (dict): The class data containing the attendance list.
+        
+    Returns:
+        bool: True if the student is enrolled in the class, False otherwise.
+    """
+    # Check if the student exists in the class attendance list
+    student_exists = any(record["student_id"] == student_id for record in class_match["attendance_list"])
+
+    if not student_exists:
+        print(f"Student ID: {student_id} is not enrolled in class {class_match['class_id']}.")
+        return False
+    
+    return True
+
 def grade_attendance():
     """
     Marks a student's attendance for a selected class.
@@ -200,6 +222,9 @@ def grade_attendance():
     student_id = input("\nEnter Student ID to give attendance: ")
 
     if not validate_stud_id(student_id):
+        return
+
+    if not valid_student_in_class(student_id,class_match):
         return
 
     if validate_stud_id(student_id):
