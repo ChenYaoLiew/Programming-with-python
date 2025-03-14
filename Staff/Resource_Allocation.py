@@ -437,8 +437,7 @@ def manage_resource_allocation_main():
         elif choice == '6':
             delete_resource()
         elif choice == '7':
-            from Staff.Menu import staff_user_page
-            staff_user_page()
+            return
         else:
             print("Invalid choice. Please try again.")
             continue
