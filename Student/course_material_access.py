@@ -3,7 +3,7 @@ from Student.Student_function import display_subject_menu
 from function.query import fetch_data
 
 
-all_courses = fetch_data('./data/course_data.txt')  # get a list of all courses data inside the txt file
+all_courses = fetch_data('data/course_data.txt')  # get a list of all courses data inside the txt file
 
 def course_material(student_info):
     """

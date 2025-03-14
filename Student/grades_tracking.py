@@ -11,7 +11,7 @@ def show_grade(student_info):
             None
         """
     student_data = student_info[1] # Data of the student
-    all_courses = fetch_data('./data/course_data.txt') # A list of all student's course data
+    all_courses = fetch_data('data/course_data.txt') # A list of all student's course data
     student_course = get_student_course_id(student_info, all_courses) # A dictionary which contain student's every subject and corresponding course
     subject_list = list(student_course) # A list of the student's subject
 

@@ -16,8 +16,8 @@ def teacher_menu_page():
             from Teacher.course_management_teach import manage_course_teach
             manage_course_teach()
         elif choice == '2':
-            from Teacher.student_enrolment import manage_stu_enrol
-            manage_stu_enrol()
+            from Teacher.student_enrolment import manage_student_enroll
+            manage_student_enroll()
         elif choice == '3':
             from Teacher.grading_assessment import manage_grading_assessment
             manage_grading_assessment()

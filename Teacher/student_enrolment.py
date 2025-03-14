@@ -14,7 +14,7 @@ def view_enrolled_stu():
     # Display student IDs
     display_students_in_course(selected_course[1])
 
-def enrol_stud():
+def enroll_student():
     from Teacher.teacher_function import fetch_courses,display_course,select_course,process_stud_id,get_student_id
     from function.query import insert_data
 
@@ -72,9 +72,9 @@ def enrol_stud():
 
     except ValueError:
         print("Invalid selection, please try again")
-        enrol_stud()
+        enroll_student()
 
-def remove_enrolled_stu():
+def remove_enrolled_student():
     from Teacher.teacher_function import fetch_courses,display_course,select_course,display_students_in_course,process_stud_id
     from function.query import insert_data
 
@@ -122,9 +122,9 @@ def remove_enrolled_stu():
 
     except(ValueError,IndexError):
         print("Invalid selection, please try again")
-        remove_enrolled_stu()
+        remove_enrolled_student()
 
-def manage_stu_enrol():
+def manage_student_enroll():
     while True:
         print("\nWelcome to Student Enrollment Management\n'1' - View Enrolled Student\n'2' - Enroll Student\n'3' - Remove Student\n'4' - Back")
 
@@ -133,9 +133,9 @@ def manage_stu_enrol():
         if choice == '1':
             view_enrolled_stu()
         elif choice == '2':
-            enrol_stud()
+            enroll_student()
         elif choice == '3':
-            remove_enrolled_stu()
+            remove_enrolled_student()
         elif choice == '4':
             return
         else:

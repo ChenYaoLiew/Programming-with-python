@@ -4,7 +4,16 @@ from function.account_management import register_account
 from function.cache import *
 
 def get_user_account_type(username):
-    accounts = fetch_data("./data/user_data.txt")
+    """
+    Retrieves the account type associated with a given username.
+    
+    Args:
+        username (str): The username to look up
+        
+    Returns:
+        str or None: The account type if the username exists, None otherwise
+    """
+    accounts = fetch_data("data/user_data.txt")
     account_type = None
 
     for data in accounts:
@@ -15,7 +24,18 @@ def get_user_account_type(username):
     return account_type
 
 def check_account_credentials(username, password):
-    accounts = fetch_data("./data/user_data.txt")
+    """
+    Verifies if the provided username and password match any account in the system.
+    If credentials are valid, also caches the user's student ID.
+    
+    Args:
+        username (str): The username to check
+        password (str): The password to check
+        
+    Returns:
+        bool: True if credentials are valid, False otherwise
+    """
+    accounts = fetch_data("data/user_data.txt")
     found = False
 
     for data in accounts:
@@ -24,7 +44,7 @@ def check_account_credentials(username, password):
             found = True
             break
 
-    return found    
+    return found
 
 def get_account_info(username):
     """
