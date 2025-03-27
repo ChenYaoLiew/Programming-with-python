@@ -1,5 +1,4 @@
 {"username": "burger1", "password": "burger1", "account_type": "administrator", "student_id": "UID0001", "fund": 1.0, "phone_num": "Empty", "country": "Empty", "emergency_info": "Empty", "feedback": "Empty"}
-{"username": "burger2", "password": "burger2", "account_type": "teacher", "student_id": "UID0002", "fund": 0.0, "phone_num": "Empty", "country": "Empty", "emergency_info": "Empty", "feedback": "Empty"}
-{"username": "burger3", "password": "burger3", "account_type": "student", "student_id": "UID0003", "fund": 0.0, "phone_num": "010-888-8888", "country": "Malaysia", "emergency_info": "Your mom", "feedback": "Trash"}
-{"username": "burger4", "password": "burger4", "account_type": "staff", "student_id": "UID0004", "fund": 9998.0, "phone_num": "Empty", "country": "Empty", "emergency_info": "Empty", "feedback": "Empty"}
-{"username": "burger5", "password": "burger5", "account_type": "student", "student_id": "UID0005", "fund": 0.0, "phone_num": "010-888-8888", "country": "Malaysia", "emergency_info": "Your mom", "feedback": "asd"}
+{"username": "burger2", "password": "burger2", "account_type": "teacher", "student_id": "UID0002", "fund": 0.0}
+{"username": "burger3", "password": "burger3", "account_type": "student", "student_id": "UID0003", "fund": 0.0, "phone_num": "Empty", "country": "Empty", "emergency_info": "Empty", "feedback": "Empty"}
+{"username": "burger4", "password": "burger4", "account_type": "staff", "student_id": "UID0004", "fund": 0.0}

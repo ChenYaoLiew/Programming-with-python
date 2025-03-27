@@ -27,6 +27,46 @@ def check_time_collision(time1_start, time1_end, time2_start, time2_end):
     
     return (t1_start < t2_end) and (t2_start < t1_end)
 
+def update_collision_slot(course, slot_to_update):
+    """
+    Update a specific time slot causing a collision.
+    
+    This function modifies the start and end times of a specific time slot
+    to resolve a scheduling collision.
+    
+    Parameters:
+        course (dict): The course containing the time slot to update
+        slot_to_update (dict): The specific time slot to modify
+        
+    Returns:
+        bool: True if the update was successful, False otherwise
+    """
+    print(f"\nUpdating time slot for class {slot_to_update['class_id']}")
+    print(f"Current time: {slot_to_update['time_start']} - {slot_to_update['time_end']}")
+    
+    # Get new time slot values
+    new_time_start = input("Enter new start time (e.g., 9:00 AM): ")
+    new_time_end = input("Enter new end time (e.g., 12:00 PM): ")
+    
+    # Update the slot in the course's timetable
+    for slot in course['course_timetable']:
+        if slot['class_id'] == slot_to_update['class_id']:
+            slot['time_start'] = new_time_start
+            slot['time_end'] = new_time_end
+            
+    # Save the updated course data
+    courses_data = fetch_data("data/course_data.txt")
+    for i, c in enumerate(courses_data):
+        if c['course_id'] == course['course_id']:
+            courses_data[i] = course
+            
+    if insert_data("data/course_data.txt", courses_data):
+        print("Time slot updated successfully.")
+        return True
+    else:
+        print("Error updating time slot.")
+        return False
+
 def view_class_schedule():
     """
     View and check for time collisions within class schedules.
@@ -83,11 +123,12 @@ def view_class_schedule():
                 print("\nWould you like to change one of these time slots?")
                 choice = input("Enter 1 or 2 to change respective slot (or 0 to skip): ")
                 
-                if choice in ['1', '2']:
-                    # Call update_course_timetable to modify the slot
-                    from Administrator.course_management import update_course_timetable
-                    print(f"\nUpdating schedule for {course['course_title']}")
-                    update_course_timetable()
+                if choice == '1':
+                    if update_collision_slot(course, slot1):
+                        print("Schedule conflict resolved.")
+                elif choice == '2':
+                    if update_collision_slot(course, slot2):
+                        print("Schedule conflict resolved.")
         
         # Display current schedule for the course
         print(f"\nCurrent Schedule for {course['course_title']} ({course['course_id']}):")

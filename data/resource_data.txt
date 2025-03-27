@@ -1,0 +1,1 @@
+{"resource_id": "RES0001", "resource_name": "Burger", "amount": 10, "status": "True", "amend_date_start": "None", "amend_date_end": "None", "amend_for": "None"}
